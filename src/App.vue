@@ -41,19 +41,18 @@ export default {
         NavigationList
     },
 
-    created(){
-        if(this.$cookie.get('jwt')){
-            this.$store.dispatch('login')
-        }
+    updated(){
+        this.$store.dispatch('checkState');
+        console.log('checked');
     },
 
     methods: {
         ...mapActions([
-            'login'
+            'login',
+            'checkState'
         ]),
         logout(){
             this.$store.dispatch('logout');
-            this.$cookie.delete('jwt');
             this.$router.push('/');
             this.$notify({
                 group: 'popup',

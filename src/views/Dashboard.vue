@@ -1,8 +1,9 @@
 <template>
     <div>
         <h1>Dashboard</h1>
-        <p>JWT: {{jwt}}</p>
-        <p>Vuex: {{auth}}</p>
+        <p>
+            Welcome {{firstname}} {{lastname}}!
+        </p>
     </div>
 </template>
 
@@ -17,8 +18,8 @@ export default {
 
     data(){
         return {
-            jwt:this.$cookie.get('jwt'),
-            auth: this.$store.state.authenticated
+            firstname: this.$store.state.user.firstname,
+            lastname: this.$store.state.user.lastname,
         }
     }
 

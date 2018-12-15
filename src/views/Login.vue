@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import { mapActions  } from 'vuex'
+import {mapActions} from 'vuex'
 
 export default {
 
@@ -34,8 +34,7 @@ export default {
                 this.$data.disabled=true;
                 this.axios.post('http://localhost/minska/minska-api/api/user/login/', this.$data.formdata)
                 .then(response =>(
-                    this.$cookie.set('jwt', response.data.jwt, 1),
-                    this.$store.dispatch('login'),
+                    this.$store.dispatch('login',  response.data.jwt),
                     this.$notify({
                         group: 'popup',
                         type: 'success',
