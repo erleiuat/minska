@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from './views/Home.vue'
+
 Vue.use(Router)
 
 export default new Router({
@@ -8,32 +8,69 @@ export default new Router({
         {
             path: '/',
             name: 'home',
-            component: Home
-        },
-        {
-            path: '*',
-            name: 'Not found',
-            component: () => import('./views/404.vue')
+            meta: {
+                title: 'Home',
+                secure: false
+            },
+            component: function () {
+                return import('./views/Unsecure/Home.vue')
+            }
         },
         {
             path: '/dashboard',
             name: 'dashboard',
-            component: () => import('./views/Dashboard.vue')
-        },
-        {
-            path: '/settings',
-            name: 'settings',
-            component: () => import('./views/Settings.vue')
+            meta: {
+                title: 'Dashboard',
+                secure: true
+            },
+            component: function () {
+                return import('./views/Secure/Dashboard.vue')
+            }
         },
         {
             path: '/login',
             name: 'login',
-            component: () => import('./views/Login.vue')
+            meta: {
+                title: 'Login',
+                secure: false
+            },
+            component: function () {
+                return import('./views/Unsecure/Login.vue')
+            }
         },
         {
             path: '/register',
             name: 'register',
-            component: () => import('./views/Register.vue')
+            meta: {
+                title: 'Register',
+                secure: false
+            },
+            component: function () {
+                return import('./views/Unsecure/Register.vue')
+            }
+        },
+        {
+            path: '/401',
+            name: 'noPermission',
+            meta: {
+                title: '401 No Permission',
+                secure: null
+            },
+            component: function () {
+                return import('./views/Shared/401.vue')
+            }
+        },
+        {
+            path: '*',
+            name: 'notFound',
+            meta: {
+                title: '404 Not Found',
+                secure: null
+            },
+            component: function () {
+                return import('./views/Shared/404.vue')
+            }
         }
+
     ]
 })

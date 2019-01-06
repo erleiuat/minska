@@ -14,29 +14,17 @@
 </template>
 
 <script>
-import {mapActions} from 'vuex'
-
 export default {
-
-    created(){
-        if(this.$store.state.authenticated){
-            this.$router.push('/dashboard')
-        }
-    },
-
     methods: {
-        ...mapActions([
-            'login'
-        ]),
         sendLogin(){
             this.$refs.registrationForm.validate()
             if(this.$data.rules.valid){
                 this.$data.disabled=true;
                 this.axios.post('http://localhost/minska/minska-api/api/user/login/', this.$data.formdata)
                 .then(response =>(
-                    this.$store.dispatch('login',  response.data.jwt),
+                    this.$store.commit('login',  response.data.jwt),
                     this.$notify({
-                        group: 'popup',
+                        group: 'default',
                         type: 'success',
                         title: 'Login Successful!',
                         text: "You got redirected to your Dashboard"
@@ -45,7 +33,7 @@ export default {
                 ))
                 .catch(error =>(
                     this.$notify({
-                        group: 'popup',
+                        group: 'default',
                         type: 'error',
                         title: 'Something went wrong',
                         text: "Login was not Successful. Did you create an Account yet?"
@@ -57,27 +45,29 @@ export default {
 
             }
         },
-
-        data (){
-            return {
-                disabled: false,
-                formdata: {
-                    email: 'mail@eliareutlinger.ch',
-                    password: 'Vera@0291'
-                },
-                rules: {
-                    valid: false,
-                    email: [
-                    (v) => !!v || 'E-mail is required',
-                    (v) => /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'E-mail must be valid'
-                    ],
-                    pass: [
-                    (v) => !!v || 'Password is required',
-                    (v) => /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/.test(v) || 'Password not strong enough'
-                    ],
-                }
+    data (){
+        return {
+            disabled: false,
+            formdata: {
+                email: 'mail@eliareutlinger.ch',
+                password: 'Vera@0291'
+            },
+            rules: {
+                valid: false,
+                email: [
+                (v) => !!v || 'E-mail is required',
+                (v) => /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'E-mail must be valid'
+                ],
+                pass: [
+                (v) => !!v || 'Password is required',
+                (v) => /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/.test(v) || 'Password not strong enough'
+                ],
             }
         }
-
     }
+}
 </script>
+
+<style scoped>
+
+</style>
