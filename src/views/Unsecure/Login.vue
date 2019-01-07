@@ -3,10 +3,10 @@
         <v-form v-model="rules.valid" ref="registrationForm">
             <v-layout justify-center row wrap>
                 <v-flex xs6 sm6 md6>
-                    <h1>Login</h1>
-                    <v-text-field label="E-Mail" v-model="formdata.email" :rules="rules.email" outline></v-text-field>
-                    <v-text-field label="Password" v-model="formdata.password" outline :rules="rules.pass" :type="'password'"></v-text-field>
-                    <v-btn depressed block @click="sendLogin()" large color="primary" :disabled="disabled">Login</v-btn>
+                    <h1 v-text="$ml.get('views.login')"></h1>
+                    <v-text-field :label="$ml.get('general.mail')" v-model="formdata.email" :rules="rules.email" outline></v-text-field>
+                    <v-text-field :label="$ml.get('general.password')" v-model="formdata.password" outline :rules="rules.pass" :type="'password'"></v-text-field>
+                    <v-btn depressed block @click="sendLogin()" large color="primary" :disabled="disabled" v-text="$ml.get('views.login')"></v-btn>
                 </v-flex>
             </v-layout>
         </v-form>
@@ -15,37 +15,47 @@
 
 <script>
 export default {
+
     methods: {
+
         sendLogin(){
-            this.$refs.registrationForm.validate()
-            if(this.$data.rules.valid){
-                this.$data.disabled=true;
-                this.axios.post('http://localhost/minska/minska-api/api/user/login/', this.$data.formdata)
-                .then(response =>(
-                    this.$store.commit('login',  response.data.jwt),
-                    this.$notify({
+
+            var vm = this;
+            vm.$refs.registrationForm.validate()
+
+            if(vm.$data.rules.valid){
+
+                vm.$data.disabled=true;
+
+                vm.axiosPost({
+                    url:'user/login/',
+                    data: vm.$data.formdata
+                }).then(function (response) {
+                    vm.$store.commit('login',  response.data.jwt);
+                    vm.$notify({
                         group: 'default',
                         type: 'success',
                         title: 'Login Successful!',
                         text: "You got redirected to your Dashboard"
-                    }),
-                    this.$router.push('/dashboard')
-                ))
-                .catch(error =>(
-                    this.$notify({
+                    });
+                    vm.$router.push('/dashboard');
+                }).catch(function (error) {
+                    vm.$notify({
                         group: 'default',
                         type: 'error',
                         title: 'Something went wrong',
                         text: "Login was not Successful. Did you create an Account yet?"
-                    }),
-                    this.disabled=false
-                    ));
-
-                }
+                    });
+                    vm.disabled=false;
+                });
 
             }
-        },
+
+        }
+    },
+
     data (){
+
         return {
             disabled: false,
             formdata: {
@@ -64,7 +74,9 @@ export default {
                 ],
             }
         }
+
     }
+
 }
 </script>
 

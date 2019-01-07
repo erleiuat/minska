@@ -9,7 +9,9 @@
 
         <v-content>
             <v-container fluid fill-height>
-                <router-view></router-view>
+                <transition name="slide">
+                    <router-view></router-view>
+                </transition>
             </v-container>
         </v-content>
 
@@ -59,18 +61,32 @@ export default {
 
         });
 
+        this.$store.watch((state)=>{
+            return this.$store.state.user.info.language
+        },(newValue, oldValue)=>{
+            if(newValue !== oldValue){
+                if(this.$store.state.user.info.language){
+                    this.$ml.change(this.$store.state.user.info.language);
+                }
+            }
+        });
+
         this.$store.dispatch('checkAuth');
 
-        this.$router.beforeEach((to, from, next) => {
+        this.$router.beforeResolve((to, from, next) => {
             if(this.$store.state.app.authState === false && to.meta.secure === true || this.$store.state.app.authState === true && to.meta.secure === false){
-                this.$router.push('/401');
+                if(!from.name && this.$store.state.app.authState === true){
+                    this.$router.push('/dashboard');
+                } else {
+                    this.$router.push('/401');
+                }
             } else {
                 next();
             }
         });
 
         this.$router.afterEach((to, from) => {
-            document.title = this.$store.state.app.title +' | '+ to.meta.title;
+            document.title = this.$store.state.app.title +' | '+ this.$ml.get('views.'+to.meta.title);
         });
 
     }

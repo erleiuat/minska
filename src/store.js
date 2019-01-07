@@ -24,7 +24,8 @@ export default new Vuex.Store({
                 firstname: null,
                 lastname: null,
                 email: null,
-            }
+                language: 'english'
+            },
         },
 
         app: {
@@ -68,12 +69,12 @@ export default new Vuex.Store({
 
             state.app.authState = true;
             state.app.navigation = [
-                {path: '/dashboard', title: 'Dashboard', icon: 'dashboard'},
-                {path: '/weight', title: 'Weights', icon: 'linear_scale'},
-                {path: '/calorie', title: 'Calories', icon: 'cake'},
-                {path: '/food', title: 'Food', icon: 'add_shopping_cart'},
-                {path: '/faq', title: 'FAQ', icon: 'question_answer'},
-                {path: '/settings', title: 'Settings', icon: 'settings'},
+                {path: '/dashboard', title: 'dashboard', icon: 'dashboard'},
+                {path: '/weight', title: 'weights', icon: 'linear_scale'},
+                {path: '/calorie', title: 'calories', icon: 'cake'},
+                {path: '/food', title: 'food', icon: 'add_shopping_cart'},
+                {path: '/faq', title: 'faq', icon: 'question_answer'},
+                {path: '/settings', title: 'settings', icon: 'settings'},
             ]
 
         },
@@ -82,17 +83,27 @@ export default new Vuex.Store({
 
             VueCookie.delete('authInfo', {domain: window.location.hostname});
 
-            state.user.info = null;
+            state.user.info = {
+                id: null,
+                firstname: null,
+                lastname: null,
+                email: null,
+                language: 'english'
+            };
             state.user.auth.authenticated = false;
             state.user.auth.expiration.client = null;
             state.user.auth.expiration.token = null;
 
             state.app.authState = false;
             state.app.navigation = [
-                {path: '/login', title: 'Login', icon: 'lock_open'},
-                {path: '/register', title: 'Register', icon: 'subdirectory_arrow_right'},
+                {path: '/login', title: 'login', icon: 'lock_open'},
+                {path: '/register', title: 'register', icon: 'subdirectory_arrow_right'},
             ]
 
+        },
+
+        changeLanguage(state, newlang){
+            state.user.info.language = newlang;
         }
 
     },

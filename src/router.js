@@ -9,7 +9,7 @@ export default new Router({
             path: '/',
             name: 'home',
             meta: {
-                title: 'Home',
+                title: 'home',
                 secure: false
             },
             component: function () {
@@ -20,7 +20,7 @@ export default new Router({
             path: '/dashboard',
             name: 'dashboard',
             meta: {
-                title: 'Dashboard',
+                title: 'dashboard',
                 secure: true
             },
             component: function () {
@@ -28,10 +28,21 @@ export default new Router({
             }
         },
         {
+            path: '/settings',
+            name: 'settings',
+            meta: {
+                title: 'settings',
+                secure: true
+            },
+            component: function () {
+                return import('./views/Secure/Settings.vue')
+            }
+        },
+        {
             path: '/login',
             name: 'login',
             meta: {
-                title: 'Login',
+                title: 'login',
                 secure: false
             },
             component: function () {
@@ -42,7 +53,7 @@ export default new Router({
             path: '/register',
             name: 'register',
             meta: {
-                title: 'Register',
+                title: 'register',
                 secure: false
             },
             component: function () {
@@ -53,7 +64,7 @@ export default new Router({
             path: '/401',
             name: 'noPermission',
             meta: {
-                title: '401 No Permission',
+                title: 'nopermission',
                 secure: null
             },
             component: function () {
@@ -64,7 +75,7 @@ export default new Router({
             path: '*',
             name: 'notFound',
             meta: {
-                title: '404 Not Found',
+                title: 'notfound',
                 secure: null
             },
             component: function () {
