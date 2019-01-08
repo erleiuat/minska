@@ -1,43 +1,43 @@
 <template>
     <v-container grid-list-md>
-        <h1 v-text="$ml.get('views.settings')"></h1>
+        <h1 v-text="$t('views.settings')"></h1>
 
         <v-card>
             <v-container fluid grid-list-md>
                 <v-form v-model="rules.valid" ref="settingsForm">
-                    <h2 v-text="$ml.get('general.basic')"></h2>
+                    <h2 v-text="$t('general.basic')"></h2>
                     <v-layout row wrap>
                         <v-flex sm6>
-                            <v-select :label="$ml.get('general.language')" v-model="formdata.language" :rules="rules.selectLanguage" :items="languageItems" item-text="text" item-value="value"></v-select>
+                            <v-select :label="$t('general.language')" v-model="formdata.language" :rules="rules.selectLanguage" :items="languageItems" item-text="text" item-value="value"></v-select>
                         </v-flex>
                         <v-flex sm6>
-                            <v-select :label="$ml.get('general.gender')" v-model="formdata.isFemale" :rules="rules.selectGender" :items="genderItems" item-text="text" item-value="value"></v-select>
+                            <v-select :label="$t('general.gender')" v-model="formdata.isFemale" :rules="rules.selectGender" :items="genderItems" item-text="text" item-value="value"></v-select>
                         </v-flex>
                         <v-flex sm6>
-                            <v-text-field :label="$ml.get('general.firstname')" v-model="formdata.firstname" :rules="rules.name" outline></v-text-field>
+                            <v-text-field :label="$t('general.firstname')" v-model="formdata.firstname" :rules="rules.name" outline></v-text-field>
                         </v-flex>
                         <v-flex sm6>
-                            <v-text-field :label="$ml.get('general.lastname')" v-model="formdata.lastname" :rules="rules.name" outline></v-text-field>
+                            <v-text-field :label="$t('general.lastname')" v-model="formdata.lastname" :rules="rules.name" outline></v-text-field>
                         </v-flex>
                         <v-flex sm6>
-                            <v-text-field :label="$ml.get('general.height')" v-model="formdata.height" :rules="rules.height" outline></v-text-field>
+                            <v-text-field :label="$t('general.height')" v-model="formdata.height" :rules="rules.height" outline></v-text-field>
                         </v-flex>
                     </v-layout>
-                    <h2 v-text="$ml.get('general.aims')"></h2>
+                    <h2 v-text="$t('general.aims')"></h2>
                     <v-layout row wrap>
                         <v-flex sm6>
-                            <v-text-field :label="$ml.get('general.weight')" v-model="formdata.aims.weight" :rules="rules.weight" outline></v-text-field>
+                            <v-text-field :label="$t('general.weight')" v-model="formdata.aims.weight" :rules="rules.weight" outline></v-text-field>
                         </v-flex>
 
                         <v-flex sm6>
                             <v-menu :close-on-content-click="false" v-model="dateMenu" :nudge-right="40" lazy transition="scale-transition" offset-y full-width min-width="290px">
-                                <v-text-field readonly slot="activator" :label="$ml.get('general.date')" v-model="computedDateFormatted" :rules="rules.date" outline></v-text-field>
+                                <v-text-field readonly slot="activator" :label="$t('general.date')" v-model="computedDateFormatted" :rules="rules.date" outline></v-text-field>
                                 <v-date-picker v-model="formdata.aims.date" @input="dateMenu = false"></v-date-picker>
                             </v-menu>
                         </v-flex>
 
                         <v-flex xs12>
-                            <v-btn depressed block @click="sendUpdates()" large color="primary" :disabled="disabled" v-text="$ml.get('general.save')"></v-btn>
+                            <v-btn depressed block @click="sendUpdates()" large color="primary" :disabled="disabled" v-text="$t('general.save')"></v-btn>
                         </v-flex>
 
                     </v-layout>
@@ -76,8 +76,8 @@
                         vm.$notify({
                             group: 'default',
                             type: 'success',
-                            title: vm.$ml.get('alerts.saved'),
-                            text: vm.$ml.get('alerts.savedMsg')
+                            title: vm.$t('alerts.saved'),
+                            text: vm.$t('alerts.savedMsg')
                         });
                         vm.disabled=true;
 
@@ -86,8 +86,8 @@
                         vm.$notify({
                             group: 'default',
                             type: 'error',
-                            title: vm.$ml.get('alerts.error'),
-                            text: vm.$ml.get('alerts.errorMsg')
+                            title: vm.$t('alerts.error'),
+                            text: vm.$t('alerts.errorMsg')
                         });
                         vm.disabled=false;
 
@@ -100,13 +100,13 @@
         beforeUpdate() {
 
             var languageItems = [
-                {text: this.$ml.get('languages.english'), value: 'en'},
-                {text: this.$ml.get('languages.german'), value: 'de'}
+                {text: this.$t('languages.english'), value: 'en'},
+                {text: this.$t('languages.german'), value: 'de'}
             ]
 
             var genderItems = [
-                {text: this.$ml.get('general.male'), value: false},
-                {text: this.$ml.get('general.female'), value: true}
+                {text: this.$t('general.male'), value: false},
+                {text: this.$t('general.female'), value: true}
             ]
 
             this.$data.genderItems = genderItems;
@@ -145,30 +145,30 @@
                 rules: {
                     valid: false,
                     name: [
-                    (v) => !!v || this.$ml.get('errors.required'),
-                    (v) => v && v.length <= 20 || this.$ml.get('errors.valid'),
+                    (v) => !!v || this.$t('errors.required'),
+                    (v) => v && v.length <= 20 || this.$t('errors.valid'),
                     ],
                     email: [
-                    (v) => !!v || this.$ml.get('errors.required'),
-                    (v) => /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(v) || this.$ml.get('errors.valid'),
+                    (v) => !!v || this.$t('errors.required'),
+                    (v) => /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(v) || this.$t('errors.valid'),
                     ],
                     height: [
-                    (v) => !!v || this.$ml.get('errors.required'),
-                    (v) => v && v <= 300 && v >= 50 || this.$ml.get('errors.valid'),
+                    (v) => !!v || this.$t('errors.required'),
+                    (v) => v && v <= 300 && v >= 50 || this.$t('errors.valid'),
                     ],
                     weight: [
-                    (v) => !!v || this.$ml.get('errors.required'),
-                    (v) => v && v <= 500 && v >= 30 || this.$ml.get('errors.valid'),
+                    (v) => !!v || this.$t('errors.required'),
+                    (v) => v && v <= 500 && v >= 30 || this.$t('errors.valid'),
                     ],
                     date: [
-                    (v) => !!v || this.$ml.get('errors.required'),
-                    (v) => v && new Date(this.$data.formdata.aims.date) != 'Invalid Date' || this.$ml.get('errors.valid'),
+                    (v) => !!v || this.$t('errors.required'),
+                    (v) => v && new Date(this.$data.formdata.aims.date) != 'Invalid Date' || this.$t('errors.valid'),
                     ],
                     selectGender: [
-                    (v) => (typeof v) === 'boolean' || this.$ml.get('errors.required'),
+                    (v) => (typeof v) === 'boolean' || this.$t('errors.required'),
                     ],
                     selectLanguage: [
-                    (v) => !!v || this.$ml.get('errors.required'),
+                    (v) => !!v || this.$t('errors.required'),
                     ]
                 },
 

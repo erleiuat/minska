@@ -9,7 +9,6 @@ import axios from 'axios'
 import i18n from './i18n'
 import './registerServiceWorker'
 import 'vuetify/dist/vuetify.min.css'
-import './ml'
 
 Vue.use(Vuetify, {
     theme: {

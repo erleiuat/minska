@@ -11,27 +11,27 @@
                             </p>
                         </v-flex>
                         <v-flex xs12 >
-                            <h1 class="text-xs-center" v-text="$ml.get('views.register')"></h1>
+                            <h1 class="text-xs-center" v-text="$t('views.register')"></h1>
                         </v-flex>
 
                         <v-flex xs4>
-                            <v-text-field :label="$ml.get('general.firstname')" v-model="formdata.firstname" :rules="rules.name" outline></v-text-field>
+                            <v-text-field :label="$t('general.firstname')" v-model="formdata.firstname" :rules="rules.name" outline></v-text-field>
                         </v-flex>
                         <v-flex xs4>
-                            <v-text-field :label="$ml.get('general.lastname')" v-model="formdata.lastname" :rules="rules.name" outline></v-text-field>
+                            <v-text-field :label="$t('general.lastname')" v-model="formdata.lastname" :rules="rules.name" outline></v-text-field>
                         </v-flex>
                         <v-flex xs4>
-                            <v-text-field :label="$ml.get('general.mail')" v-model="formdata.email" :rules="rules.email" outline></v-text-field>
+                            <v-text-field :label="$t('general.mail')" v-model="formdata.email" :rules="rules.email" outline></v-text-field>
                         </v-flex>
 
                         <v-flex xs6>
-                            <v-text-field :label="$ml.get('general.password')" v-model="formdata.password" outline :rules="rules.pass" :type="'password'"></v-text-field>
+                            <v-text-field :label="$t('general.password')" v-model="formdata.password" outline :rules="rules.pass" :type="'password'"></v-text-field>
                         </v-flex>
                         <v-flex xs6>
-                            <v-text-field :label="$ml.get('general.repeat')" outline :rules="rules.pass2" :type="'password'"></v-text-field>
+                            <v-text-field :label="$t('general.repeat')" outline :rules="rules.pass2" :type="'password'"></v-text-field>
                         </v-flex>
                         <v-flex xs12>
-                            <v-btn depressed block @click="sendRegistration()" large color="primary" :disabled="disabled" v-text="$ml.get('views.register')"></v-btn>
+                            <v-btn depressed block @click="sendRegistration()" large color="primary" :disabled="disabled" v-text="$t('views.register')"></v-btn>
                         </v-flex>
 
                     </v-layout>
@@ -90,15 +90,15 @@ export default {
             rules: {
                 valid: false,
                 name: [
-                (v) => !!v || this.$ml.get('errors.required'),
+                (v) => !!v || this.$t('errors.required'),
                 (v) => v && v.length <= 10 || 'Name must be less than 10 characters'
                 ],
                 email: [
-                (v) => !!v || this.$ml.get('errors.required'),
-                (v) => /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(v) || this.$ml.get('errors.valid'),
+                (v) => !!v || this.$t('errors.required'),
+                (v) => /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(v) || this.$t('errors.valid'),
                 ],
                 pass: [
-                (v) => !!v || this.$ml.get('errors.required'),
+                (v) => !!v || this.$t('errors.required'),
                 (v) => /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/.test(v) || 'Password not strong enough'
                 ],
                 pass2: [

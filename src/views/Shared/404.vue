@@ -1,8 +1,8 @@
 <template>
     <div>
         <h1>404</h1>
-        <h1 v-text="$ml.get('views.notfound')"></h1>
-        <p v-text="$ml.get('errors.notfound')"></p>
+        <h1 v-text="$t('views.notfound')"></h1>
+        <p v-text="$t('errors.notfound')"></p>
     </div>
 </template>
 

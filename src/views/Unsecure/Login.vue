@@ -3,10 +3,10 @@
         <v-form v-model="rules.valid" ref="registrationForm">
             <v-layout justify-center row wrap>
                 <v-flex xs6 sm6 md6>
-                    <h1 v-text="$ml.get('views.login')"></h1>
-                    <v-text-field :label="$ml.get('general.mail')" v-model="formdata.email" :rules="rules.email" outline></v-text-field>
-                    <v-text-field :label="$ml.get('general.password')" v-model="formdata.password" outline :rules="rules.pass" :type="'password'"></v-text-field>
-                    <v-btn depressed block @click="sendLogin()" large color="primary" :disabled="disabled" v-text="$ml.get('views.login')"></v-btn>
+                    <h1 v-text="$t('views.login')"></h1>
+                    <v-text-field :label="$t('general.mail')" v-model="formdata.email" :rules="rules.email" outline></v-text-field>
+                    <v-text-field :label="$t('general.password')" v-model="formdata.password" outline :rules="rules.pass" :type="'password'"></v-text-field>
+                    <v-btn depressed block @click="sendLogin()" large color="primary" :disabled="disabled" v-text="$t('views.login')"></v-btn>
                 </v-flex>
             </v-layout>
         </v-form>

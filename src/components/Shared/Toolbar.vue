@@ -3,7 +3,7 @@
         <v-toolbar-side-icon  @click.stop="drawer()"></v-toolbar-side-icon>
         <v-toolbar-title>{{appTitle}}</v-toolbar-title>
         <v-spacer></v-spacer>
-        <v-btn v-if="authenticated" flat @click="logout()"><b v-text="$ml.get('general.logout')"></b> <i class="fas fa-sign-out-alt"></i></v-btn>
+        <v-btn v-if="authenticated" flat @click="logout()"><b v-text="$t('general.logout')"></b> <i class="fas fa-sign-out-alt"></i></v-btn>
     </v-toolbar>
 </template>
 

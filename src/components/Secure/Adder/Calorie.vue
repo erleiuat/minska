@@ -70,16 +70,16 @@ export default {
             rules: {
                 valid: true,
                 date: [
-                (v) => !!v || this.$ml.get('errors.required'),
-                (v) => v && new Date(this.$data.formdata.date) != 'Invalid Date' || this.$ml.get('errors.valid'),
+                (v) => !!v || this.$t('errors.required'),
+                (v) => v && new Date(this.$data.formdata.date) != 'Invalid Date' || this.$t('errors.valid'),
                 ],
                 weight: [
-                (v) => !!v || this.$ml.get('errors.required'),
-                (v) => v && v <= 500 && v >= 30 || this.$ml.get('errors.valid'),
+                (v) => !!v || this.$t('errors.required'),
+                (v) => v && v <= 500 && v >= 30 || this.$t('errors.valid'),
                 ],
                 number: [
-                (v) => !!v || this.$ml.get('errors.required'),
-                (v) => v && v <= 9999 && v >= 0 || this.$ml.get('errors.valid')
+                (v) => !!v || this.$t('errors.required'),
+                (v) => v && v <= 9999 && v >= 0 || this.$t('errors.valid')
                 ],
             }
         }

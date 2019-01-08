@@ -19,7 +19,7 @@
 
                         <v-flex sm12>
                             <v-menu :close-on-content-click="false" v-model="dateMenu" :nudge-right="40" lazy transition="scale-transition" offset-y full-width min-width="290px">
-                                <v-text-field readonly slot="activator" :label="$ml.get('general.date')" v-model="computedDateFormatted" :rules="rules.date" outline></v-text-field>
+                                <v-text-field readonly slot="activator" :label="$t('general.date')" v-model="computedDateFormatted" :rules="rules.date" outline></v-text-field>
                                 <v-date-picker v-model="formdata.date" @input="dateMenu = false"></v-date-picker>
                             </v-menu>
                         </v-flex>
@@ -59,12 +59,12 @@ export default {
             rules: {
                 valid: true,
                 date: [
-                (v) => !!v || this.$ml.get('errors.required'),
-                (v) => v && new Date(this.$data.formdata.date) != 'Invalid Date' || this.$ml.get('errors.valid'),
+                (v) => !!v || this.$t('errors.required'),
+                (v) => v && new Date(this.$data.formdata.date) != 'Invalid Date' || this.$t('errors.valid'),
                 ],
                 weight: [
-                (v) => !!v || this.$ml.get('errors.required'),
-                (v) => v && v <= 500 && v >= 30 || this.$ml.get('errors.valid'),
+                (v) => !!v || this.$t('errors.required'),
+                (v) => v && v <= 500 && v >= 30 || this.$t('errors.valid'),
                 ],
             }
         }

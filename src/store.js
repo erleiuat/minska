@@ -64,11 +64,7 @@ export default new Vuex.Store({
             }
 
             if(!decoded.data.language){
-                if((navigator.language || navigator.userLanguage) == 'de'){
-                    state.user.info.language = 'german';
-                } else {
-                    state.user.info.language = 'english';
-                }
+                state.user.info.language = navigator.language || navigator.userLanguage;
             } else {
                 state.user.info.language = decoded.data.language;
             }
@@ -110,12 +106,7 @@ export default new Vuex.Store({
         logout(state) {
 
             VueCookie.delete('authCookie', {domain: window.location.hostname});
-
-            if((navigator.language || navigator.userLanguage) == 'de'){
-                state.user.info = {language: 'german'};
-            } else {
-                state.user.info = {language: 'english'};
-            }
+            state.user.info = {language: navigator.language || navigator.userLanguage};
 
             state.user.auth.authenticated = false;
             state.user.auth.expiration.client = null;
