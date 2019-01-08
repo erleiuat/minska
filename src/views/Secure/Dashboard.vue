@@ -1,29 +1,77 @@
 <template>
     <v-container>
+        <v-layout row wrap>
 
-        <h1 v-text="$ml.with(firstname).get('dashboard.title')"></h1>
-        <h2 v-text="$ml.get('dashboard.text')"></h2>
+            <v-flex xs12>
+                <h1>{{ $t('dashboard.title', {name: firstname}) }}</h1>
+            </v-flex>
 
-        <ul>
-            <li>Firstname: {{ firstname }}</li>
-            <li>Lastanem: {{ lastname }}</li>
-            <li>E-Mail: {{ mail }}</li>
-            <li>Current Weight: {{ weight }}</li>
-            <li>Current Height: {{ height }}</li>
-            <li>Session Expire: {{ sessionExpires }}</li>
-            <li>Token Expire: {{ tokenExpires }}</li>
-        </ul>
+            <v-flex md6>
+                <WeightAdder />
+            </v-flex>
+            <v-flex md6>
+                <CalorieAdder />
+            </v-flex>
 
+            <v-flex xs12>
+                <v-divider></v-divider>
+            </v-flex>
 
+            <v-flex xs12>
+                <h1>Facts</h1>
+            </v-flex>
+
+            <v-flex md4>
+                <DifferenceFact />
+            </v-flex>
+            <v-flex md4>
+                <DifferenceFact />
+            </v-flex>
+            <v-flex md4>
+                <DifferenceFact />
+            </v-flex>
+            <v-flex md4>
+                <DifferenceFact />
+            </v-flex>
+            <v-flex md4>
+                <DifferenceFact />
+            </v-flex>
+            <v-flex md4>
+                <DifferenceFact />
+            </v-flex>
+
+        </v-layout>
     </v-container>
 </template>
 
 <script>
-export default {
-    name: 'home',
-    components: {
+import WeightAdder from '@/components/Secure/Adder/Weight'
+import CalorieAdder from '@/components/Secure/Adder/Calorie'
+import DifferenceFact from '@/components/Secure/Facts/Difference'
 
+export default {
+
+    name: 'home',
+
+    components: {
+        WeightAdder,
+        CalorieAdder,
+        DifferenceFact
     },
+
+    i18n: {
+        messages: {
+            en: {
+                title: 'Hello {name}!',
+                subtitle: 'Welcome to your Dashboard.'
+            },
+            de: {
+                title: 'Hallo {name}!',
+                subtitle: 'Willkommen auf deinem Dashboard.'
+            }
+        }
+    },
+
     data () {
 
         var sessionTimeLeft = ((this.$store.state.user.auth.expiration.client - Math.floor(Date.now() / 1000))/60);

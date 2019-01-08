@@ -23,15 +23,19 @@ export default new Vuex.Store({
                 id: null,
                 firstname: null,
                 lastname: null,
-                email: null,
-                language: 'english'
+                language: null,
+                isFemale: false,
+                aims: {
+                    weight: null,
+                    date: null
+                }
             },
         },
 
         app: {
             title: 'Minska',
             authState: false,
-            drawer: false,
+            drawer: true,
             navigation: [
                 {path: '/login', title: 'Login', icon: 'lock_open'},
                 {path: '/register', title: 'Register', icon: 'subdirectory_arrow_right'},
@@ -43,7 +47,7 @@ export default new Vuex.Store({
     mutations: {
 
         drawer(state, val) {
-            state.app.drawer = val
+            state.app.drawer = val;
         },
 
         login(state, token) {
@@ -52,20 +56,44 @@ export default new Vuex.Store({
             var decoded = JSON.parse(window.atob(encoded));
 
             state.user.info = decoded.data;
+
+            if(new Date(state.user.info.aims.date) != 'Invalid Date'){
+                state.user.info.aims.date = decoded.data.aims.date;
+            } else {
+                state.user.info.aims.date = null;
+            }
+
+            if(!decoded.data.language){
+                if((navigator.language || navigator.userLanguage) == 'de'){
+                    state.user.info.language = 'german';
+                } else {
+                    state.user.info.language = 'english';
+                }
+            } else {
+                state.user.info.language = decoded.data.language;
+            }
+
+            if(!decoded.data.isFemale){
+                state.user.info.isFemale = false;
+            } else {
+                state.user.info.isFemale = true;
+            }
+
             state.user.auth.authenticated = true;
             state.user.auth.expired = false;
             state.user.auth.token = token;
             state.user.auth.expiration.client = Math.floor(Date.now() / 1000) + (20*60);
             state.user.auth.expiration.token = decoded.exp;
 
-            var authInfo = {
+            var authCookie = {
                 token: token,
                 expiration: {
                     client: state.user.auth.expiration.client,
                     token: state.user.auth.expiration.token
                 }
             }
-            VueCookie.set('authInfo', JSON.stringify(authInfo), {expires: 1, domain: window.location.hostname});
+
+            VueCookie.set('authCookie', JSON.stringify(authCookie), {expires: 1, domain: window.location.hostname});
 
             state.app.authState = true;
             state.app.navigation = [
@@ -81,15 +109,14 @@ export default new Vuex.Store({
 
         logout(state) {
 
-            VueCookie.delete('authInfo', {domain: window.location.hostname});
+            VueCookie.delete('authCookie', {domain: window.location.hostname});
 
-            state.user.info = {
-                id: null,
-                firstname: null,
-                lastname: null,
-                email: null,
-                language: 'english'
-            };
+            if((navigator.language || navigator.userLanguage) == 'de'){
+                state.user.info = {language: 'german'};
+            } else {
+                state.user.info = {language: 'english'};
+            }
+
             state.user.auth.authenticated = false;
             state.user.auth.expiration.client = null;
             state.user.auth.expiration.token = null;
@@ -114,11 +141,11 @@ export default new Vuex.Store({
 
             if(!state.user.auth.authenticated){
 
-                if(VueCookie.get('authInfo')){
+                if(VueCookie.get('authCookie')){
 
-                    if( JSON.parse(VueCookie.get('authInfo')).expiration.token > Math.floor(Date.now() / 1000) && JSON.parse(VueCookie.get('authInfo')).expiration.client > Math.floor(Date.now() / 1000) ){
+                    if( JSON.parse(VueCookie.get('authCookie')).expiration.token > Math.floor(Date.now() / 1000) && JSON.parse(VueCookie.get('authCookie')).expiration.client > Math.floor(Date.now() / 1000) ){
                         //Token Valid
-                        commit('login', JSON.parse(VueCookie.get('authInfo')).token);
+                        commit('login', JSON.parse(VueCookie.get('authCookie')).token);
                     } else {
                         //Token Expired
                         state.user.auth.expired = true;

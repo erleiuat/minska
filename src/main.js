@@ -1,16 +1,22 @@
 import Vue from 'vue'
+import Vuetify from 'vuetify'
+import VueAxios from 'vue-axios'
+import Notifications from 'vue-notification'
 import App from './App.vue'
 import router from './router'
 import store from './store'
-import './registerServiceWorker'
 import axios from 'axios'
-import VueAxios from 'vue-axios'
-import Notifications from 'vue-notification'
-import Vuetify from 'vuetify'
+import i18n from './i18n'
+import './registerServiceWorker'
 import 'vuetify/dist/vuetify.min.css'
 import './ml'
 
-Vue.use(Vuetify)
+Vue.use(Vuetify, {
+    theme: {
+        primary: '#FF8A65',
+    }
+})
+
 Vue.use(VueAxios, axios)
 Vue.use(Notifications)
 
@@ -31,12 +37,11 @@ Vue.mixin({
     }
 })
 
-
-
 Vue.config.productionTip = false
 
 new Vue({
     router,
     store,
+    i18n,
     render: function (h) { return h(App) }
 }).$mount('#app')

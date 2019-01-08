@@ -1,5 +1,5 @@
 <template>
-    <v-toolbar app flat>
+    <v-toolbar app class="deep-orange lighten-2" flat dark clipped-left>
         <v-toolbar-side-icon  @click.stop="drawer()"></v-toolbar-side-icon>
         <v-toolbar-title>{{appTitle}}</v-toolbar-title>
         <v-spacer></v-spacer>
@@ -19,7 +19,7 @@ export default {
     },
     methods: {
         drawer(){
-            this.$store.commit('drawer', true)
+            this.$store.commit('drawer', !this.$store.state.app.drawer)
         },
         logout(){
             this.$store.commit('logout');

@@ -1,20 +1,29 @@
 <template>
     <v-app>
 
-        <notifications group="default" position="top center"/>
-
+        <Drawer />
         <Toolbar />
 
-        <Drawer />
 
         <v-content>
             <v-container fluid fill-height>
-                <transition name="slide">
-                    <router-view></router-view>
+
+                <notifications app group="default" position="bottom right" width="500">
+                    <template slot="body" slot-scope="props">
+                        <v-alert app value="true" :type="props.item.type" @click="props.close">
+                            <h3>{{props.item.title}}</h3>
+                            {{props.item.text}}
+                        </v-alert>
+                    </template>
+                </notifications>
+
+                <transition name="fade">
+                    <router-view>
+
+                    </router-view>
                 </transition>
             </v-container>
         </v-content>
-
 
     </v-app>
 </template>
@@ -34,7 +43,7 @@ export default {
 
     methods: {
         ...mapActions([
-            'checkAuth',
+        'checkAuth',
         ]),
     },
     beforeUpdate(){
@@ -52,7 +61,7 @@ export default {
                 this.$router.push('/');
                 this.$notify({
                     group: 'default',
-                    type: 'warn',
+                    type: 'warning',
                     title: 'Session expired',
                     text: "Your Session expired. Please login again."
                 })
@@ -66,7 +75,7 @@ export default {
         },(newValue, oldValue)=>{
             if(newValue !== oldValue){
                 if(this.$store.state.user.info.language){
-                    this.$ml.change(this.$store.state.user.info.language);
+                    this.$i18n.locale = this.$store.state.user.info.language;
                 }
             }
         });
@@ -86,7 +95,7 @@ export default {
         });
 
         this.$router.afterEach((to, from) => {
-            document.title = this.$store.state.app.title +' | '+ this.$ml.get('views.'+to.meta.title);
+            document.title = this.$store.state.app.title +' | '+ this.$t('views.'+to.meta.title);
         });
 
     }

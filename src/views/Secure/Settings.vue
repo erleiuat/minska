@@ -1,137 +1,188 @@
 <template>
     <v-container grid-list-md>
         <h1 v-text="$ml.get('views.settings')"></h1>
-        <v-form v-model="rules.valid" ref="settingsForm">
-            <v-layout row wrap>
 
-                <v-flex xs12>
-                    <v-select v-model="formdata.language" :items="items" item-text="text" item-value="value" :label="$ml.get('general.language')" required></v-select>
-                </v-flex>
-            </v-layout>
-            <v-layout row wrap>
-                <v-flex sm6>
-                    <v-text-field :label="$ml.get('general.firstname')" v-model="formdata.firstname" :rules="rules.name" outline></v-text-field>
-                </v-flex>
-                <v-flex sm6>
-                    <v-text-field :label="$ml.get('general.lastname')" v-model="formdata.lastname" :rules="rules.name" outline></v-text-field>
-                </v-flex>
-                <v-flex sm6>
-                    <v-text-field :label="$ml.get('general.password')" v-model="formdata.password" outline :rules="rules.pass" :type="'password'"></v-text-field>
-                </v-flex>
-                <v-flex sm6>
-                    <v-text-field :label="$ml.get('general.repeat')" outline :rules="rules.pass2" :type="'password'"></v-text-field>
-                </v-flex>
-            </v-layout>
-            <v-layout row wrap>
-                <v-flex xs12>
-                    <v-btn depressed block @click="changeUser()" large color="primary" :disabled="disabled" v-text="$ml.get('general.save')">Register</v-btn>
-                </v-flex>
-            </v-layout>
-        </v-form>
+        <v-card>
+            <v-container fluid grid-list-md>
+                <v-form v-model="rules.valid" ref="settingsForm">
+                    <h2 v-text="$ml.get('general.basic')"></h2>
+                    <v-layout row wrap>
+                        <v-flex sm6>
+                            <v-select :label="$ml.get('general.language')" v-model="formdata.language" :rules="rules.selectLanguage" :items="languageItems" item-text="text" item-value="value"></v-select>
+                        </v-flex>
+                        <v-flex sm6>
+                            <v-select :label="$ml.get('general.gender')" v-model="formdata.isFemale" :rules="rules.selectGender" :items="genderItems" item-text="text" item-value="value"></v-select>
+                        </v-flex>
+                        <v-flex sm6>
+                            <v-text-field :label="$ml.get('general.firstname')" v-model="formdata.firstname" :rules="rules.name" outline></v-text-field>
+                        </v-flex>
+                        <v-flex sm6>
+                            <v-text-field :label="$ml.get('general.lastname')" v-model="formdata.lastname" :rules="rules.name" outline></v-text-field>
+                        </v-flex>
+                        <v-flex sm6>
+                            <v-text-field :label="$ml.get('general.height')" v-model="formdata.height" :rules="rules.height" outline></v-text-field>
+                        </v-flex>
+                    </v-layout>
+                    <h2 v-text="$ml.get('general.aims')"></h2>
+                    <v-layout row wrap>
+                        <v-flex sm6>
+                            <v-text-field :label="$ml.get('general.weight')" v-model="formdata.aims.weight" :rules="rules.weight" outline></v-text-field>
+                        </v-flex>
+
+                        <v-flex sm6>
+                            <v-menu :close-on-content-click="false" v-model="dateMenu" :nudge-right="40" lazy transition="scale-transition" offset-y full-width min-width="290px">
+                                <v-text-field readonly slot="activator" :label="$ml.get('general.date')" v-model="computedDateFormatted" :rules="rules.date" outline></v-text-field>
+                                <v-date-picker v-model="formdata.aims.date" @input="dateMenu = false"></v-date-picker>
+                            </v-menu>
+                        </v-flex>
+
+                        <v-flex xs12>
+                            <v-btn depressed block @click="sendUpdates()" large color="primary" :disabled="disabled" v-text="$ml.get('general.save')"></v-btn>
+                        </v-flex>
+
+                    </v-layout>
+                </v-form>
+            </v-container>
+        </v-card>
+
     </v-container>
 </template>
 
 <script>
-export default {
-    name: 'settings',
-    components: {
+    export default {
 
-    },
+        name: 'settings',
 
-    methods: {
+        methods: {
 
-        changeUser(){
+            sendUpdates(){
 
-            var vm = this;
-            vm.axiosPost({
-                url:'user/update/',
-                data: {
-                    jwt: this.$store.state.user.auth.token
+                this.$refs.settingsForm.validate();
+                if(this.$data.rules.valid){
+
+                    var vm = this;
+                    var postData = vm.$data.formdata;
+                    postData.jwt = this.$store.state.user.auth.token;
+                    vm.$data.disabled=true;
+
+                    vm.axiosPost({
+
+                        url:'user/update/',
+                        data: postData,
+
+                    }).then(function (response) {
+
+                        vm.$store.commit('login',  response.data.jwt);
+                        vm.$notify({
+                            group: 'default',
+                            type: 'success',
+                            title: vm.$ml.get('alerts.saved'),
+                            text: vm.$ml.get('alerts.savedMsg')
+                        });
+                        vm.disabled=true;
+
+                    }).catch(function (error) {
+
+                        vm.$notify({
+                            group: 'default',
+                            type: 'error',
+                            title: vm.$ml.get('alerts.error'),
+                            text: vm.$ml.get('alerts.errorMsg')
+                        });
+                        vm.disabled=false;
+
+                    });
                 }
-            }).then(function (response) {
-                vm.$store.commit('changeLanguage', vm.$data.select);
-            }).catch(function (error) {
-                vm.$notify({
-                    group: 'default',
-                    type: 'error',
-                    title: 'Something went wrong',
-                    text: "There was an Error. This could have an impact on the Apps behaviour"
-                });
-            });
+            }
+        },
+
+
+        beforeUpdate() {
+
+            var languageItems = [
+                {text: this.$ml.get('languages.english'), value: 'en'},
+                {text: this.$ml.get('languages.german'), value: 'de'}
+            ]
+
+            var genderItems = [
+                {text: this.$ml.get('general.male'), value: false},
+                {text: this.$ml.get('general.female'), value: true}
+            ]
+
+            this.$data.genderItems = genderItems;
+            this.$data.languageItems = languageItems;
 
         },
 
-        updateSelection(){
-            var langItems = [];
-            for(var item in this.$ml.list){
-                langItems.push({
-                    text: this.$ml.get('languages.'+this.$ml.list[item]),
-                    value: this.$ml.list[item]
-                });
+        computed: {
+            computedDateFormatted () {
+                if (!this.$data.formdata.aims.date) return null
+                const [year, month, day] = this.$data.formdata.aims.date.split('-')
+                return `${day}.${month}.${year}`
+            },
+        },
+
+        data() {
+            return {
+
+                disabled: true,
+                dateMenu: false,
+                languageItems: [],
+                genderItems: [],
+
+                formdata: {
+                    language: this.$store.state.user.info.language,
+                    isFemale: this.$store.state.user.info.isFemale,
+                    firstname: this.$store.state.user.info.firstname,
+                    lastname: this.$store.state.user.info.lastname,
+                    height: this.$store.state.user.info.height,
+                    aims: {
+                        weight: this.$store.state.user.info.aims.weight,
+                        date: this.$store.state.user.info.aims.date
+                    }
+                },
+
+                rules: {
+                    valid: false,
+                    name: [
+                    (v) => !!v || this.$ml.get('errors.required'),
+                    (v) => v && v.length <= 20 || this.$ml.get('errors.valid'),
+                    ],
+                    email: [
+                    (v) => !!v || this.$ml.get('errors.required'),
+                    (v) => /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(v) || this.$ml.get('errors.valid'),
+                    ],
+                    height: [
+                    (v) => !!v || this.$ml.get('errors.required'),
+                    (v) => v && v <= 300 && v >= 50 || this.$ml.get('errors.valid'),
+                    ],
+                    weight: [
+                    (v) => !!v || this.$ml.get('errors.required'),
+                    (v) => v && v <= 500 && v >= 30 || this.$ml.get('errors.valid'),
+                    ],
+                    date: [
+                    (v) => !!v || this.$ml.get('errors.required'),
+                    (v) => v && new Date(this.$data.formdata.aims.date) != 'Invalid Date' || this.$ml.get('errors.valid'),
+                    ],
+                    selectGender: [
+                    (v) => (typeof v) === 'boolean' || this.$ml.get('errors.required'),
+                    ],
+                    selectLanguage: [
+                    (v) => !!v || this.$ml.get('errors.required'),
+                    ]
+                },
+
             }
-            this.$data.items = langItems;
-        }
-    },
+        },
 
-    beforeMount() {
-
-        this.updateSelection();
-        this.$store.watch((state)=>{
-            return this.$store.state.user.info.language
-        },(newValue, oldValue)=>{
-            if(newValue !== oldValue){
-                if(this.$store.state.user.info.language){
-                    this.updateSelection();
-                }
+        watch: {
+            'formdata': {
+                handler: function (val, oldVal) {
+                    this.disabled = false;
+                },
+                deep: true
             }
-        });
-
-    },
-
-    data() {
-        return {
-
-            disabled: true,
-            items: [],
-
-            rules: {
-                valid: false,
-                name: [
-                (v) => !!v || 'Name is required',
-                (v) => v && v.length <= 10 || 'Name must be less than 10 characters'
-                ],
-                email: [
-                (v) => !!v || 'E-mail is required',
-                (v) => /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'E-mail must be valid'
-                ],
-                pass: [
-                (v) => !!v || 'Password is required',
-                (v) => /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/.test(v) || 'Password not strong enough'
-                ],
-                pass2: [
-                (v) => !!v || 'Please repeat your password',
-                (v) => v == this._data.formdata.password || "Passwords don't match",
-                ]
-            },
-
-            formdata: {
-                language: this.$store.state.user.info.language,
-                firstname: this.$store.state.user.info.firstname,
-                lastname: this.$store.state.user.info.lastname,
-                password: null
-            },
-
         }
-    },
 
-    watch: {
-        'formdata': {
-            handler: function (val, oldVal) {
-                this.disabled = false;
-            },
-            deep: true
-        }
     }
-
-}
 </script>

@@ -1,15 +1,14 @@
 import Vue from 'vue'
-import { MLInstaller, MLCreate, MLanguage } from 'vue-multilanguage'
+import VueI18n from 'vue-i18n'
 
-Vue.use(MLInstaller)
+Vue.use(VueI18n)
 
-export default new MLCreate({
-    initial: 'english',
-    save: process.env.NODE_ENV === 'production',
-    languages: [
+export default new VueI18n({
+    locale: 'en',
+    fallbackLocale: 'en',
 
-        new MLanguage('english').create({
-
+    messages: {
+        en: {
             general: {
                 basic: 'Basic',
                 advanced: 'Advanced',
@@ -67,14 +66,12 @@ export default new MLCreate({
                 notfound: 'Not Found',
             },
             dashboard: {
-                title: 'Hello {0}!',
+                title: 'Hello {name}!',
                 text:  'Here are some personal informations about you:'
             }
+        },
 
-        }),
-
-        new MLanguage('german').create({
-
+        de: {
             general: {
                 basic: 'Grundlegend',
                 advanced: 'Details',
@@ -135,8 +132,7 @@ export default new MLCreate({
                 title: 'Hallo {0}!',
                 text:  'Hier sind einige persönliche Infos über dich:'
             }
+        }
+    },
 
-        })
-
-    ]
 })

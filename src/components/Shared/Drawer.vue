@@ -1,7 +1,6 @@
 <template>
-    <v-navigation-drawer v-model="drawer" absolute temporary>
+    <v-navigation-drawer app v-model="drawer" class="deep-orange lighten-5" clipped floating>
         <v-list class="pt-0" dense>
-
             <v-list-tile v-for="item in items" :key="item.title" @click="" :to="{path: item.path}">
                 <v-list-tile-action>
                     <v-icon>{{ item.icon }}</v-icon>
@@ -10,7 +9,6 @@
                     <v-list-tile-title v-text="$ml.get('views.'+item.title)"></v-list-tile-title>
                 </v-list-tile-content>
             </v-list-tile>
-
         </v-list>
     </v-navigation-drawer>
 </template>

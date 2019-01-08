@@ -52,6 +52,7 @@ export default {
             }
 
         }
+
     },
 
     data (){
@@ -60,7 +61,7 @@ export default {
             disabled: false,
             formdata: {
                 email: 'mail@eliareutlinger.ch',
-                password: 'Vera@0291'
+                password: 'Test@1234'
             },
             rules: {
                 valid: false,
