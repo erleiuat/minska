@@ -19,7 +19,7 @@ export default {
     name: 'AllFacts',
     props: {
         newData: Boolean
-    },
+    }, 
     components: {
         FactCard,
     },
@@ -169,7 +169,7 @@ export default {
             if(cards.target.value > 0){
                 if(cards.recently.value > 0){
                     cards.recently.type = 'success';
-                    cards.recently.value = '+'+cards.recently.value;
+                    cards.recently.value = '+' + cards.recently.value;
                 } else {
                     if(cards.target.value == 0){
                         cards.recently.type = 'success';

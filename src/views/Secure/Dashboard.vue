@@ -22,8 +22,21 @@
             </v-flex>
 
             <v-flex xs12>
+                <!--
                 <AllFacts :newData="newData" />
+                -->
             </v-flex>
+
+            <v-flex xs6>
+                <recently />
+            </v-flex>
+            <v-flex xs6>
+                <total />
+            </v-flex>
+            <v-flex xs6>
+                <target />
+            </v-flex>
+
 
         </v-layout>
     </v-container>
@@ -33,6 +46,7 @@
 import WeightAdder from '@/components/Secure/Adder/Weight'
 import CalorieAdder from '@/components/Secure/Adder/Calorie'
 import AllFacts from '@/components/Secure/Facts/All'
+import {recently, total, target} from '@/components/Secure/Facts/index.js'
 
 export default {
 
