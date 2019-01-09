@@ -6,7 +6,7 @@ Vue.use(VueI18n)
 export default new VueI18n({
     locale: 'en',
     fallbackLocale: 'en',
-
+    silentTranslationWarn: process.env.NODE_ENV === 'production',
     messages: {
         en: {
             general: {
@@ -64,10 +64,6 @@ export default new VueI18n({
                 register: 'Create Account',
                 nopermission: 'No Permissions',
                 notfound: 'Not Found',
-            },
-            dashboard: {
-                title: 'Hello {name}!',
-                text:  'Here are some personal informations about you:'
             }
         },
 
@@ -128,10 +124,6 @@ export default new VueI18n({
                 nopermission: 'Keine Rechte',
                 notfound: 'Nicht gefunden',
             },
-            dashboard: {
-                title: 'Hallo {0}!',
-                text:  'Hier sind einige persönliche Infos über dich:'
-            }
         }
     },
 

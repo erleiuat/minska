@@ -94,7 +94,7 @@ export default new Vuex.Store({
             state.app.authState = true;
             state.app.navigation = [
                 {path: '/dashboard', title: 'dashboard', icon: 'dashboard'},
-                {path: '/weight', title: 'weights', icon: 'linear_scale'},
+                {path: '/weights', title: 'weights', icon: 'linear_scale'},
                 {path: '/calorie', title: 'calories', icon: 'cake'},
                 {path: '/food', title: 'food', icon: 'add_shopping_cart'},
                 {path: '/faq', title: 'faq', icon: 'question_answer'},

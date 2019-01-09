@@ -25,7 +25,7 @@
                         </v-flex>
 
                         <v-flex xs12>
-                            <v-btn large block color="primary">Add</v-btn>
+                            <v-btn :disabled="disabled" large block color="primary" @click="addWeight()">Add</v-btn>
                         </v-flex>
 
                     </v-layout>
@@ -40,17 +40,68 @@
 export default {
     name: 'WeightAdder',
 
+    methods: {
+
+        addWeight(){
+
+            this.$refs.addWeightForm.validate();
+            if(this.$data.rules.valid){
+
+                var vm = this;
+                var postData = vm.$data.formdata;
+                postData.jwt = this.$store.state.user.auth.token;
+                vm.$data.disabled=true;
+
+                vm.axiosPost({
+
+                    url:'weight/create/',
+                    data: postData,
+
+                }).then(function (response) {
+
+                    vm.$notify({
+                        group: 'default',
+                        type: 'success',
+                        title: vm.$t('alerts.saved'),
+                        text: vm.$t('alerts.savedMsg')
+                    });
+                    vm.$refs.addWeightForm.reset();
+                    vm.$emit('input');
+                    vm.disabled=true;
+
+                }).catch(function (error) {
+
+                    vm.$notify({
+                        group: 'default',
+                        type: 'error',
+                        title: vm.$t('alerts.error'),
+                        text: vm.$t('alerts.errorMsg')
+                    });
+                    vm.disabled=false;
+
+                });
+            }
+
+        }
+
+    },
+
     computed: {
-        computedDateFormatted () {
-            if (!this.$data.formdata.date) return null
-            const [year, month, day] = this.$data.formdata.date.split('-')
-            return `${day}.${month}.${year}`
+        computedDateFormatted: {
+            get(){
+                if (!this.$data.formdata.date) return null
+                const [year, month, day] = this.$data.formdata.date.split('-')
+                return `${day}.${month}.${year}`
+            },
+            set(){
+            }
         },
     },
 
     data(){
         var tmp = new Date();
         return {
+            disabled: true,
             dateMenu: false,
             formdata: {
                 weight: null,
@@ -68,6 +119,16 @@ export default {
                 ],
             }
         }
+    },
+
+    watch: {
+        'formdata': {
+            handler: function (val, oldVal) {
+                this.disabled = false;
+            },
+            deep: true
+        }
     }
+
 }
 </script>

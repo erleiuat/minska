@@ -28,6 +28,17 @@ export default new Router({
             }
         },
         {
+            path: '/weights',
+            name: 'weights',
+            meta: {
+                title: 'weights',
+                secure: true
+            },
+            component: function () {
+                return import('./views/Secure/Weights.vue')
+            }
+        },
+        {
             path: '/settings',
             name: 'settings',
             meta: {
