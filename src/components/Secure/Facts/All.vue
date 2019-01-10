@@ -36,7 +36,7 @@ export default {
                     bmi: 'Current Body-Mass-Index (Should be between 20 and 25)',
                     daily: 'This is how much you can eat per Day to reach your aims',
                     remaining: 'This is how much is still remaining today'
-                }
+                },
             },
             de: {
                 titles: {
@@ -54,7 +54,7 @@ export default {
                     bmi: 'Aktueller Body-Mass-Index (Sollte zwischen 20 und 25 sein)',
                     daily: 'Mögliche Kalorien pro Tag um Ziele zu erreichen.',
                     remaining: 'Soviele sind heute noch übrig'
-                }
+                },
             }
         }
     },
@@ -69,8 +69,8 @@ export default {
             this.$notify({
                 group: 'default',
                 type: 'error',
-                title: this.$t('alerts.error'),
-                text: this.$t('alerts.errorMsg')
+                title: this.$t('alerts.error.title'),
+                text: this.$t('alerts.error.text')
             });
         },
 
@@ -85,15 +85,22 @@ export default {
                     amount: 2,
                 },
             }).then(function(response) {
-
-                vm.$store.commit('changeData', {
-                    recent: {
-                        weight: response.data.records[0].weight,
-                        calorie: vm.$store.state.user.data.recent.calorie
-                    }
-                });
-                vm.$data.weight.last = response.data.records[1].weight;
-
+                if(response.status === 204){
+                    vm.$notify({
+                        group: 'default',
+                        type: 'warning',
+                        title: vm.$t('alerts.empty.title'),
+                        text: vm.$t('alerts.empty.text')
+                    });
+                } else {
+                    vm.$store.commit('changeData', {
+                        recent: {
+                            weight: response.data.records[0].weight,
+                            calorie: vm.$store.state.user.data.recent.calorie
+                        }
+                    });
+                    vm.$data.weight.last = response.data.records[1].weight;
+                }
             }).catch(function (error) {
                 vm.defaultError();
             });
@@ -106,8 +113,17 @@ export default {
                     order: 'ASC'
                 },
             }).then(function(response) {
-                vm.$data.weight.first = response.data.records[0].weight;
-            }).catch(function (error) {
+                if(response.status === 204){
+                    vm.$notify({
+                        group: 'default',
+                        type: 'warning',
+                        title: vm.$t('alerts.empty.title'),
+                        text: vm.$t('alerts.empty.text')
+                    });
+                } else {
+                    vm.$data.weight.first = response.data.records[0].weight;
+                }
+            }).catch(function(error) {
                 vm.defaultError();
             });
 

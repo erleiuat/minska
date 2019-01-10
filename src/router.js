@@ -28,14 +28,25 @@ export default new Router({
             }
         },
         {
-            path: '/weights',
-            name: 'weights',
+            path: '/weight',
+            name: 'weight',
             meta: {
-                title: 'weights',
+                title: 'weight',
                 secure: true
             },
             component: function () {
-                return import('./views/Secure/Weights.vue')
+                return import('./views/Secure/Weight.vue')
+            }
+        },
+        {
+            path: '/calorie',
+            name: 'calorie',
+            meta: {
+                title: 'calorie',
+                secure: true
+            },
+            component: function () {
+                return import('./views/Secure/Calorie.vue')
             }
         },
         {

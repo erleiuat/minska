@@ -3,7 +3,7 @@
         <v-toolbar-side-icon  @click.stop="drawer()"></v-toolbar-side-icon>
         <v-toolbar-title>{{appTitle}}</v-toolbar-title>
         <v-spacer></v-spacer>
-        <v-btn v-if="authenticated" flat @click="logout()"><b v-text="$t('general.logout')"></b> <i class="fas fa-sign-out-alt"></i></v-btn>
+        <v-btn v-if="authenticated" flat @click="logout()"><b v-text="$t('button')"></b> <i class="fas fa-sign-out-alt"></i></v-btn>
     </v-toolbar>
 </template>
 
@@ -17,10 +17,12 @@ export default {
     i18n: {
         messages: {
             en: {
+                button: 'Logout',
                 title: 'Successfully logged out',
                 text: 'You were redirected to the Homepage'
             },
             de: {
+                button: 'Abmelden',
                 title: 'Erfolgreich abgemeldet',
                 text: 'Du wurdest zur Startseite weitergeleitet'
             }

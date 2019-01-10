@@ -45,6 +45,7 @@ export default new Vuex.Store({
             navigation: [
                 {path: '/login', title: 'Login', icon: 'lock_open'},
                 {path: '/register', title: 'Register', icon: 'subdirectory_arrow_right'},
+                {path: '/faq', title: 'faq', icon: 'question_answer'},
             ]
         }
 
@@ -100,10 +101,10 @@ export default new Vuex.Store({
             state.app.authState = true;
             state.app.navigation = [
                 {path: '/dashboard', title: 'dashboard', icon: 'dashboard'},
-                {path: '/weights', title: 'weights', icon: 'linear_scale'},
-                {path: '/calorie', title: 'calories', icon: 'cake'},
-                {path: '/food', title: 'food', icon: 'add_shopping_cart'},
-                {path: '/faq', title: 'faq', icon: 'question_answer'},
+                {path: '/weight', title: 'weight', icon: 'linear_scale'},
+                {path: '/calorie', title: 'calorie', icon: 'cake'},
+                {path: '/templates', title: 'templates', icon: 'add_shopping_cart'},
+                {path: '/help', title: 'help', icon: 'question_answer'},
                 {path: '/settings', title: 'settings', icon: 'settings'},
             ]
 
@@ -122,6 +123,7 @@ export default new Vuex.Store({
             state.app.navigation = [
                 {path: '/login', title: 'login', icon: 'lock_open'},
                 {path: '/register', title: 'register', icon: 'subdirectory_arrow_right'},
+                {path: '/help', title: 'help', icon: 'question_answer'},
             ]
 
         },

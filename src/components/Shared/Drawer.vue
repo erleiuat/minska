@@ -6,7 +6,7 @@
                     <v-icon>{{ item.icon }}</v-icon>
                 </v-list-tile-action>
                 <v-list-tile-content>
-                    <v-list-tile-title v-text="$t('views.'+item.title)"></v-list-tile-title>
+                    <v-list-tile-title v-text="$t(item.title)"></v-list-tile-title>
                 </v-list-tile-content>
             </v-list-tile>
         </v-list>
@@ -18,6 +18,30 @@ import {mapActions} from 'vuex'
 
 export default {
     name: 'Drawer',
+    i18n: {
+        messages: {
+            en: {
+                dashboard: 'Dashboard',
+                login: 'Login',
+                register: 'Register',
+                help: 'Help',
+                weight: 'Weight',
+                calorie: 'Calorie',
+                templates: 'Templates',
+                settings: 'Settings'
+            },
+            de: {
+                dashboard: 'Dashboard',
+                login: 'Anmelden',
+                register: 'Registrieren',
+                help: 'Hilfe',
+                weight: 'Gewicht',
+                calorie: 'Kalorien',
+                templates: 'Vorlagen',
+                settings: 'Einstellungen'
+            }
+        }
+    },
     computed: {
         drawer: {
             get () {

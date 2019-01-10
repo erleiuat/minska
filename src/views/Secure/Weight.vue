@@ -1,6 +1,8 @@
 <template>
     <v-container grid-list-md>
 
+        <h1 v-text="$t('weight')"></h1>
+
         <v-layout row>
             <v-flex md4>
                 <WeightAdder v-model="newWeight"/>
@@ -10,10 +12,9 @@
             </v-flex>
         </v-layout>
 
+        <h1 v-text="$t('allEntries')"></h1>
 
-        <h1 v-text="$t('views.weights')"></h1>
-
-        <v-data-table :rows-per-page-text="$t('rows')" :no-data-text="$t('noData')" :headers="headers" :items="weights" :loading="loading" :rows-per-page-items="[10,20,30]" class="elevation-1">
+        <v-data-table :rows-per-page-text="$t('rows')" :no-data-text="$t('alerts.empty.title')" :headers="headers" :items="weights" :loading="loading" :rows-per-page-items="[10,20,30]" class="elevation-1">
             <v-progress-linear slot="progress" color="blue" indeterminate></v-progress-linear>
             <template slot="items" slot-scope="props">
                 <td>{{ props.item.number }}</td>
@@ -37,7 +38,7 @@ import Chart from '@/components/Secure/Chart'
 
 export default {
 
-    name: 'weights',
+    name: 'Weight',
     components: {
         WeightAdder,
         Chart
@@ -45,19 +46,19 @@ export default {
     i18n: {
         messages: {
             en: {
+                allEntries: 'All Entries',
                 weight: 'Weight',
                 measuredate: 'Measure Date',
                 created: 'Created',
                 actions: 'Actions',
-                noData: 'No Data found',
                 rows: 'Rows per page:'
             },
             de: {
+                allEntries: 'Alle Einträge',
                 weight: 'Gewicht',
                 measuredate: 'Gemessen',
                 created: 'Hinzugefügt',
                 actions: 'Aktionen',
-                noData: 'Keine Daten gefunden',
                 rows: 'Einträge pro Seite:'
             }
         }
@@ -89,33 +90,37 @@ export default {
                 vm.$notify({
                     group: 'default',
                     type: 'error',
-                    title: vm.$t('alerts.error'),
-                    text: vm.$t('alerts.errorMsg')
+                    title: vm.$t('alerts.error.title'),
+                    text: vm.$t('alerts.error.text')
                 });
             });
 
         },
 
-        updateTable(){
 
+        updateTable(){
             var vm = this;
             vm.axiosPost({
                 url:'weight/read/all/',
                 data: {jwt: this.$store.state.user.auth.token},
             }).then(function(response) {
                 vm.$data.loading = false;
-                vm.$data.weights = response.data.records;
+                if(response.status === 204){
+                    vm.$notify({
+                        group: 'default',
+                        type: 'warning',
+                        title: vm.$t('alerts.empty.title'),
+                        text: vm.$t('alerts.empty.text')
+                    });
+                } else {
+                    vm.$data.weights = response.data;
+                }
             }).catch(function (error) {
-                vm.$notify({
-                    group: 'default',
-                    type: 'error',
-                    title: vm.$t('alerts.error'),
-                    text: vm.$t('alerts.errorMsg')
-                });
                 vm.$data.loading = false;
             });
-
         }
+
+
 
     },
 

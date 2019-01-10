@@ -22,17 +22,12 @@ Vue.use(Notifications)
 Vue.mixin({
     methods: {
         axiosPost: axios.create({
-            baseURL: 'http://localhost/minska/minska-api/api/',
+            //baseURL: 'http://localhost/minska/minska-api/api/',
+            baseURL: 'https://minska.api.eliareutlinger.ch/api/',
             timeout: 1000,
             method: 'post',
             headers: {'Content-Type': 'text/plain'},
-        }),
-        axiosGet: axios.create({
-            baseURL: 'http://localhost/minska/minska-api/api/',
-            timeout: 1000,
-            method: 'get',
-            headers: {'Content-Type': 'text/plain'},
-        }),
+        })
     }
 })
 

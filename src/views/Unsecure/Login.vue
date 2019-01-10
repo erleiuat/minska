@@ -3,10 +3,10 @@
         <v-form v-model="rules.valid" ref="registrationForm">
             <v-layout justify-center row wrap>
                 <v-flex xs6 sm6 md6>
-                    <h1 v-text="$t('views.login')"></h1>
-                    <v-text-field :label="$t('general.mail')" v-model="formdata.email" :rules="rules.email" outline></v-text-field>
-                    <v-text-field :label="$t('general.password')" v-model="formdata.password" outline :rules="rules.pass" :type="'password'"></v-text-field>
-                    <v-btn depressed block @click="sendLogin()" large color="primary" :disabled="disabled" v-text="$t('views.login')"></v-btn>
+                    <h1 v-text="$t('title')"></h1>
+                    <v-text-field :label="$t('mail')" v-model="formdata.email" :rules="rules.email" outline></v-text-field>
+                    <v-text-field :label="$t('password')" v-model="formdata.password" outline :rules="rules.pass" :type="'password'"></v-text-field>
+                    <v-btn depressed block @click="sendLogin()" large color="primary" :disabled="disabled" v-text="$t('title')"></v-btn>
                 </v-flex>
             </v-layout>
         </v-form>
@@ -20,6 +20,9 @@ export default {
     i18n: {
         messages: {
             en: {
+                title: 'Login',
+                mail: 'E-Mail',
+                password: 'Password',
                 success: {
                     title: 'Login Successful!',
                     text: 'You were redirected to your Dashboard'
@@ -30,6 +33,9 @@ export default {
                 }
             },
             de: {
+                title: 'Anmelden',
+                mail: 'E-Mail',
+                password: 'Passwort',
                 success: {
                     title: 'Erfolgreich angemeldet!',
                     text: 'Du wurdest zu deinem Dashboard weitergeleitet'
