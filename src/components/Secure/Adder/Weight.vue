@@ -4,8 +4,8 @@
 
             <v-card-title primary-title>
                 <div>
-                    <div class="headline">Add Weight</div>
-                    <span class="grey--text">Enter your weight after you have been on the scale.</span>
+                    <div class="headline">{{ $t('title') }}</div>
+                    <span class="grey--text">{{ $t('subtitle') }}</span>
                 </div>
             </v-card-title>
 
@@ -14,7 +14,7 @@
                     <v-layout row wrap>
 
                         <v-flex sm12>
-                            <v-text-field label="Weight" v-model="formdata.weight" :rules="rules.weight" outline></v-text-field>
+                            <v-text-field :label="$t('weight')" v-model="formdata.weight" :rules="rules.weight" outline></v-text-field>
                         </v-flex>
 
                         <v-flex sm12>
@@ -25,7 +25,7 @@
                         </v-flex>
 
                         <v-flex xs12>
-                            <v-btn :disabled="disabled" large block color="primary" @click="addWeight()">Add</v-btn>
+                            <v-btn :disabled="disabled" large block color="primary" @click="addWeight()">{{$t('add')}}</v-btn>
                         </v-flex>
 
                     </v-layout>
@@ -39,6 +39,23 @@
 <script>
 export default {
     name: 'WeightAdder',
+
+    i18n: {
+        messages: {
+            en: {
+                title: 'Add Weight',
+                subtitle: 'Enter your weight to get relevant Facts',
+                weight: 'Weight (Kg)',
+                add: 'Add'
+            },
+            de: {
+                title: 'Gewicht hinzufügen',
+                subtitle: 'Notiere dein Gewicht um nützliche Fakten und Kalorienangaben zu erhalten',
+                weight: 'Gewicht (Kg)',
+                add: 'Hinzufügen'
+            }
+        }
+    },
 
     methods: {
 
@@ -65,8 +82,13 @@ export default {
                         title: vm.$t('alerts.saved'),
                         text: vm.$t('alerts.savedMsg')
                     });
+                    vm.$store.commit('changeData', {
+                        recent: {
+                            weight: vm.$data.formdata.weight,
+                            calorie: vm.$store.state.user.data.recent.calorie
+                        }
+                    });
                     vm.$refs.addWeightForm.reset();
-                    vm.$emit('input');
                     vm.disabled=true;
 
                 }).catch(function (error) {

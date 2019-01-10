@@ -30,6 +30,12 @@ export default new Vuex.Store({
                     date: null
                 }
             },
+            data: {
+                recent: {
+                    weight: null,
+                    calorie: 123
+                }
+            }
         },
 
         app: {
@@ -122,6 +128,10 @@ export default new Vuex.Store({
 
         changeLanguage(state, newlang){
             state.user.info.language = newlang;
+        },
+
+        changeData(state, newData){
+            state.user.data = newData;
         }
 
     },
@@ -133,48 +143,33 @@ export default new Vuex.Store({
             if(!state.user.auth.authenticated){
 
                 if(VueCookie.get('authCookie')){
-
                     if( JSON.parse(VueCookie.get('authCookie')).expiration.token > Math.floor(Date.now() / 1000) && JSON.parse(VueCookie.get('authCookie')).expiration.client > Math.floor(Date.now() / 1000) ){
-                        //Token Valid
                         commit('login', JSON.parse(VueCookie.get('authCookie')).token);
                     } else {
-                        //Token Expired
                         state.user.auth.expired = true;
                         commit('logout');
                     }
-
                 } else {
-                    //Token Expired
                     commit('logout');
                 }
 
             } else if(state.user.auth.authenticated){
 
                 if( state.user.auth.expiration.client > Math.floor(Date.now() / 1000) && state.user.auth.expiration.token > Math.floor(Date.now() / 1000)){
-
-                    //Token Valid
                     if(!state.app.authState){
                         commit('login', state.user.auth.token);
                     }
-
                 } else {
-
-                    //Token Expired
                     state.user.auth.expired = true;
                     commit('logout');
-
                 }
 
             }
-
         }
-
     },
 
     modules: {
-
         VueCookie
-
     }
 
 })

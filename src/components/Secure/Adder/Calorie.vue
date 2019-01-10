@@ -4,8 +4,8 @@
 
             <v-card-title primary-title>
                 <div>
-                    <div class="headline">Add Calories</div>
-                    <span class="grey--text">Write down what you eat to keep track of your calories.</span>
+                    <div class="headline">{{ $t('title') }}</div>
+                    <span class="grey--text">{{ $t('subtitle') }}</span>
                 </div>
             </v-card-title>
 
@@ -14,7 +14,7 @@
                     <v-layout row wrap>
 
                         <v-flex sm6>
-                            <v-text-field label="Title" v-model="formdata.weight" :rules="rules.weight" outline></v-text-field>
+                            <v-text-field :label="$t('formTitle')" v-model="formdata.weight" :rules="rules.weight" outline></v-text-field>
                         </v-flex>
 
                         <v-flex sm6>
@@ -25,16 +25,16 @@
                         </v-flex>
 
                         <v-flex sm6>
-                            <v-text-field label="Calories" v-model="formdata.calorie" :rules="rules.number" outline></v-text-field>
+                            <v-text-field :label="$t('formCalories')" v-model="formdata.calorie" :rules="rules.number" outline></v-text-field>
                         </v-flex>
 
                         <v-flex sm6>
-                            <v-text-field label="Amount" v-model="formdata.amount" :rules="rules.number" outline></v-text-field>
+                            <v-text-field :label="$t('formAmount')" v-model="formdata.amount" :rules="rules.number" outline></v-text-field>
                         </v-flex>
 
 
                         <v-flex xs12>
-                            <v-btn large block color="primary">Add</v-btn>
+                            <v-btn large block color="primary">{{ $t('add') }}</v-btn>
                         </v-flex>
 
                     </v-layout>
@@ -48,6 +48,29 @@
 <script>
 export default {
     name: 'CalorieAdder',
+
+    i18n: {
+        messages: {
+            en: {
+                title: 'Add Calories',
+                subtitle: 'Write down what you eat to keep track of your calories',
+                weight: 'Weight (Kg)',
+                add: 'Add',
+                formTitle: 'Title',
+                formCalories: 'Calories per 100 g/ml',
+                formAmount: 'Amount (g/ml)',
+            },
+            de: {
+                title: 'Kalorien hinzufügen',
+                subtitle: 'Dokumentiere was du isst um deine verbleibenden Kalorien zu berechnen',
+                weight: 'Gewicht (Kg)',
+                add: 'Hinzufügen',
+                formTitle: 'Titel',
+                formCalories: 'Kalorien per 100 g/ml',
+                formAmount: 'Menge (g/ml)',
+            }
+        }
+    },
 
     computed: {
         computedDateFormatted () {

@@ -16,6 +16,32 @@
 <script>
 export default {
 
+    name: 'Login',
+    i18n: {
+        messages: {
+            en: {
+                success: {
+                    title: 'Login Successful!',
+                    text: 'You were redirected to your Dashboard'
+                },
+                fail: {
+                    title: 'Login failed',
+                    text: "E-Mail/Password are incorrect or Account not found"
+                }
+            },
+            de: {
+                success: {
+                    title: 'Erfolgreich angemeldet!',
+                    text: 'Du wurdest zu deinem Dashboard weitergeleitet'
+                },
+                fail: {
+                    title: 'Anmeldung fehlgeschlagen',
+                    text: "E-Mail/Password sind falsch oder der Account existiert nicht"
+                }
+            }
+        }
+    },
+
     methods: {
 
         sendLogin(){
@@ -35,16 +61,16 @@ export default {
                     vm.$notify({
                         group: 'default',
                         type: 'success',
-                        title: 'Login Successful!',
-                        text: "You got redirected to your Dashboard"
+                        title: vm.$t('success.title'),
+                        text: vm.$t('success.text')
                     });
                     vm.$router.push('/dashboard');
                 }).catch(function (error) {
                     vm.$notify({
                         group: 'default',
                         type: 'error',
-                        title: 'Something went wrong',
-                        text: "Login was not Successful. Did you create an Account yet?"
+                        title: vm.$t('fail.title'),
+                        text: vm.$t('fail.text')
                     });
                     vm.disabled=false;
                 });

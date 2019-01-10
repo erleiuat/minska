@@ -4,10 +4,11 @@
 
             <v-flex xs12>
                 <h1>{{ $t('title', {name: firstname}) }}</h1>
+                <i>{{ $t('subtitle') }}</i>
             </v-flex>
 
             <v-flex md6>
-                <WeightAdder v-model="newData" />
+                <WeightAdder />
             </v-flex>
             <v-flex md6>
                 <CalorieAdder />
@@ -18,15 +19,13 @@
             </v-flex>
 
             <v-flex xs12>
-                <h1>Facts</h1>
+                <h1>{{ $t('factsTitle') }}</h1>
             </v-flex>
 
             <v-flex xs12>
-                <!--
-                <AllFacts :newData="newData" />
-                -->
+                <AllFacts />
             </v-flex>
-
+            <!--
             <v-flex xs6>
                 <recently />
             </v-flex>
@@ -36,7 +35,7 @@
             <v-flex xs6>
                 <target />
             </v-flex>
-
+            -->
 
         </v-layout>
     </v-container>
@@ -62,11 +61,13 @@ export default {
         messages: {
             en: {
                 title: 'Hello {name}!',
-                subtitle: 'Welcome to your Dashboard.'
+                subtitle: 'Welcome to your Dashboard',
+                factsTitle: 'Facts'
             },
             de: {
                 title: 'Hallo {name}!',
-                subtitle: 'Willkommen auf deinem Dashboard.'
+                subtitle: 'Willkommen auf deinem Dashboard',
+                factsTitle: 'Fakten'
             }
         }
     },
