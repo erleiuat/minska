@@ -1,5 +1,5 @@
 <template>
-    <v-navigation-drawer app v-model="drawer" class="deep-orange lighten-5" clipped floating>
+    <v-navigation-drawer app v-model="drawer" class="secondary" clipped floating>
         <v-list class="pt-0" dense>
             <v-list-tile v-for="item in items" :key="item.title" @click="" :to="{path: item.path}">
                 <v-list-tile-action>
