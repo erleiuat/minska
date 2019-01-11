@@ -110,18 +110,15 @@
                         data: postData,
 
                     }).then(function (response) {
-
-                        vm.$store.commit('login',  response.data.jwt);
+                        vm.$store.commit('login',  response.data.content);
                         vm.$notify({
                             group: 'default',
                             type: 'success',
-                            title: vm.$t('alerts.saved'),
-                            text: vm.$t('alerts.savedMsg')
+                            title: vm.$t('alerts.success.title'),
+                            text: vm.$t('alerts.success.text')
                         });
                         vm.disabled=true;
-
                     }).catch(function (error) {
-
                         vm.$notify({
                             group: 'default',
                             type: 'error',
@@ -129,7 +126,6 @@
                             text: vm.$t('alerts.error.text')
                         });
                         vm.disabled=false;
-
                     });
                 }
             }

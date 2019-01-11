@@ -94,12 +94,12 @@ export default {
             rules: {
                 valid: false,
                 email: [
-                (v) => !!v || 'E-mail is required',
-                (v) => /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'E-mail must be valid'
+                (v) => !!v || this.$t('errors.required'),
+                (v) => /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(v) || this.$t('errors.valid'),
                 ],
                 pass: [
-                (v) => !!v || 'Password is required',
-                (v) => /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/.test(v) || 'Password not strong enough'
+                (v) => !!v || this.$t('errors.required'),
+                (v) => /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/.test(v) || this.$t('errors.valid'),
                 ],
             }
         }

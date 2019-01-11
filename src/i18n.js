@@ -25,7 +25,21 @@ export default new VueI18n({
                     text: "Changes successfully saved"
                 }
             },
-
+            views: {
+                dashboard: 'Dashboard',
+                weight: 'Weight',
+                calories: 'Calories',
+                templates: 'Templates',
+                help: 'Help',
+                settings: 'Settings',
+                login: 'Login',
+                register: 'Register',
+                home: 'Home'
+            },
+            errors: {
+                valid: 'Value has to be valid',
+                required: 'Value is required'
+            }
         },
 
         de: {
@@ -41,8 +55,23 @@ export default new VueI18n({
                 success: {
                     title: "Erfolg",
                     text: "Änderungen wurden gespeichert"
-                }
+                },
             },
+            views: {
+                dashboard: 'Dashboard',
+                weight: 'Gewicht',
+                calories: 'Kalorien',
+                templates: 'Vorlagen',
+                help: 'Hilfe',
+                settings: 'Einstellungen',
+                login: 'Anmelden',
+                register: 'Registrieren',
+                home: 'Start'
+            },
+            errors: {
+                valid: 'Ungültige Eingabe',
+                required: 'Eingabe wird benötigt'
+            }
         }
 
     },

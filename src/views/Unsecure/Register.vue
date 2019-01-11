@@ -55,7 +55,17 @@ export default {
                 mail: 'E-Mail',
                 password: 'Password',
                 repeat: 'Repeat Password',
-                button: 'Register now'
+                button: 'Register now',
+                match: "Passwords don't match",
+                strong: "Password isn't strong enough",
+                created: {
+                    title: 'Account created!',
+                    text: 'You can now login'
+                },
+                failed: {
+                    title: 'Account not created',
+                    text: 'Maybe this E-Mail Address is already in use'
+                }
             },
             de: {
                 title: 'Account erstellen',
@@ -64,7 +74,17 @@ export default {
                 mail: 'E-Mail',
                 password: 'Passwort',
                 repeat: 'Passwort wiederholen',
-                button: 'Registieren'
+                button: 'Registieren',
+                match: 'Passwörter stimmen nicht überein',
+                strong: 'Passwort ist nicht stark genug',
+                created: {
+                    title: 'Account erstellt!',
+                    text: 'Du kannst dich nun anmelden'
+                },
+                failed: {
+                    title: 'Fehler beim erstellen des Accounts',
+                    text: 'Möglicherweise existiert bereits ein Account mit dieser E-Mail'
+                }
             }
         }
     },
@@ -84,16 +104,16 @@ export default {
                     vm.$notify({
                         group: 'default',
                         type: 'success',
-                        title: 'Account created!',
-                        text: "You can now login to your Account"
+                        title: $t('created.title'),
+                        text: $t('created.text')
                     });
                     vm.$router.push('/login');
                 }).catch(function (error) {
                     vm.$notify({
                         group: 'default',
                         type: 'error',
-                        title: 'Something went wrong',
-                        text: "Your Account couldn't be created."
+                        title: $t('failed.title'),
+                        text: $t('failed.text')
                     });
                     vm.disabled=false;
                 });
@@ -116,7 +136,7 @@ export default {
                 valid: false,
                 name: [
                 (v) => !!v || this.$t('errors.required'),
-                (v) => v && v.length <= 10 || this.$t('errors.valid')
+                (v) => v && v.length <= 90 || this.$t('errors.valid')
                 ],
                 email: [
                 (v) => !!v || this.$t('errors.required'),
@@ -124,11 +144,11 @@ export default {
                 ],
                 pass: [
                 (v) => !!v || this.$t('errors.required'),
-                (v) => /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/.test(v) || 'Password not strong enough'
+                (v) => /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/.test(v) || this.$t('strong'),
                 ],
                 pass2: [
-                (v) => !!v || 'Please repeat your password',
-                (v) => v == this.$data.formdata.password || "Passwords don't match",
+                (v) => !!v || this.$t('repeat'),
+                (v) => v == this.$data.formdata.password || this.$t('match'),
                 ]
             }
         }

@@ -43,9 +43,9 @@ export default new Vuex.Store({
             authState: false,
             drawer: true,
             navigation: [
-                {path: '/login', title: 'Login', icon: 'lock_open'},
-                {path: '/register', title: 'Register', icon: 'subdirectory_arrow_right'},
-                {path: '/faq', title: 'faq', icon: 'question_answer'},
+                {path: '/login', title: 'login', icon: 'lock_open'},
+                {path: '/register', title: 'register', icon: 'subdirectory_arrow_right'},
+                {path: '/help', title: 'help', icon: 'question_answer'},
             ]
         }
 
@@ -102,7 +102,7 @@ export default new Vuex.Store({
             state.app.navigation = [
                 {path: '/dashboard', title: 'dashboard', icon: 'dashboard'},
                 {path: '/weight', title: 'weight', icon: 'linear_scale'},
-                {path: '/calorie', title: 'calorie', icon: 'cake'},
+                {path: '/calories', title: 'calories', icon: 'cake'},
                 {path: '/templates', title: 'templates', icon: 'add_shopping_cart'},
                 {path: '/help', title: 'help', icon: 'question_answer'},
                 {path: '/settings', title: 'settings', icon: 'settings'},

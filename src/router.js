@@ -39,14 +39,14 @@ export default new Router({
             }
         },
         {
-            path: '/calorie',
-            name: 'calorie',
+            path: '/calories',
+            name: 'calories',
             meta: {
-                title: 'calorie',
+                title: 'calories',
                 secure: true
             },
             component: function () {
-                return import('./views/Secure/Calorie.vue')
+                return import('./views/Secure/Calories.vue')
             }
         },
         {
