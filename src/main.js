@@ -15,12 +15,12 @@ Vue.use(VueAxios, axios)
 Vue.use(Notifications)
 Vue.use(Vuetify, {
     theme: {
-        primary: '#FF9000',
-        secondary: '#FFE3BE',
-        error: '#FF2D32',
-        info: '#2B78AF',
-        success: '#0DC203',
-        warning: '#FFA42D'
+        primary: '#2E2EFF',
+        secondary: '#EBEBFF',
+        error: '#B30000',
+        info: '#006061',
+        success: '#006600',
+        warning: '#CC5E00'
     }
 })
 
