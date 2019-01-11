@@ -88,8 +88,8 @@ export default {
         return {
             disabled: false,
             formdata: {
-                email: 'mail@eliareutlinger.ch',
-                password: 'Test@1234'
+                email: '',
+                password: ''
             },
             rules: {
                 valid: false,

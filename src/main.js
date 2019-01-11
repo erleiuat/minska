@@ -22,8 +22,8 @@ Vue.use(Vuetify, {
 Vue.mixin({
     methods: {
         axiosPost: axios.create({
-            baseURL: 'http://localhost/minska/minska-api/',
-            //baseURL: 'https://minska.api.eliareutlinger.ch/',
+            //baseURL: 'http://localhost/minska/minska-api/',
+            baseURL: 'https://minska.api.eliareutlinger.ch/',
             timeout: 8000,
             method: 'post',
             headers: {'Content-Type': 'text/plain'},
