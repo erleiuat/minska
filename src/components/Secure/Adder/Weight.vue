@@ -60,29 +60,24 @@ export default {
     },
 
     methods: {
-
         addWeight(){
 
             this.$refs.addWeightForm.validate();
             if(this.$data.rules.valid){
-
                 var vm = this;
                 var postData = vm.$data.formdata;
                 postData.jwt = this.$store.state.user.auth.token;
                 vm.$data.disabled=true;
 
                 vm.axiosPost({
-
                     url:'weight/create/',
                     data: postData,
-
                 }).then(function (response) {
-
                     vm.$notify({
                         group: 'default',
                         type: 'success',
-                        title: vm.$t('alerts.saved'),
-                        text: vm.$t('alerts.savedMsg')
+                        title: vm.$t('alerts.success.title'),
+                        text: vm.$t('alerts.success.text')
                     });
                     vm.$store.commit('changeData', {
                         recent: {
@@ -91,10 +86,7 @@ export default {
                         }
                     });
                     vm.$refs.addWeightForm.reset();
-                    vm.disabled=true;
-
                 }).catch(function (error) {
-
                     vm.$notify({
                         group: 'default',
                         type: 'error',
@@ -102,12 +94,10 @@ export default {
                         text: vm.$t('alerts.error.text')
                     });
                     vm.disabled=false;
-
                 });
             }
 
         }
-
     },
 
     computed: {
@@ -148,7 +138,9 @@ export default {
     watch: {
         'formdata': {
             handler: function (val, oldVal) {
-                this.disabled = false;
+                if(val.weight && val.date){
+                    this.disabled = false;
+                }
             },
             deep: true
         }

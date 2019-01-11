@@ -17,7 +17,7 @@
                     </template>
                 </notifications>
 
-                <transition name="fade">
+                <transition>
                     <router-view>
 
                     </router-view>

@@ -53,17 +53,15 @@ export default {
         sendLogin(){
 
             var vm = this;
-            vm.$refs.registrationForm.validate()
+            vm.$refs.registrationForm.validate();
 
             if(vm.$data.rules.valid){
-
                 vm.$data.disabled=true;
-
                 vm.axiosPost({
                     url:'user/login/',
                     data: vm.$data.formdata
-                }).then(function (response) {
-                    vm.$store.commit('login',  response.data.jwt);
+                }).then(function(response) {
+                    vm.$store.commit('login', response.data.content);
                     vm.$notify({
                         group: 'default',
                         type: 'success',
@@ -80,7 +78,6 @@ export default {
                     });
                     vm.disabled=false;
                 });
-
             }
 
         }
@@ -88,7 +85,6 @@ export default {
     },
 
     data (){
-
         return {
             disabled: false,
             formdata: {
@@ -107,7 +103,6 @@ export default {
                 ],
             }
         }
-
     }
 
 }

@@ -20,6 +20,10 @@ export default new VueI18n({
                     title: "Error while execution",
                     text: "There was an Error while executing this task. Changes may not be saved or the Application is in Error."
                 },
+                success: {
+                    title: "Success",
+                    text: "Changes successfully saved"
+                }
             },
 
         },
@@ -34,9 +38,13 @@ export default new VueI18n({
                     title: "Problem bei der Ausführung",
                     text: "Bei der Ausführung ist ein Problem aufgetreten. Neue Daten wurden möglicherweise nicht gespeichert, oder die Anwendung weisst nun Fehler auf."
                 },
+                success: {
+                    title: "Erfolg",
+                    text: "Änderungen wurden gespeichert"
+                }
             },
         }
-        
+
     },
 
 })

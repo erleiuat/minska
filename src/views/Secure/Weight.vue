@@ -1,46 +1,47 @@
 <template>
     <v-container grid-list-md>
-
-        <h1 v-text="$t('weight')"></h1>
-
-        <v-layout row>
-            <v-flex md4>
-                <WeightAdder v-model="newWeight"/>
+        <v-layout row wrap>
+            <v-flex xs12>
+                <h1 v-text="$t('weight')"></h1>
             </v-flex>
-            <v-flex md8>
+
+            <v-flex xs12>
                 <Chart :chartValues="weights" xData="measuredate" yData="weight"/>
             </v-flex>
+
+            <v-flex xs12>
+                <v-divider></v-divider>
+                <h1 v-text="$t('allEntries')"></h1>
+            </v-flex>
+
+            <v-flex xs12>
+                <v-data-table :rows-per-page-text="$t('rows')" :no-data-text="$t('alerts.empty.title')" :headers="headers" :items="weights" :loading="loading" :rows-per-page-items="[10,20,30]" class="elevation-1">
+                    <v-progress-linear slot="progress" color="blue" indeterminate></v-progress-linear>
+                    <template slot="items" slot-scope="props">
+                        <td>{{ props.item.number }}</td>
+                        <td>{{ props.item.weight }}</td>
+                        <td>{{ props.item.measuredate }}</td>
+                        <td>{{ props.item.creationdate }}</td>
+                        <td class="text-xs-center">
+                            <v-icon small @click="deleteWeight(props.item)">
+                                delete
+                            </v-icon>
+                        </td>
+                    </template>
+                </v-data-table>
+            </v-flex>
+
         </v-layout>
-
-        <h1 v-text="$t('allEntries')"></h1>
-
-        <v-data-table :rows-per-page-text="$t('rows')" :no-data-text="$t('alerts.empty.title')" :headers="headers" :items="weights" :loading="loading" :rows-per-page-items="[10,20,30]" class="elevation-1">
-            <v-progress-linear slot="progress" color="blue" indeterminate></v-progress-linear>
-            <template slot="items" slot-scope="props">
-                <td>{{ props.item.number }}</td>
-                <td>{{ props.item.weight }}</td>
-                <td>{{ props.item.measuredate }}</td>
-                <td>{{ props.item.creationdate }}</td>
-                <td class="text-xs-center">
-                    <v-icon small @click="deleteWeight(props.item)">
-                        delete
-                    </v-icon>
-                </td>
-            </template>
-        </v-data-table>
-
     </v-container>
 </template>
 
 <script>
-import WeightAdder from '@/components/Secure/Adder/Weight'
 import Chart from '@/components/Secure/Chart'
 
 export default {
 
     name: 'Weight',
     components: {
-        WeightAdder,
         Chart
     },
     i18n: {
@@ -65,26 +66,22 @@ export default {
     },
 
     methods: {
-
         deleteWeight(item){
-
             var vm = this;
-            var postdata = {
-                id: item.id,
-                jwt: this.$store.state.user.auth.token
-            }
-
             vm.axiosPost({
                 url:'weight/delete/',
-                data: postdata,
+                data: {
+                    id: item.id,
+                    jwt: this.$store.state.user.auth.token,
+                },
             }).then(function(response) {
                 const index = vm.weights.indexOf(item);
                 vm.weights.splice(index, 1);
                 vm.$notify({
                     group: 'default',
                     type: 'success',
-                    title: vm.$t('alerts.saved'),
-                    text: vm.$t('alerts.savedMsg')
+                    title: vm.$t('alerts.success.title'),
+                    text: vm.$t('alerts.success.text')
                 });
             }).catch(function (error) {
                 vm.$notify({
@@ -97,30 +94,30 @@ export default {
 
         },
 
-
         updateTable(){
             var vm = this;
             vm.axiosPost({
                 url:'weight/read/all/',
                 data: {jwt: this.$store.state.user.auth.token},
-            }).then(function(response) {
-                vm.$data.loading = false;
-                if(response.status === 204){
-                    vm.$notify({
-                        group: 'default',
-                        type: 'warning',
-                        title: vm.$t('alerts.empty.title'),
-                        text: vm.$t('alerts.empty.text')
-                    });
-                } else {
-                    vm.$data.weights = response.data;
-                }
-            }).catch(function (error) {
+            }).then(function(response){
+                vm.$data.weights = response.data.content;
+                vm.$store.commit('changeData', {
+                    recent: {
+                        weight: response.data.content[0].weight,
+                        calorie: vm.$store.state.user.data.recent.calorie
+                    }
+                });
+            }).catch(function(error){
+                vm.$notify({
+                    group: 'default',
+                    type: 'warning',
+                    title: vm.$t('alerts.empty.title'),
+                    text: vm.$t('alerts.empty.text')
+                });
+            }).then(function(){
                 vm.$data.loading = false;
             });
         }
-
-
 
     },
 
@@ -130,7 +127,6 @@ export default {
 
     data(){
         return {
-            newWeight: false,
             loading: true,
             weights: [],
             headers: [
@@ -142,16 +138,6 @@ export default {
             ],
         }
     },
-
-    watch: {
-        newWeight: {
-            handler: function() {
-                this.updateTable();
-                this.$data.newWeight = false;
-            },
-            deep: true
-        }
-    }
 
 }
 </script>

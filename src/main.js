@@ -10,20 +10,20 @@ import i18n from './i18n'
 import './registerServiceWorker'
 import 'vuetify/dist/vuetify.min.css'
 
+Vue.config.productionTip = false
+Vue.use(VueAxios, axios)
+Vue.use(Notifications)
 Vue.use(Vuetify, {
     theme: {
         primary: '#FF8A65',
     }
 })
 
-Vue.use(VueAxios, axios)
-Vue.use(Notifications)
-
 Vue.mixin({
     methods: {
         axiosPost: axios.create({
-            //baseURL: 'http://localhost/minska/minska-api/api/',
-            baseURL: 'https://minska.api.eliareutlinger.ch/api/',
+            baseURL: 'http://localhost/minska/minska-api/',
+            //baseURL: 'https://minska.api.eliareutlinger.ch/',
             timeout: 1000,
             method: 'post',
             headers: {'Content-Type': 'text/plain'},
@@ -31,11 +31,11 @@ Vue.mixin({
     }
 })
 
-Vue.config.productionTip = false
-
 new Vue({
     router,
     store,
     i18n,
-    render: function (h) { return h(App) }
+    render: function(h){
+        return h(App)
+    }
 }).$mount('#app')

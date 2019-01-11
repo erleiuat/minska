@@ -77,7 +77,6 @@ export default {
         buildCards(){
 
             var vm = this;
-
             vm.axiosPost({
                 url:'weight/read/amount/',
                 data: {
@@ -85,24 +84,20 @@ export default {
                     amount: 2,
                 },
             }).then(function(response) {
-                if(response.status === 204){
-                    vm.$notify({
-                        group: 'default',
-                        type: 'warning',
-                        title: vm.$t('alerts.empty.title'),
-                        text: vm.$t('alerts.empty.text')
-                    });
-                } else {
-                    vm.$store.commit('changeData', {
-                        recent: {
-                            weight: response.data.records[0].weight,
-                            calorie: vm.$store.state.user.data.recent.calorie
-                        }
-                    });
-                    vm.$data.weight.last = response.data.records[1].weight;
-                }
+                vm.$store.commit('changeData', {
+                    recent: {
+                        weight: response.data.content[0].weight,
+                        calorie: vm.$store.state.user.data.recent.calorie
+                    }
+                });
+                vm.$data.weight.last = response.data.content[1].weight;
             }).catch(function (error) {
-                vm.defaultError();
+                vm.$notify({
+                    group: 'default',
+                    type: 'warning',
+                    title: vm.$t('alerts.empty.title'),
+                    text: vm.$t('alerts.empty.text')
+                });
             });
 
             vm.axiosPost({
@@ -113,18 +108,14 @@ export default {
                     order: 'ASC'
                 },
             }).then(function(response) {
-                if(response.status === 204){
-                    vm.$notify({
-                        group: 'default',
-                        type: 'warning',
-                        title: vm.$t('alerts.empty.title'),
-                        text: vm.$t('alerts.empty.text')
-                    });
-                } else {
-                    vm.$data.weight.first = response.data.records[0].weight;
-                }
+                vm.$data.weight.first = response.data.content[0].weight;
             }).catch(function(error) {
-                vm.defaultError();
+                vm.$notify({
+                    group: 'default',
+                    type: 'warning',
+                    title: vm.$t('alerts.empty.title'),
+                    text: vm.$t('alerts.empty.text')
+                });
             });
 
         }
