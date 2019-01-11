@@ -5,7 +5,7 @@
             <v-card-title primary-title>
                 <div>
                     <div class="headline">{{ $t('title') }}</div>
-                    <span class="grey--text">{{ $t('subtitle') }}</span>
+                    <span class="grey--text text--darken-3">{{ $t('subtitle') }}</span>
                 </div>
             </v-card-title>
 

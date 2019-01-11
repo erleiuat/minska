@@ -1,6 +1,6 @@
 <template>
     <v-toolbar app class="primary" flat dark clipped-left>
-        <v-toolbar-side-icon  @click.stop="drawer()"></v-toolbar-side-icon>
+        <v-toolbar-side-icon @click.stop="drawer()"></v-toolbar-side-icon>
         <v-toolbar-title>{{appTitle}}</v-toolbar-title>
         <v-spacer></v-spacer>
         <v-btn v-if="authenticated" flat @click="logout()"><b v-text="$t('button')"></b> <v-icon>exit_to_app</v-icon></v-btn>
