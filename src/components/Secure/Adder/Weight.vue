@@ -1,5 +1,5 @@
 <template>
-    <v-container fluid grid-list-md>
+    <v-container grid-list-sm pa-1>
         <v-card>
 
             <v-card-title primary-title>

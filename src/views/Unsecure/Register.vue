@@ -1,33 +1,27 @@
 <template>
     <v-container grid-list-md >
-        <v-layout justify-center row wrap>
-            <v-flex xs10>
+
                 <v-form v-model="rules.valid" ref="registrationForm">
                     <v-layout justify-center row wrap>
 
-                        <v-flex xs12 >
-                            <p>
-
-                            </p>
-                        </v-flex>
-                        <v-flex xs12 >
+                        <v-flex xs12>
                             <h1 class="text-xs-center" v-text="$t('title')"></h1>
                         </v-flex>
 
-                        <v-flex xs4>
+                        <v-flex xs12 sm4>
                             <v-text-field :label="$t('firstname')" v-model="formdata.firstname" :rules="rules.name" outline></v-text-field>
                         </v-flex>
-                        <v-flex xs4>
+                        <v-flex xs12 sm4>
                             <v-text-field :label="$t('lastname')" v-model="formdata.lastname" :rules="rules.name" outline></v-text-field>
                         </v-flex>
-                        <v-flex xs4>
+                        <v-flex xs12 sm4>
                             <v-text-field :label="$t('mail')" v-model="formdata.email" :rules="rules.email" outline></v-text-field>
                         </v-flex>
 
-                        <v-flex xs6>
+                        <v-flex xs12 sm6>
                             <v-text-field :label="$t('password')" v-model="formdata.password" outline :rules="rules.pass" :type="'password'"></v-text-field>
                         </v-flex>
-                        <v-flex xs6>
+                        <v-flex xs12 sm6>
                             <v-text-field :label="$t('repeat')" outline :rules="rules.pass2" :type="'password'"></v-text-field>
                         </v-flex>
                         <v-flex xs12>
@@ -36,8 +30,7 @@
 
                     </v-layout>
                 </v-form>
-            </v-flex>
-        </v-layout>
+
     </v-container>
 </template>
 

@@ -2,7 +2,7 @@
     <v-container>
         <v-form v-model="rules.valid" ref="registrationForm">
             <v-layout justify-center row wrap>
-                <v-flex xs6 sm6 md6>
+                <v-flex xs12 sm8 md6>
                     <h1 v-text="$t('title')"></h1>
                     <v-text-field :label="$t('mail')" v-model="formdata.email" :rules="rules.email" outline></v-text-field>
                     <v-text-field :label="$t('password')" v-model="formdata.password" outline :rules="rules.pass" :type="'password'"></v-text-field>

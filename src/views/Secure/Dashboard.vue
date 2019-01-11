@@ -1,5 +1,5 @@
 <template>
-    <v-container>
+    <v-container pa-0>
         <v-layout row wrap>
 
             <v-flex xs12>
@@ -14,7 +14,7 @@
                 <CalorieAdder />
             </v-flex>
 
-            <v-flex xs12>
+            <v-flex xs12 pa-3>
                 <v-divider></v-divider>
             </v-flex>
 

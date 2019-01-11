@@ -1,7 +1,6 @@
 <template>
-    <v-container grid-list-md>
+    <v-container grid-list-sm pa-0>
         <h1 v-text="$t('title')"></h1>
-
         <v-card>
             <v-container fluid grid-list-md>
                 <v-form v-model="rules.valid" ref="settingsForm">

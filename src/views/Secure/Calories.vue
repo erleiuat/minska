@@ -1,5 +1,5 @@
 <template>
-    <v-container grid-list-md>
+    <v-container grid-list-md pa-0>
         <v-layout row wrap>
 
             <v-flex xs12>
