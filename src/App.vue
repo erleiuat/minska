@@ -6,7 +6,7 @@
 
         <v-content>
             <v-container fluid fill-height>
-                <notifications app group="default" position="bottom right" width="auto">
+                <notifications app group="default" position="bottom center" width="auto">
                     <template slot="body" slot-scope="props">
                         <v-alert app value="true" :type="props.item.type" @click="props.close">
                             <h3>{{props.item.title}}</h3>

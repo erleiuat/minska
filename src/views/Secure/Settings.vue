@@ -100,7 +100,7 @@
 
                     var vm = this;
                     var postData = vm.$data.formdata;
-                    postData.jwt = this.$store.state.user.auth.token;
+                    postData.token = this.$store.state.user.auth.token;
                     vm.$data.disabled=true;
 
                     vm.axiosPost({

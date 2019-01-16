@@ -80,7 +80,7 @@ export default {
             vm.axiosPost({
                 url:'weight/read/amount/',
                 data: {
-                    jwt: this.$store.state.user.auth.token,
+                    token: this.$store.state.user.auth.token,
                     amount: 2,
                 },
             }).then(function(response) {
@@ -103,7 +103,7 @@ export default {
             vm.axiosPost({
                 url:'weight/read/amount/',
                 data: {
-                    jwt: this.$store.state.user.auth.token,
+                    token: this.$store.state.user.auth.token,
                     amount: 1,
                     order: 'ASC'
                 },

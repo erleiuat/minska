@@ -109,7 +109,7 @@
                     url:'calorie/read/byDay/',
                     data: {
                         date: date.date,
-                        jwt: this.$store.state.user.auth.token
+                        token: this.$store.state.user.auth.token
                     },
                 }).then(function(response) {
                     vm.$data.calories = response.data.content;
@@ -130,7 +130,7 @@
                 var vm = this;
                 vm.axiosPost({
                     url:'calorie/read/days/',
-                    data: {jwt: this.$store.state.user.auth.token},
+                    data: {token: this.$store.state.user.auth.token},
                 }).then(function(response) {
                     var tmpDates = [];
                     response.data.content.forEach(function(item){

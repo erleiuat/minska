@@ -50,6 +50,17 @@ export default new Router({
             }
         },
         {
+            path: '/templates',
+            name: 'templates',
+            meta: {
+                title: 'templates',
+                secure: true
+            },
+            component: function () {
+                return import('./views/Secure/Templates.vue')
+            }
+        },
+        {
             path: '/settings',
             name: 'settings',
             meta: {
