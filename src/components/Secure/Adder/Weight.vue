@@ -92,7 +92,8 @@ export default {
                     }
 
                     vm.$store.state.content.weights.unshift(tmp);
-                    vm.$refs.addWeightForm.reset();
+                    vm.$data.formdata.weight = null;
+                    vm.$refs.addWeightForm.resetValidation();
 
                 }).catch(function (error) {
                     vm.$notify({

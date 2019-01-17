@@ -22,11 +22,11 @@
         <v-list>
             <v-list-tile >
                 <v-list-tile-content>
-                    <v-list-tile-sub-title>Standartmenge</v-list-tile-sub-title>
+                    <v-list-tile-sub-title>{{$t('defaultAmount')}}</v-list-tile-sub-title>
                     <v-list-tile-title>{{item.amount}} g/ml</v-list-tile-title>
                 </v-list-tile-content>
                 <v-list-tile-content>
-                    <v-list-tile-sub-title>KCal pro 100 ml/g</v-list-tile-sub-title>
+                    <v-list-tile-sub-title>{{$t('caloriesPer')}}</v-list-tile-sub-title>
                     <v-list-tile-title>{{item.calories}}</v-list-tile-title>
                 </v-list-tile-content>
             </v-list-tile>
@@ -41,6 +41,26 @@ export default {
     props: {
         item: Object
     },
+
+    i18n: {
+        messages: {
+            en: {
+                caloriesPer: 'Calories per 100 g/ml',
+                defaultAmount: 'Default Amount',
+                clickHere: 'Click here or drop Image to upload',
+                addTemplate: 'Add Template',
+                retry: 'Try Again'
+            },
+            de: {
+                caloriesPer: 'Kalorien pro 100 g/ml',
+                defaultAmount: 'Standartmenge',
+                clickHere: 'Klick hier oder ziehe ein Bild hierher um es hochzuladen',
+                addTemplate: 'Vorlage hinzufügen',
+                retry: 'Erneut versuchen'
+            }
+        }
+    },
+
     methods: {
         remove(item){
             var vm = this;

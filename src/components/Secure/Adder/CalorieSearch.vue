@@ -6,7 +6,7 @@
                 <v-icon>search</v-icon>
             </v-btn>
             <v-card>
-                <v-card-title>Select Calorie</v-card-title>
+                <v-card-title>{{$t('select')}}</v-card-title>
                 <v-divider></v-divider>
 
                 <v-card-text>
@@ -21,8 +21,8 @@
                                     <v-card-title primary-title>
                                         <div>
                                             <div class="headline">{{item.title}}</div>
-                                            <div>Calories per 100 g/ml: {{item.calories}}</div>
-                                            <div>Default Amount: {{item.amount}} g/ml</div>
+                                            <div>{{$t('caloriesPer')}} {{item.calories}}</div>
+                                            <div>{{$t('defaultAmount')}} {{item.amount}} g/ml</div>
                                         </div>
                                     </v-card-title>
                                 </v-flex>
@@ -34,7 +34,7 @@
 
                 <v-divider></v-divider>
                 <v-card-actions>
-                    <v-btn color="blue darken-1" flat @click="dialog = false">Close</v-btn>
+                    <v-btn color="blue darken-1" flat @click="dialog = false">{{$t('close')}}</v-btn>
                 </v-card-actions>
             </v-card>
         </v-dialog>
@@ -50,6 +50,23 @@ export default {
         return {
             dialog: false,
 
+        }
+    },
+
+    i18n: {
+        messages: {
+            en: {
+                caloriesPer: 'Calories per 100 g/ml:',
+                defaultAmount: 'Default Amount (g/ml):',
+                select: 'Select Template',
+                close: 'Close'
+            },
+            de: {
+                caloriesPer: 'Kalorien pro 100 g/ml:',
+                defaultAmount: 'Standartmenge (g/ml):',
+                select: 'Vorlage auswählen',
+                close: 'Schliessen'
+            }
         }
     },
 

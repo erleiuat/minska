@@ -120,13 +120,19 @@ import CalorieSearch from './CalorieSearch'
                             });
                         }
 
-                        vm.$refs.addCalorieForm.reset();
+                        vm.$data.formdata.title = null;
+                        vm.$data.formdata.calories = null;
+                        vm.$data.formdata.amount = null;
+
+                        vm.$refs.addCalorieForm.resetValidation();
+
                         vm.$notify({
                             group: 'default',
                             type: 'success',
                             title: vm.$t('alerts.success.title'),
                             text: vm.$t('alerts.success.text')
                         });
+
                     }).catch(function (error) {
                         vm.$notify({
                             group: 'default',

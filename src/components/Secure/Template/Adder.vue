@@ -11,7 +11,7 @@
                 <v-btn icon dark @click="dialog = false">
                     <v-icon>close</v-icon>
                 </v-btn>
-                <v-toolbar-title>Add Template</v-toolbar-title>
+                <v-toolbar-title>{{$t('addTemplate')}}</v-toolbar-title>
             </v-toolbar>
 
             <v-card-text>
@@ -21,32 +21,32 @@
                             <v-form ref="adderForm">
                                 <v-layout justify-center row wrap>
                                     <v-flex xs12>
-                                        <v-subheader>Add a new Template to be used as calorie</v-subheader>
+                                        <v-subheader>{{$t('addNew')}}</v-subheader>
                                     </v-flex>
                                     <v-flex xs12>
-                                        <v-text-field v-model="formdata.title" :rules="rules.text" label="Title" outline></v-text-field>
+                                        <v-text-field v-model="formdata.title" :rules="rules.text" :label="$t('title')" outline></v-text-field>
                                     </v-flex>
                                     <v-flex xs12 sm6>
-                                        <v-text-field v-model="formdata.calories" :rules="rules.number" label="Calories per 100 g/ml" outline></v-text-field>
+                                        <v-text-field v-model="formdata.calories" :rules="rules.number" :label="$t('caloriesPer')" outline></v-text-field>
                                     </v-flex>
                                     <v-flex xs12 sm6>
-                                        <v-text-field v-model="formdata.amount" :rules="rules.number" label="Default amount" outline></v-text-field>
+                                        <v-text-field v-model="formdata.amount" :rules="rules.number" :label="$t('defaultAmount')" outline></v-text-field>
                                     </v-flex>
                                     <v-flex xs12 v-if="!formdata.image">
                                         <div class="dropbox" id="imageUpload">
                                             <input type="file" name="img" @change="filesChange($event.target.name, $event.target.files)" accept="image/*" class="input-file">
-                                            <p>Click here or drop image to upload</p>
+                                            <p>{{$t('clickHere')}}</p>
                                         </div>
                                     </v-flex>
                                     <v-flex v-if="formdata.image" xs12>
                                         <div class="text-xs-center">
                                             <h4>Image</h4>
                                             <v-img :src="formdata.image" max-height="500" contain></v-img>
-                                            <v-btn @click="reset()" color="primary">Retry</v-btn>
+                                            <v-btn @click="reset()" color="primary">{{$t('retry')}}</v-btn>
                                         </div>
                                     </v-flex>
                                     <v-flex xs12>
-                                        <v-btn :disabled="disabled" depressed block large color="primary" @click="addTemplate()">Add</v-btn>
+                                        <v-btn :disabled="disabled" depressed block large color="primary" @click="addTemplate()">{{$t('addTemplate')}}</v-btn>
                                     </v-flex>
                                 </v-layout>
                             </v-form>
@@ -65,6 +65,29 @@
         name: 'Adder',
         components: {
 
+        },
+
+        i18n: {
+            messages: {
+                en: {
+                    addNew: 'Add a new Template to be used as calorie',
+                    title: 'Title',
+                    caloriesPer: 'Calories per 100 g/ml',
+                    defaultAmount: 'Default Amount (g/ml)',
+                    clickHere: 'Click here or drop Image to upload',
+                    addTemplate: 'Add Template',
+                    retry: 'Try Again'
+                },
+                de: {
+                    addNew: 'Füge eine neue Vorlage hinzu um sie später auswählen zu können',
+                    title: 'Titel',
+                    caloriesPer: 'Kalorien pro 100 g/ml',
+                    defaultAmount: 'Standartmenge (g/ml)',
+                    clickHere: 'Klick hier oder ziehe ein Bild hierher um es hochzuladen',
+                    addTemplate: 'Vorlage hinzufügen',
+                    retry: 'Erneut versuchen'
+                }
+            }
         },
 
         methods: {
@@ -113,26 +136,26 @@
                         data: postData,
                     }).then(function (response) {
 
-                            if(!vm.$store.state.content.templates || vm.$store.state.content.templates.lenght < 1){
-                                vm.$store.state.content.templates = [];
-                            }
+                        if(!vm.$store.state.content.templates || vm.$store.state.content.templates.lenght < 1){
+                            vm.$store.state.content.templates = [];
+                        }
 
-                            if(!vm.$data.formdata.image){
-                                vm.$store.state.content.templates.unshift({
-                                    id: response.data.content,
-                                    title: vm.$data.formdata.title,
-                                    calories: vm.$data.formdata.calories,
-                                    amount:  vm.$data.formdata.amount
-                                });
-                            } else {
-                                vm.$store.state.content.templates.unshift({
-                                    id: response.data.content,
-                                    title: vm.$data.formdata.title,
-                                    calories: vm.$data.formdata.calories,
-                                    amount:  vm.$data.formdata.amount,
-                                    image:  vm.$data.formdata.image
-                                });
-                            }
+                        if(!vm.$data.formdata.image){
+                            vm.$store.state.content.templates.unshift({
+                                id: response.data.content,
+                                title: vm.$data.formdata.title,
+                                calories: vm.$data.formdata.calories,
+                                amount:  vm.$data.formdata.amount
+                            });
+                        } else {
+                            vm.$store.state.content.templates.unshift({
+                                id: response.data.content,
+                                title: vm.$data.formdata.title,
+                                calories: vm.$data.formdata.calories,
+                                amount:  vm.$data.formdata.amount,
+                                image:  vm.$data.formdata.image
+                            });
+                        }
 
 
                         vm.$data.dialog = false;
