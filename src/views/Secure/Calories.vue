@@ -133,14 +133,11 @@
             getDay(date){
 
                 var vm = this;
-<<<<<<< HEAD
-
                 if(!vm.$store.state.content.calories || date.date !== new Date().toISOString().split('T')[0]){
-
                     vm.axiosPost({
                         url:'calorie/read/byDay/',
                         data: {
-                            jwt: this.$store.state.auth.token,
+                            token: this.$store.state.auth.token,
                             date: date.date
                         },
                     }).then(function(response) {
@@ -152,92 +149,70 @@
                             title: vm.$t('alerts.empty.title'),
                             text: vm.$t('alerts.empty.text')
                         });
-=======
-                vm.axiosPost({
-                    url:'calorie/read/byDay/',
-                    data: {
-                        date: date.date,
-                        token: this.$store.state.user.auth.token
-                    },
-                }).then(function(response) {
-                    vm.$data.calories = response.data.content;
+                    });
+                    } else if(this.$store.state.content.calories){
+                        vm.$data.calories = vm.$store.state.content.calories;
+                    }
+
                     vm.$data.active = date;
-                }).catch(function(error) {
-                    vm.$notify({
-                        group: 'default',
-                        type: 'warning',
-                        title: vm.$t('alerts.empty.title'),
-                        text: vm.$t('alerts.empty.text')
->>>>>>> 918e09a7c293938eeea52e96fe05cf5778ae913e
+
+                },
+
+                getDates(){
+
+                    var vm = this;
+                    vm.axiosPost({
+                        url:'calorie/read/days/',
+                        data: {token: this.$store.state.user.auth.token},
+                    }).then(function(response) {
+
+                        var tmpDates = [];
+                        response.data.content.forEach(function(item){
+                            const [year, month, day] = item.date.split('-')
+                            var formatted = `${day}.${month}.${year}`
+                            tmpDates.push({
+                                date: item.date, format: formatted
+                            });
+                        });
+                        vm.$data.dates = tmpDates;
+                        if(!vm.$data.active.date){
+                            vm.getDay(tmpDates[0]);
+                        }
+
+                    }).catch(function(error) {
+                        vm.$notify({
+                            group: 'default',
+                            type: 'warning',
+                            title: vm.$t('alerts.empty.title'),
+                            text: vm.$t('alerts.empty.text')
+                        });
+                    }).then(function(){
+                        vm.$data.loading = false;
                     });
 
-                } else if(this.$store.state.content.calories){
-                    vm.$data.calories = vm.$store.state.content.calories;
                 }
-
-                vm.$data.active = date;
 
             },
 
-            getDates(){
+            mounted(){
+                this.getDates();
+            },
 
-                var vm = this;
-                vm.axiosPost({
-                    url:'calorie/read/days/',
-<<<<<<< HEAD
-                    data: {jwt: this.$store.state.auth.token},
-=======
-                    data: {token: this.$store.state.user.auth.token},
->>>>>>> 918e09a7c293938eeea52e96fe05cf5778ae913e
-                }).then(function(response) {
+            data(){
+                return {
+                    active: {date: null, format: null},
+                    loading: true,
+                    dates: [],
+                    calories: [],
+                    headers: [
+                    { text: this.$t('title'), value: 'title' },
+                    { text: this.$t('calories'), value: 'calories' },
+                    { text: this.$t('amount'), value: 'amount' },
+                    { text: this.$t('total'), value: 'total'},
+                    { text: this.$t('actions'), value: null}
+                    ],
+                }
+            },
 
-                    var tmpDates = [];
-                    response.data.content.forEach(function(item){
-                        const [year, month, day] = item.date.split('-')
-                        var formatted = `${day}.${month}.${year}`
-                        tmpDates.push({
-                            date: item.date, format: formatted
-                        });
-                    });
-                    vm.$data.dates = tmpDates;
-                    if(!vm.$data.active.date){
-                        vm.getDay(tmpDates[0]);
-                    }
-
-                }).catch(function(error) {
-                    vm.$notify({
-                        group: 'default',
-                        type: 'warning',
-                        title: vm.$t('alerts.empty.title'),
-                        text: vm.$t('alerts.empty.text')
-                    });
-                }).then(function(){
-                    vm.$data.loading = false;
-                });
-
-            }
-
-        },
-
-        mounted(){
-            this.getDates();
-        },
-
-        data(){
-            return {
-                active: {date: null, format: null},
-                loading: true,
-                dates: [],
-                calories: [],
-                headers: [
-                { text: this.$t('title'), value: 'title' },
-                { text: this.$t('calories'), value: 'calories' },
-                { text: this.$t('amount'), value: 'amount' },
-                { text: this.$t('total'), value: 'total'},
-                { text: this.$t('actions'), value: null}
-                ],
-            }
-        },
-
-    }
-</script>
+        }
+    </script>

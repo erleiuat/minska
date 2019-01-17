@@ -81,11 +81,7 @@ export default {
             if(this.$data.rules.valid){
                 var vm = this;
                 var postData = vm.$data.formdata;
-<<<<<<< HEAD
-                postData.jwt = this.$store.state.auth.token;
-=======
                 postData.token = this.$store.state.user.auth.token;
->>>>>>> 918e09a7c293938eeea52e96fe05cf5778ae913e
                 vm.$data.disabled=true;
                 vm.axiosPost({
                     url:'calorie/create/',
