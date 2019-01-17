@@ -33,6 +33,13 @@ Vue.mixin({
             headers: {
                 'Content-Type': 'text/plain'
             },
+            validateStatus: function (status) {
+                if(status >= 200 && status < 300 && status != 204){
+                    return true;
+                } else {
+                    return false;
+                }
+            },
         })
     }
 })
