@@ -1,7 +1,7 @@
 module.exports = {
     pwa: {
         name: 'Minska',
-        themeColor: '#2e2eff',
+        themeColor: '#00A2A3',
         msTileColor: '#2d89ef',
         appleMobileWebAppCapable: 'yes',
         appleMobileWebAppStatusBarStyle: 'black',
