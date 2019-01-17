@@ -1,6 +1,6 @@
 <template>
-    <v-card>
-        <v-img src="http://www.chuchitisch.ch/chuchitisch/download_picture/lightroom/585_Griechischer+Joghurt+mit+Himbeeren.png" height="300px">
+    <v-card v-if="item">
+        <v-img :src="image" height="300px">
             <v-layout column fill-height>
                 <v-card-title>
                     <v-spacer></v-spacer>
@@ -14,7 +14,7 @@
                 <v-spacer></v-spacer>
                 <v-card-title class="white--text pt-5">
                     <div class="display-1 pl-3 pt-5">
-                        Joghurt
+                        {{item.title}}
                     </div>
                 </v-card-title>
             </v-layout>
@@ -23,11 +23,11 @@
             <v-list-tile >
                 <v-list-tile-content>
                     <v-list-tile-sub-title>Standartmenge</v-list-tile-sub-title>
-                    <v-list-tile-title>240 g/ml</v-list-tile-title>
+                    <v-list-tile-title>{{item.amount}} g/ml</v-list-tile-title>
                 </v-list-tile-content>
                 <v-list-tile-content>
                     <v-list-tile-sub-title>KCal pro 100 ml/g</v-list-tile-sub-title>
-                    <v-list-tile-title>120</v-list-tile-title>
+                    <v-list-tile-title>{{item.calories}}</v-list-tile-title>
                 </v-list-tile-content>
             </v-list-tile>
         </v-list>
@@ -39,6 +39,18 @@ export default {
 
     name: 'Frame',
     props: {
+        item: Object
+    },
+    computed: {
+        image(){
+            if(this.item.image !== ''){
+                return this.item.image;
+            } else {
+                return require('@/media/defaultFood.jpg');
+            }
+        }
+    },
+    mounted() {
 
     }
 

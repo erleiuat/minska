@@ -71,7 +71,7 @@ export default {
             vm.axiosPost({
                 url:'weight/read/all/',
                 data: {
-                    jwt: this.$store.state.auth.token
+                    token: this.$store.state.auth.token
                 },
             }).then(function(response) {
                 vm.$store.state.content.weights = response.data.content;
@@ -95,7 +95,7 @@ export default {
                 url:'weight/delete/',
                 data: {
                     id: item.id,
-                    token: this.$store.state.user.auth.token,
+                    token: this.$store.state.auth.token,
                 },
             }).then(function(response) {
                 const index = vm.weights.indexOf(item);

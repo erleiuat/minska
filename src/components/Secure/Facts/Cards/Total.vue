@@ -28,7 +28,7 @@ export default {
     computed: {
         card(){
 
-            if(this.$store.state.content.weights){
+            try {
 
                 var value = this.$store.state.content.weights[0].weight - this.$store.state.content.weights[this.$store.state.content.weights.length-1].weight;
                 value = Math.round(value*100)/100;
@@ -43,7 +43,7 @@ export default {
                     unit: 'Kg',
                 }
 
-            } else {
+            } catch(err){
                 return {
                     title: this.$t('title'),
                     description: this.$t('alerts.empty.short'),

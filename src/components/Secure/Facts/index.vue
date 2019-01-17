@@ -60,7 +60,7 @@ export default {
             vm.axiosPost({
                 url:'weight/read/all/',
                 data: {
-                    jwt: this.$store.state.auth.token
+                    token: this.$store.state.auth.token
                 },
             }).then(function(response) {
                 vm.$store.state.content.weights = response.data.content;
@@ -79,7 +79,7 @@ export default {
             vm.axiosPost({
                 url:'calorie/read/byDay/',
                 data: {
-                    jwt: this.$store.state.auth.token,
+                    token: this.$store.state.auth.token,
                     date: new Date().toISOString().split('T')[0]
                 },
             }).then(function(response) {

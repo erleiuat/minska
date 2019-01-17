@@ -80,7 +80,7 @@
                 const formData = new FormData();
                 if (!fileList.length) {return};
                 formData.append(fieldName, fileList[0], fileList[0].name);
-                formData.append('jwt', this.$store.state.auth.token);
+                formData.append('token', this.$store.state.auth.token);
 
                 vm.axiosPost({
                     url:'template/create/upload/',
@@ -105,7 +105,7 @@
 
                 if(vm.$refs.adderForm.validate()){
                     var postData = vm.$data.formdata;
-                    postData.jwt = this.$store.state.auth.token;
+                    postData.token = this.$store.state.auth.token;
                     vm.$data.disabled=true;
 
                     vm.axiosPost({

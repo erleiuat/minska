@@ -11,17 +11,8 @@
 
         </v-layout>
         <v-layout row wrap>
-            <v-flex xs12 sm4>
-                <Frame/>
-            </v-flex>
-            <v-flex xs12 sm4>
-                <Frame/>
-            </v-flex>
-            <v-flex xs12 sm4>
-                <Frame/>
-            </v-flex>
-            <v-flex xs12 sm4>
-                <Frame/>
+            <v-flex v-for="item in templates" xs12 sm4>
+                <Frame :item="item"/>
             </v-flex>
         </v-layout>
     </v-container>
@@ -37,6 +28,36 @@ export default {
     components: {
         Frame,
         Adder
+    },
+
+    computed: {
+        templates(){
+            return this.$store.state.content.templates;
+        }
+    },
+
+    mounted() {
+        if(!this.$store.state.content.templates){
+            var vm = this;
+            vm.axiosPost({
+                url:'template/read/',
+                data: {
+                    token: this.$store.state.auth.token
+                },
+            }).then(function(response) {
+                console.log(response.data.content);
+                vm.$store.state.content.templates = response.data.content;
+            }).catch(function (error) {
+                vm.$notify({
+                    group: 'default',
+                    type: 'warning',
+                    title: vm.$t('alerts.empty.title'),
+                    text: vm.$t('alerts.empty.text')
+                });
+            }).then(function(){
+                vm.$data.loading = false;
+            });
+        }
     },
 
 }

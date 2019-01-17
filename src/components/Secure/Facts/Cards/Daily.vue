@@ -28,7 +28,7 @@ export default {
     computed: {
         card(){
 
-            if(this.$store.state.content.weights){
+            try {
 
                 var target = new Date(this.$store.state.user.aims.date).getTime();
                 var difference_ms = target - new Date().getTime();
@@ -60,7 +60,7 @@ export default {
                     type: type
                 }
 
-            } else {
+            } catch(err){
                 return {
                     title: this.$t('title'),
                     description: this.$t('alerts.empty.short'),

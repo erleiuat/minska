@@ -66,7 +66,7 @@ export default {
             if(this.$data.rules.valid){
                 var vm = this;
                 var postData = vm.$data.formdata;
-                postData.token = this.$store.state.user.auth.token;
+                postData.token = this.$store.state.auth.token;
                 vm.$data.disabled=true;
 
                 vm.axiosPost({
@@ -81,12 +81,17 @@ export default {
                         text: vm.$t('alerts.success.text')
                     });
 
-                    vm.$store.state.content.weights.unshift({
+                    var tmp = {
                         id: response.data.content,
                         measuredate: vm.$data.formdata.date,
                         weight:vm.$data.formdata.weight
-                    });
+                    }
 
+                    if(!vm.$store.state.content.weights || vm.$store.state.content.weights.lenght < 1){
+                        vm.$store.state.content.weights = [];
+                    }
+
+                    vm.$store.state.content.weights.unshift(tmp);
                     vm.$refs.addWeightForm.reset();
 
                 }).catch(function (error) {

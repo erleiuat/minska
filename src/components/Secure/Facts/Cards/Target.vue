@@ -28,7 +28,7 @@ export default {
     computed: {
         card(){
 
-            if(this.$store.state.content.weights){
+            try {
 
                 var value = this.$store.state.user.aims.weight - this.$store.state.content.weights[0].weight;
                 value = Math.round(value*100)/100;
@@ -49,7 +49,7 @@ export default {
                     type: type
                 }
 
-            } else {
+            } catch(err){
                 return {
                     title: this.$t('title'),
                     description: this.$t('alerts.empty.short'),

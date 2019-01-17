@@ -28,7 +28,7 @@ export default {
     computed: {
         card(){
 
-            if(this.$store.state.content.weights){
+            try {
 
                 var value = Math.round(this.$store.state.content.weights[0].weight/((this.$store.state.user.height/1000)*(this.$store.state.user.height/1000)))/100;
 
@@ -45,7 +45,7 @@ export default {
                     type: type
                 }
 
-            } else {
+            } catch(err){
                 return {
                     title: this.$t('title'),
                     description: this.$t('alerts.empty.short'),
