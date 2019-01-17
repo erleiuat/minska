@@ -21,7 +21,7 @@ Vue.use(Vuetify, {
         error: '#B30000',
         info: '#006061',
         success: '#006600',
-        warning: '#CC5E00'
+        warning: '#CC5E00',
     }
 })
 
