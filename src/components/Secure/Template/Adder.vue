@@ -113,25 +113,39 @@
                         data: postData,
                     }).then(function (response) {
 
+                            if(!vm.$store.state.content.templates || vm.$store.state.content.templates.lenght < 1){
+                                vm.$store.state.content.templates = [];
+                            }
+
+                            if(!vm.$data.formdata.image){
+                                vm.$store.state.content.templates.unshift({
+                                    id: response.data.content,
+                                    title: vm.$data.formdata.title,
+                                    calories: vm.$data.formdata.calories,
+                                    amount:  vm.$data.formdata.amount
+                                });
+                            } else {
+                                vm.$store.state.content.templates.unshift({
+                                    id: response.data.content,
+                                    title: vm.$data.formdata.title,
+                                    calories: vm.$data.formdata.calories,
+                                    amount:  vm.$data.formdata.amount,
+                                    image:  vm.$data.formdata.image
+                                });
+                            }
+
+
+                        vm.$data.dialog = false;
+                        vm.$refs.adderForm.reset();
+                        vm.reset();
+                        vm.$data.disabled=false;
+
                         vm.$notify({
                             group: 'default',
                             type: 'success',
                             title: vm.$t('alerts.success.title'),
                             text: vm.$t('alerts.success.text')
                         });
-
-                        vm.$store.state.content.templates.unshift({
-                            id: response.data.content,
-                            title: vm.$data.formdata.title,
-                            calories: vm.$data.formdata.calories,
-                            amount:  vm.$data.formdata.amount,
-                            image:  vm.$data.formdata.image,
-                        });
-
-                        vm.$data.dialog = false;
-                        vm.$refs.adderForm.reset();
-                        vm.reset();
-                        vm.$data.disabled=false;
 
                     }).catch(function (error) {
                         vm.$notify({

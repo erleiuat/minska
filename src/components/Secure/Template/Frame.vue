@@ -8,7 +8,7 @@
                         <v-icon>edit</v-icon>
                     </v-btn>
                     <v-btn dark icon>
-                        <v-icon>delete</v-icon>
+                        <v-icon @click="remove(item)">delete</v-icon>
                     </v-btn>
                 </v-card-title>
                 <v-spacer></v-spacer>
@@ -41,17 +41,44 @@ export default {
     props: {
         item: Object
     },
-    computed: {
-        image(){
-            if(this.item.image !== ''){
-                return this.item.image;
-            } else {
-                return require('@/media/defaultFood.jpg');
-            }
+    methods: {
+        remove(item){
+            var vm = this;
+            vm.axiosPost({
+                url:'template/delete/',
+                data: {
+                    id: item.id,
+                    token: this.$store.state.auth.token
+                },
+            }).then(function(response) {
+                const index = vm.$store.state.content.templates.indexOf(item);
+                vm.$store.state.content.templates.splice(index, 1);
+                vm.$notify({
+                    group: 'default',
+                    type: 'success',
+                    title: vm.$t('alerts.success.title'),
+                    text: vm.$t('alerts.success.text')
+                });
+            }).catch(function (error) {
+                vm.$notify({
+                    group: 'default',
+                    type: 'warning',
+                    title: vm.$t('alerts.error.title'),
+                    text: vm.$t('alerts.error.text')
+                });
+            }).then(function(){
+                vm.$data.loading = false;
+            });
         }
     },
-    mounted() {
-
+    computed: {
+        image(){
+            if(this.item.image == null || this.item.image == ''){
+                return require('@/media/defaultFood.jpg');
+            } else {
+                return this.item.image;
+            }
+        }
     }
 
 }

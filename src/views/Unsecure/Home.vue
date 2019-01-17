@@ -1,6 +1,8 @@
 <template>
     <v-container class="text-xs-center">
 
+        <v-img :src="titleImg" aspect-ratio="1.7" contain></v-img>
+
         <h1>{{ $t('title') }}</h1>
         <p>{{ $t('subtitle') }}</p>
 
@@ -35,6 +37,12 @@ export default {
             }
         }
     },
+
+    computed: {
+        titleImg(){
+            return require('@/media/title_color_small.png')
+        }
+    }
 
 }
 </script>

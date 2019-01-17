@@ -45,7 +45,6 @@ export default {
                     token: this.$store.state.auth.token
                 },
             }).then(function(response) {
-                console.log(response.data.content);
                 vm.$store.state.content.templates = response.data.content;
             }).catch(function (error) {
                 vm.$notify({

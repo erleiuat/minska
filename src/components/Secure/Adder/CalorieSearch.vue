@@ -62,7 +62,6 @@ export default {
             }
         },
         useItem(item){
-            console.log(item);
             this.$data.dialog = false;
             this.$emit('useItem', item);
         }
@@ -78,7 +77,6 @@ export default {
                         token: this.$store.state.auth.token
                     },
                 }).then(function(response) {
-                    console.log(response.data.content);
                     vm.$store.state.content.templates = response.data.content;
                 }).catch(function (error) {
                     /** Deactivated bc too much

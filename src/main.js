@@ -15,8 +15,9 @@ Vue.use(VueAxios, axios)
 Vue.use(Notifications)
 Vue.use(Vuetify, {
     theme: {
-        primary: '#2E2EFF',
-        secondary: '#EBEBFF',
+        //Font: Ultra Fresh
+        primary: '#00A2A3',
+        secondary: '#EBFFFF',
         error: '#B30000',
         info: '#006061',
         success: '#006600',
