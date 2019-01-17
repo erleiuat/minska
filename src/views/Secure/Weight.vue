@@ -95,7 +95,11 @@ export default {
                 url:'weight/delete/',
                 data: {
                     id: item.id,
+<<<<<<< HEAD
                     jwt: this.$store.state.auth.token,
+=======
+                    token: this.$store.state.user.auth.token,
+>>>>>>> 918e09a7c293938eeea52e96fe05cf5778ae913e
                 },
             }).then(function(response) {
                 const index = vm.weights.indexOf(item);
@@ -115,6 +119,39 @@ export default {
                 });
             });
         },
+<<<<<<< HEAD
+=======
+
+        updateTable(){
+            var vm = this;
+            vm.axiosPost({
+                url:'weight/read/all/',
+                data: {token: this.$store.state.user.auth.token},
+            }).then(function(response){
+                vm.$data.weights = response.data.content;
+                vm.$store.commit('changeData', {
+                    recent: {
+                        weight: response.data.content[0].weight,
+                        calorie: vm.$store.state.user.data.recent.calorie
+                    }
+                });
+            }).catch(function(error){
+                vm.$notify({
+                    group: 'default',
+                    type: 'warning',
+                    title: vm.$t('alerts.empty.title'),
+                    text: vm.$t('alerts.empty.text')
+                });
+            }).then(function(){
+                vm.$data.loading = false;
+            });
+        }
+
+    },
+
+    mounted(){
+        this.updateTable();
+>>>>>>> 918e09a7c293938eeea52e96fe05cf5778ae913e
     },
 
     data(){

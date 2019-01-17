@@ -133,6 +133,7 @@
             getDay(date){
 
                 var vm = this;
+<<<<<<< HEAD
 
                 if(!vm.$store.state.content.calories || date.date !== new Date().toISOString().split('T')[0]){
 
@@ -151,6 +152,23 @@
                             title: vm.$t('alerts.empty.title'),
                             text: vm.$t('alerts.empty.text')
                         });
+=======
+                vm.axiosPost({
+                    url:'calorie/read/byDay/',
+                    data: {
+                        date: date.date,
+                        token: this.$store.state.user.auth.token
+                    },
+                }).then(function(response) {
+                    vm.$data.calories = response.data.content;
+                    vm.$data.active = date;
+                }).catch(function(error) {
+                    vm.$notify({
+                        group: 'default',
+                        type: 'warning',
+                        title: vm.$t('alerts.empty.title'),
+                        text: vm.$t('alerts.empty.text')
+>>>>>>> 918e09a7c293938eeea52e96fe05cf5778ae913e
                     });
 
                 } else if(this.$store.state.content.calories){
@@ -166,7 +184,11 @@
                 var vm = this;
                 vm.axiosPost({
                     url:'calorie/read/days/',
+<<<<<<< HEAD
                     data: {jwt: this.$store.state.auth.token},
+=======
+                    data: {token: this.$store.state.user.auth.token},
+>>>>>>> 918e09a7c293938eeea52e96fe05cf5778ae913e
                 }).then(function(response) {
 
                     var tmpDates = [];

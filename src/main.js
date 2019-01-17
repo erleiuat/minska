@@ -31,7 +31,9 @@ Vue.mixin({
             //baseURL: 'https://minska.api.eliareutlinger.ch/',
             timeout: 8000,
             method: 'post',
-            headers: {'Content-Type': 'text/plain'},
+            headers: {
+                'Content-Type': 'text/plain'
+            },
         })
     }
 })
