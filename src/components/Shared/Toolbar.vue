@@ -31,7 +31,7 @@ export default {
 
     computed: {
         appTitle(){return this.$store.state.app.title},
-        authenticated(){return this.$store.state.user.auth.authenticated}
+        authenticated(){return this.$store.state.auth.token}
     },
     methods: {
         drawer(){

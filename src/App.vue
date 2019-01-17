@@ -51,29 +51,25 @@ export default {
     beforeCreate(){
 
         this.$store.watch((state)=>{
-            return this.$store.state.user.auth.expired
+            return this.$store.state.auth.token
         },(newValue)=>{
-
-            if(newValue === true){
-
+            if(!newValue){
                 this.$router.push('/');
                 this.$notify({
                     group: 'default',
                     type: 'warning',
-                    title: 'Session expired',
-                    text: "Your Session expired. Please login again."
+                    title: this.$t('alerts.expired.title'),
+                    text: this.$t('alerts.expired.text')
                 })
-
             }
-
         });
 
         this.$store.watch((state)=>{
-            return this.$store.state.user.info.language
+            return this.$store.state.user.language
         },(newValue, oldValue)=>{
             if(newValue !== oldValue){
-                if(this.$store.state.user.info.language){
-                    this.$i18n.locale = this.$store.state.user.info.language;
+                if(this.$store.state.user.language){
+                    this.$i18n.locale = this.$store.state.user.language;
                 }
             }
         });
@@ -81,8 +77,8 @@ export default {
         this.$store.dispatch('checkAuth');
 
         this.$router.beforeResolve((to, from, next) => {
-            if(this.$store.state.app.authState === false && to.meta.secure === true || this.$store.state.app.authState === true && to.meta.secure === false){
-                if(!from.name && this.$store.state.app.authState === true){
+            if(!this.$store.state.auth.token && to.meta.secure === true || this.$store.state.auth.token && to.meta.secure === false){
+                if(!from.name && this.$store.state.auth.token === true){
                     this.$router.push('/dashboard');
                 } else {
                     this.$router.push('/401');

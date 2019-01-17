@@ -21,9 +21,8 @@
                         <td>{{ props.item.number }}</td>
                         <td>{{ props.item.weight }}</td>
                         <td>{{ props.item.measuredate }}</td>
-                        <td>{{ props.item.creationdate }}</td>
                         <td class="text-xs-center">
-                            <v-icon small @click="deleteWeight(props.item)">
+                            <v-icon small @click="deleteItem(props.item)">
                                 delete
                             </v-icon>
                         </td>
@@ -44,6 +43,7 @@ export default {
     components: {
         Chart
     },
+
     i18n: {
         messages: {
             en: {
@@ -65,18 +65,41 @@ export default {
         }
     },
 
+    mounted() {
+        if(!this.$store.state.content.weights){
+            var vm = this;
+            vm.axiosPost({
+                url:'weight/read/all/',
+                data: {
+                    jwt: this.$store.state.auth.token
+                },
+            }).then(function(response) {
+                vm.$store.state.content.weights = response.data.content;
+            }).catch(function (error) {
+                vm.$notify({
+                    group: 'default',
+                    type: 'warning',
+                    title: vm.$t('alerts.empty.title'),
+                    text: vm.$t('alerts.empty.text')
+                });
+            }).then(function(){
+                vm.$data.loading = false;
+            });
+        }
+    },
+
     methods: {
-        deleteWeight(item){
+        deleteItem(item){
             var vm = this;
             vm.axiosPost({
                 url:'weight/delete/',
                 data: {
                     id: item.id,
-                    jwt: this.$store.state.user.auth.token,
+                    jwt: this.$store.state.auth.token,
                 },
             }).then(function(response) {
                 const index = vm.weights.indexOf(item);
-                vm.weights.splice(index, 1);
+                vm.$store.state.content.weights.splice(index, 1);
                 vm.$notify({
                     group: 'default',
                     type: 'success',
@@ -91,53 +114,31 @@ export default {
                     text: vm.$t('alerts.error.text')
                 });
             });
-
         },
-
-        updateTable(){
-            var vm = this;
-            vm.axiosPost({
-                url:'weight/read/all/',
-                data: {jwt: this.$store.state.user.auth.token},
-            }).then(function(response){
-                vm.$data.weights = response.data.content;
-                vm.$store.commit('changeData', {
-                    recent: {
-                        weight: response.data.content[0].weight,
-                        calorie: vm.$store.state.user.data.recent.calorie
-                    }
-                });
-            }).catch(function(error){
-                vm.$notify({
-                    group: 'default',
-                    type: 'warning',
-                    title: vm.$t('alerts.empty.title'),
-                    text: vm.$t('alerts.empty.text')
-                });
-            }).then(function(){
-                vm.$data.loading = false;
-            });
-        }
-
-    },
-
-    mounted(){
-        this.updateTable();
     },
 
     data(){
         return {
             loading: true,
-            weights: [],
             headers: [
             { text: '#', align: 'left', value: 'number' },
             { text: this.$t('weight'), value: 'weight' },
             { text: this.$t('measuredate'), value: 'measuredate' },
-            { text: this.$t('created'), value: 'creationdate' },
             { text: this.$t('actions'), value: 'null'}
             ],
         }
     },
+
+    computed: {
+        weights(){
+            if(this.$store.state.content.weights){
+                this.$data.loading = false;
+                return this.$store.state.content.weights;
+            } else {
+                return [];
+            }
+        }
+    }
 
 }
 </script>

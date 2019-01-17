@@ -100,14 +100,12 @@
 
                     var vm = this;
                     var postData = vm.$data.formdata;
-                    postData.jwt = this.$store.state.user.auth.token;
+                    postData.jwt = this.$store.state.auth.token;
                     vm.$data.disabled=true;
 
                     vm.axiosPost({
-
                         url:'user/update/',
                         data: postData,
-
                     }).then(function (response) {
                         vm.$store.commit('login',  response.data.content);
                         vm.$notify({
@@ -165,14 +163,14 @@
                 genderItems: [],
 
                 formdata: {
-                    language: this.$store.state.user.info.language,
-                    isFemale: this.$store.state.user.info.isFemale,
-                    firstname: this.$store.state.user.info.firstname,
-                    lastname: this.$store.state.user.info.lastname,
-                    height: this.$store.state.user.info.height,
+                    language: this.$store.state.user.language,
+                    isFemale: this.$store.state.user.isFemale,
+                    firstname: this.$store.state.user.firstname,
+                    lastname: this.$store.state.user.lastname,
+                    height: this.$store.state.user.height,
                     aims: {
-                        weight: this.$store.state.user.info.aims.weight,
-                        date: this.$store.state.user.info.aims.date
+                        weight: this.$store.state.user.aims.weight,
+                        date: this.$store.state.user.aims.date
                     }
                 },
 

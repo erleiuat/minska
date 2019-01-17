@@ -3,7 +3,7 @@
         <v-layout row wrap>
 
             <v-flex xs12>
-                <h1>{{ $t('title', {name: firstname}) }}</h1>
+                <h1>{{ call }}</h1>
                 <i>{{ $t('subtitle') }}</i>
             </v-flex>
 
@@ -23,19 +23,12 @@
             </v-flex>
 
             <v-flex xs12>
-                <AllFacts />
+                <Facts />
+                <!--
+                <Recently/>
+                <Total/>
+                -->
             </v-flex>
-            <!--
-            <v-flex xs6>
-                <recently />
-            </v-flex>
-            <v-flex xs6>
-                <total />
-            </v-flex>
-            <v-flex xs6>
-                <target />
-            </v-flex>
-            -->
 
         </v-layout>
     </v-container>
@@ -44,8 +37,9 @@
 <script>
 import WeightAdder from '@/components/Secure/Adder/Weight'
 import CalorieAdder from '@/components/Secure/Adder/Calorie'
-import AllFacts from '@/components/Secure/Facts/All'
-import {recently, total, target} from '@/components/Secure/Facts/index.js'
+import Facts from '@/components/Secure/Facts/'
+//import Recently from '@/components/Secure/Facts/Recently'
+//import Total from '@/components/Secure/Facts/Total'
 
 export default {
 
@@ -54,28 +48,53 @@ export default {
     components: {
         WeightAdder,
         CalorieAdder,
-        AllFacts
+        Facts,
+        //Recently,
+        //Total
     },
 
     i18n: {
         messages: {
             en: {
-                title: 'Hello {name}!',
+                title: {
+                    morning: 'Good morning {name}!',
+                    noon: 'Hello {name}!',
+                    evening: 'Good evening {name}!'
+                },
                 subtitle: 'Welcome to your Dashboard',
                 factsTitle: 'Facts'
             },
             de: {
-                title: 'Hallo {name}!',
+                title: {
+                    morning: 'Guten Morgen {name}!',
+                    noon: 'Guten Tag {name}!',
+                    evening: 'Guten Abend {name}!'
+                },
                 subtitle: 'Willkommen auf deinem Dashboard',
                 factsTitle: 'Fakten'
             }
         }
     },
 
+    computed: {
+        call(){
+
+            var hour = (new Date()).getHours();
+            if(hour <= 11){
+                return this.$t('title.morning', {name: this.$data.firstname});
+            } else if (hour <= 17){
+                return this.$t('title.noon', {name: this.$data.firstname});
+            } else {
+                return this.$t('title.evening', {name: this.$data.firstname});
+            }
+
+        }
+    },
+
     data () {
         return {
             newData: false,
-            firstname: this.$store.state.user.info.firstname,
+            firstname: this.$store.state.user.firstname,
         }
     },
 

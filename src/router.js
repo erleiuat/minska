@@ -50,6 +50,17 @@ export default new Router({
             }
         },
         {
+            path: '/templates',
+            name: 'templates',
+            meta: {
+                title: 'templates',
+                secure: true
+            },
+            component: function () {
+                return import('./views/Secure/Templates.vue')
+            }
+        },
+        {
             path: '/settings',
             name: 'settings',
             meta: {
@@ -80,6 +91,17 @@ export default new Router({
             },
             component: function () {
                 return import('./views/Unsecure/Register.vue')
+            }
+        },
+        {
+            path: '/help',
+            name: 'help',
+            meta: {
+                title: 'help',
+                secure: null
+            },
+            component: function () {
+                return import('./views/Shared/Help.vue')
             }
         },
         {

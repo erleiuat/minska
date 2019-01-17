@@ -66,26 +66,29 @@ export default {
             if(this.$data.rules.valid){
                 var vm = this;
                 var postData = vm.$data.formdata;
-                postData.jwt = this.$store.state.user.auth.token;
+                postData.jwt = this.$store.state.auth.token;
                 vm.$data.disabled=true;
 
                 vm.axiosPost({
                     url:'weight/create/',
                     data: postData,
                 }).then(function (response) {
+
                     vm.$notify({
                         group: 'default',
                         type: 'success',
                         title: vm.$t('alerts.success.title'),
                         text: vm.$t('alerts.success.text')
                     });
-                    vm.$store.commit('changeData', {
-                        recent: {
-                            weight: vm.$data.formdata.weight,
-                            calorie: vm.$store.state.user.data.recent.calorie
-                        }
+
+                    vm.$store.state.content.weights.unshift({
+                        id: response.data.content,
+                        measuredate: vm.$data.formdata.date,
+                        weight:vm.$data.formdata.weight
                     });
+
                     vm.$refs.addWeightForm.reset();
+
                 }).catch(function (error) {
                     vm.$notify({
                         group: 'default',

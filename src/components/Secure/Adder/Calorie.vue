@@ -81,7 +81,7 @@ export default {
             if(this.$data.rules.valid){
                 var vm = this;
                 var postData = vm.$data.formdata;
-                postData.jwt = this.$store.state.user.auth.token;
+                postData.jwt = this.$store.state.auth.token;
                 vm.$data.disabled=true;
                 vm.axiosPost({
                     url:'calorie/create/',
@@ -93,12 +93,19 @@ export default {
                         title: vm.$t('alerts.success.title'),
                         text: vm.$t('alerts.success.text')
                     });
-                    vm.$store.commit('changeData', {
-                        recent: {
-                            weight: vm.$store.state.user.data.recent.weight,
-                            calorie: vm.$data.formdata.calorie
-                        }
-                    });
+
+                    var now = new Date();
+                    var today = now.getFullYear()+'-'+(now.getMonth()+1)+'-'+now.getDate();
+
+                    if(today == vm.$data.formdata.date){
+                        vm.$store.state.content.calories.unshift({
+                            id: response.data.content,
+                            amount: vm.$data.formdata.amount,
+                            calories: vm.$data.formdata.calories,
+                            title:vm.$data.formdata.title
+                        });
+                    }
+
                     vm.$refs.addCalorieForm.reset();
                 }).catch(function (error) {
                     vm.$notify({
@@ -139,8 +146,8 @@ export default {
             rules: {
                 valid: true,
                 text: [
-                    (v) => !!v || this.$t('errors.required'),
-                    (v) => v && v.length <= 10 || this.$t('errors.valid')
+                (v) => !!v || this.$t('errors.required'),
+                (v) => v && v.length <= 100 || this.$t('errors.valid')
                 ],
                 date: [
                 (v) => !!v || this.$t('errors.required'),
@@ -148,7 +155,7 @@ export default {
                 ],
                 weight: [
                 (v) => !!v || this.$t('errors.required'),
-                (v) => v && v <= 500 && v >= 30 || this.$t('errors.valid'),
+                (v) => v && v <= 500 && v >= 20 || this.$t('errors.valid'),
                 ],
                 number: [
                 (v) => !!v || this.$t('errors.required'),

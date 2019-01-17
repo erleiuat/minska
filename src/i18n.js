@@ -14,7 +14,8 @@ export default new VueI18n({
             alerts: {
                 empty: {
                     title: "No Data found",
-                    text: "Some functions need more Data"
+                    text: "Some functions need more Data",
+                    short: "Needs more data"
                 },
                 error: {
                     title: "Error while execution",
@@ -23,6 +24,10 @@ export default new VueI18n({
                 success: {
                     title: "Success",
                     text: "Changes successfully saved"
+                },
+                expired: {
+                    title: 'Session expired',
+                    text: 'Your Session expired. Please login again.'
                 }
             },
             views: {
@@ -46,7 +51,8 @@ export default new VueI18n({
             alerts: {
                 empty: {
                     title: "Noch keine Einträge",
-                    text: "Einige Funktionen benötigen mehr Daten"
+                    text: "Einige Funktionen benötigen mehr Daten",
+                    short: "Benötigt mehr Daten"
                 },
                 error: {
                     title: "Problem bei der Ausführung",
@@ -56,6 +62,10 @@ export default new VueI18n({
                     title: "Erfolg",
                     text: "Änderungen wurden gespeichert"
                 },
+                expired: {
+                    title: 'Sitzung abgelaufen',
+                    text: 'Deine Sitzung ist abgelaufen. Logge dich erneut ein.'
+                }
             },
             views: {
                 dashboard: 'Dashboard',

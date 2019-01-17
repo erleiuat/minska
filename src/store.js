@@ -9,44 +9,41 @@ export default new Vuex.Store({
 
     state: {
 
-        user: {
-            auth: {
+        auth: {
+            token: null,
+            expiration: {
+                app: null,
                 token: null,
-                authenticated: false,
-                expiration: {
-                    client: null,
-                    token: null,
-                },
-                expired: false,
-            },
-            info: {
-                id: null,
-                firstname: null,
-                lastname: null,
-                language: null,
-                isFemale: false,
-                aims: {
-                    weight: null,
-                    date: null
-                }
-            },
-            data: {
-                recent: {
-                    weight: null,
-                    calorie: 123
-                }
+            }
+        },
+
+        user: {
+            id: null,
+            firstname: null,
+            lastname: null,
+            language: null,
+            isFemale: false,
+            aims: {
+                weight: null,
+                date: null
             }
         },
 
         app: {
             title: 'Minska',
-            authState: false,
+            secured: false,
             drawer: true,
             navigation: [
                 {path: '/login', title: 'login', icon: 'lock_open'},
                 {path: '/register', title: 'register', icon: 'subdirectory_arrow_right'},
                 {path: '/help', title: 'help', icon: 'question_answer'},
             ]
+        },
+
+        content: {
+            weights: false,
+            calories: false,
+            templates: false
         }
 
     },
@@ -59,46 +56,22 @@ export default new Vuex.Store({
 
         login(state, token) {
 
+            state.auth.token = token;
             var encoded = (token.split('.')[1]).replace('-', '+').replace('_', '/');
             var decoded = JSON.parse(window.atob(encoded));
 
-            state.user.info = decoded.data;
+            state.user = decoded.data;
+            state.auth.expiration.app = Math.floor(Date.now() / 1000) + (20*60);
+            state.auth.expiration.token = decoded.exp;
 
-            if(new Date(state.user.info.aims.date) != 'Invalid Date'){
-                state.user.info.aims.date = decoded.data.aims.date;
+            if(decoded.data.isFemale == 1){
+                state.user.isFemale = true;
             } else {
-                state.user.info.aims.date = null;
+                state.user.isFemale = false;
             }
 
-            if(!decoded.data.language){
-                state.user.info.language = navigator.language || navigator.userLanguage;
-            } else {
-                state.user.info.language = decoded.data.language;
-            }
+            VueCookie.set('authCookie', JSON.stringify(state.auth), {expires: 1, domain: window.location.hostname});
 
-            if(!decoded.data.isFemale){
-                state.user.info.isFemale = false;
-            } else {
-                state.user.info.isFemale = true;
-            }
-
-            state.user.auth.authenticated = true;
-            state.user.auth.expired = false;
-            state.user.auth.token = token;
-            state.user.auth.expiration.client = Math.floor(Date.now() / 1000) + (20*60);
-            state.user.auth.expiration.token = decoded.exp;
-
-            var authCookie = {
-                token: token,
-                expiration: {
-                    client: state.user.auth.expiration.client,
-                    token: state.user.auth.expiration.token
-                }
-            }
-
-            VueCookie.set('authCookie', JSON.stringify(authCookie), {expires: 1, domain: window.location.hostname});
-
-            state.app.authState = true;
             state.app.navigation = [
                 {path: '/dashboard', title: 'dashboard', icon: 'dashboard'},
                 {path: '/weight', title: 'weight', icon: 'linear_scale'},
@@ -113,13 +86,12 @@ export default new Vuex.Store({
         logout(state) {
 
             VueCookie.delete('authCookie', {domain: window.location.hostname});
-            state.user.info = {language: navigator.language || navigator.userLanguage};
+            state.user = {language: navigator.language || navigator.userLanguage};
 
-            state.user.auth.authenticated = false;
-            state.user.auth.expiration.client = null;
-            state.user.auth.expiration.token = null;
+            state.auth.token = false;
+            state.auth.expiration.app = null;
+            state.auth.expiration.token = null;
 
-            state.app.authState = false;
             state.app.navigation = [
                 {path: '/login', title: 'login', icon: 'lock_open'},
                 {path: '/register', title: 'register', icon: 'subdirectory_arrow_right'},
@@ -129,12 +101,8 @@ export default new Vuex.Store({
         },
 
         changeLanguage(state, newlang){
-            state.user.info.language = newlang;
+            state.user.language = newlang;
         },
-
-        changeData(state, newData){
-            state.user.data = newData;
-        }
 
     },
 
@@ -142,30 +110,27 @@ export default new Vuex.Store({
 
         checkAuth({commit, state}){
 
-            if(!state.user.auth.authenticated){
+            var now = Math.floor(Date.now() / 1000);
+            var authCookie = JSON.parse(VueCookie.get('authCookie'));
 
-                if(VueCookie.get('authCookie')){
-                    if( JSON.parse(VueCookie.get('authCookie')).expiration.token > Math.floor(Date.now() / 1000) && JSON.parse(VueCookie.get('authCookie')).expiration.client > Math.floor(Date.now() / 1000) ){
-                        commit('login', JSON.parse(VueCookie.get('authCookie')).token);
+            if(!state.auth.token){
+                if(authCookie && authCookie !== null){
+                    if(authCookie.expiration.token > now && authCookie.expiration.app > now){
+                        commit('login', authCookie.token);
                     } else {
-                        state.user.auth.expired = true;
                         commit('logout');
                     }
                 } else {
                     commit('logout');
                 }
-
-            } else if(state.user.auth.authenticated){
-
-                if( state.user.auth.expiration.client > Math.floor(Date.now() / 1000) && state.user.auth.expiration.token > Math.floor(Date.now() / 1000)){
+            } else if(state.auth.token){
+                if(state.auth.expiration.app > now && state.auth.expiration.token > now){
                     if(!state.app.authState){
-                        commit('login', state.user.auth.token);
+                        commit('login', state.auth.token);
                     }
                 } else {
-                    state.user.auth.expired = true;
                     commit('logout');
                 }
-
             }
         }
     },

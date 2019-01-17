@@ -97,16 +97,16 @@ export default {
                     vm.$notify({
                         group: 'default',
                         type: 'success',
-                        title: $t('created.title'),
-                        text: $t('created.text')
+                        title: vm.$t('created.title'),
+                        text: vm.$t('created.text')
                     });
                     vm.$router.push('/login');
                 }).catch(function (error) {
                     vm.$notify({
                         group: 'default',
                         type: 'error',
-                        title: $t('failed.title'),
-                        text: $t('failed.text')
+                        title: vm.$t('failed.title'),
+                        text: vm.$t('failed.text')
                     });
                     vm.disabled=false;
                 });
