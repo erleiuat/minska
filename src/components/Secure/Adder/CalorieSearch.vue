@@ -81,12 +81,14 @@ export default {
                     console.log(response.data.content);
                     vm.$store.state.content.templates = response.data.content;
                 }).catch(function (error) {
+                    /** Deactivated bc too much
                     vm.$notify({
                         group: 'default',
                         type: 'warning',
                         title: vm.$t('alerts.empty.title'),
                         text: vm.$t('alerts.empty.text')
                     });
+                    **/
                 }).then(function(){
                     vm.$data.loading = false;
                 });

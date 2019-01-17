@@ -70,6 +70,10 @@ export default new Vuex.Store({
                 state.user.isFemale = false;
             }
 
+            if(!decoded.data.language){
+                state.user.language = navigator.language || navigator.userLanguage;
+            }
+
             VueCookie.set('authCookie', JSON.stringify(state.auth), {expires: 1, domain: window.location.hostname});
 
             state.app.navigation = [

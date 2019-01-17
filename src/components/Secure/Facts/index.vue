@@ -65,12 +65,14 @@ export default {
             }).then(function(response) {
                 vm.$store.state.content.weights = response.data.content;
             }).catch(function (error) {
+                /** Deactivated bc too much
                 vm.$notify({
                     group: 'default',
                     type: 'warning',
                     title: vm.$t('alerts.empty.title'),
                     text: vm.$t('alerts.empty.text')
                 });
+                **/
             });
         }
 
@@ -85,12 +87,14 @@ export default {
             }).then(function(response) {
                 vm.$store.state.content.calories = response.data.content;
             }).catch(function (error) {
+                /** Deactivated bc too much
                 vm.$notify({
                     group: 'default',
                     type: 'warning',
                     title: vm.$t('alerts.empty.title'),
                     text: vm.$t('alerts.empty.text')
                 });
+                **/
             });
         }
 
