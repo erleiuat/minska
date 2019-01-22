@@ -28,7 +28,7 @@ Vue.use(Vuetify, {
 Vue.mixin({
     methods: {
         axiosPost: axios.create({
-            baseURL: process.env.NODE_ENV === 'production' ? "https://minska.api.eliareutlinger.ch/" : "http://localhost/minska/minska-api/",
+            baseURL: process.env.NODE_ENV === 'production' ? "https://minska.api.eliareutlinger.ch/" : "http://localhost/minska-api/",
             timeout: 8000,
             method: 'post',
             headers: {

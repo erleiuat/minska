@@ -6,7 +6,7 @@
 
         <v-content>
             <v-container fluid fill-height>
-                <notifications app group="default" position="top right" max-width="40%">
+                <notifications app group="default" position="bottom center" max-width="40%">
                 </notifications>
                 <transition>
                     <router-view>
@@ -44,20 +44,6 @@ export default {
     beforeCreate(){
 
         this.$store.watch((state)=>{
-            return this.$store.state.auth.token
-        },(newValue)=>{
-            if(!newValue){
-                this.$router.push('/');
-                this.$notify({
-                    group: 'default',
-                    type: 'warning',
-                    title: this.$t('alerts.expired.title'),
-                    text: this.$t('alerts.expired.text')
-                })
-            }
-        });
-
-        this.$store.watch((state)=>{
             return this.$store.state.user.language
         },(newValue, oldValue)=>{
             if(newValue !== oldValue){
@@ -83,6 +69,20 @@ export default {
 
         this.$router.afterEach((to, from) => {
             document.title = this.$store.state.app.title +' | '+ this.$t('views.'+to.meta.title);
+        });
+
+        this.$store.watch((state)=>{
+            return this.$store.state.auth.token
+        },(newValue, oldValue)=>{
+            if(!newValue && oldValue !== null){
+                this.$router.push('/');
+                this.$notify({
+                    group: 'default',
+                    type: 'warning',
+                    title: this.$t('alerts.expired.title'),
+                    text: this.$t('alerts.expired.text')
+                })
+            }
         });
 
     }

@@ -21,6 +21,14 @@
                         <v-flex sm6>
                             <v-text-field :label="$t('height')" v-model="formdata.height" :rules="rules.height" outline></v-text-field>
                         </v-flex>
+
+                        <v-flex sm6>
+                            <v-menu :close-on-content-click="false" v-model="birthdateMenu" lazy transition="scale-transition" offset-y full-width min-width="290px">
+                                <v-text-field readonly slot="activator" :label="$t('birthdate')" v-model="formBirthDate" :rules="rules.date" outline></v-text-field>
+                                <v-date-picker v-model="formdata.birthdate" @input="birthdateMenu = false"></v-date-picker>
+                            </v-menu>
+                        </v-flex>
+
                     </v-layout>
                     <h2 v-text="$t('aims')"></h2>
                     <v-layout row wrap>
@@ -29,9 +37,9 @@
                         </v-flex>
 
                         <v-flex sm6>
-                            <v-menu :close-on-content-click="false" v-model="dateMenu" :nudge-right="40" lazy transition="scale-transition" offset-y full-width min-width="290px">
-                                <v-text-field readonly slot="activator" :label="$t('date')" v-model="computedDateFormatted" :rules="rules.date" outline></v-text-field>
-                                <v-date-picker v-model="formdata.aims.date" @input="dateMenu = false"></v-date-picker>
+                            <v-menu :close-on-content-click="false" v-model="aimdateMenu" lazy transition="scale-transition" offset-y full-width min-width="290px">
+                                <v-text-field readonly slot="activator" :label="$t('date')" v-model="formAimDate" :rules="rules.date" outline></v-text-field>
+                                <v-date-picker v-model="formdata.aims.date" @input="aimdateMenu = false"></v-date-picker>
                             </v-menu>
                         </v-flex>
 
@@ -51,7 +59,6 @@
     export default {
 
         name: 'settings',
-
         i18n: {
             messages: {
                 en: {
@@ -69,7 +76,8 @@
                     aims: 'Aims',
                     weight: 'Weight (Kg)',
                     date: 'Date',
-                    save: 'Save Changes'
+                    save: 'Save Changes',
+                    birthdate: 'Birthdate'
                 },
                 de: {
                     title: 'Einstellungen',
@@ -86,7 +94,8 @@
                     aims: 'Ziele',
                     weight: 'Gewicht (Kg)',
                     date: 'Datum',
-                    save: 'Änderungen Speichern'
+                    save: 'Änderungen Speichern',
+                    birthdate: 'Geburtsdatum'
                 }
             }
         },
@@ -147,9 +156,14 @@
         },
 
         computed: {
-            computedDateFormatted () {
+            formAimDate () {
                 if (!this.$data.formdata.aims.date) return null
                 const [year, month, day] = this.$data.formdata.aims.date.split('-')
+                return `${day}.${month}.${year}`
+            },
+            formBirthDate () {
+                if (!this.$data.formdata.birthdate) return null
+                const [year, month, day] = this.$data.formdata.birthdate.split('-')
                 return `${day}.${month}.${year}`
             },
         },
@@ -158,7 +172,8 @@
             return {
 
                 disabled: true,
-                dateMenu: false,
+                birthdateMenu: false,
+                aimdateMenu: false,
                 languageItems: [],
                 genderItems: [],
 
@@ -168,6 +183,7 @@
                     firstname: this.$store.state.user.firstname,
                     lastname: this.$store.state.user.lastname,
                     height: this.$store.state.user.height,
+                    birthdate: this.$store.state.user.birthdate,
                     aims: {
                         weight: this.$store.state.user.aims.weight,
                         date: this.$store.state.user.aims.date

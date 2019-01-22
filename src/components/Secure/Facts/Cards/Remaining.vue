@@ -35,11 +35,13 @@ export default {
                 var difference_days = Math.round(difference_ms/ (1000*60*60*24) );
                 var lossPerDayInCal = (this.$store.state.user.aims.weight - this.$store.state.content.weights[0].weight) / difference_days * 7000;
 
+                var ageDate = new Date(Date.now() - Date.parse(this.$store.state.user.birthdate));
+                var age = Math.abs(ageDate.getUTCFullYear() - 1970);
+
                 if(this.$store.state.user.isFemale){
-                    //TODO: Implement Age
-                    var dailyCalNeeded = 655 + (9.5 * this.$store.state.content.weights[0].weight) + (1.9 * this.$store.state.user.height) + (4.7 * 18); //Womans
+                    var dailyCalNeeded = 655 + (9.5 * this.$store.state.content.weights[0].weight) + (1.9 * this.$store.state.user.height) + (4.7 * age); //Womans
                 } else {
-                    var dailyCalNeeded = 66 + (13.8 * this.$store.state.content.weights[0].weight) + (5.0 * this.$store.state.user.height) + (6.8 * 18); //Mans
+                    var dailyCalNeeded = 66 + (13.8 * this.$store.state.content.weights[0].weight) + (5.0 * this.$store.state.user.height) + (6.8 * age); //Mans
                 }
 
                 var daily = Math.round((lossPerDayInCal + dailyCalNeeded)*100)/100;
