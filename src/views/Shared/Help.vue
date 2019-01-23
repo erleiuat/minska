@@ -31,23 +31,23 @@
                     <v-card flat>
                         <v-card-text>
                             <v-layout row wrap>
-                            <v-flex xs12>
-                                <h3>{{ $t('factcards.remainingdaily.title') }}</h3>
-                                <p  v-html="$t('factcards.remainingdaily.text')"></p>
-                            </v-flex>
-                            <v-flex xs12 sm6>
-                                <h3>{{ $t('factcards.recenttotal.title') }}</h3>
-                                <p  v-html="$t('factcards.recenttotal.text')"></p>
-                            </v-flex>
-                            <v-flex xs12 sm6>
-                                <h3>{{ $t('factcards.bmi.title') }}</h3>
-                                <p  v-html="$t('factcards.bmi.text')"></p>
-                            </v-flex>
-                            <v-flex xs12 sm6>
-                                <h3>{{ $t('factcards.target.title') }}</h3>
-                                <p  v-html="$t('factcards.target.text')"></p>
-                            </v-flex>
-                        </v-layout>
+                                <v-flex xs12>
+                                    <h3>{{ $t('factcards.remainingdaily.title') }}</h3>
+                                    <p  v-html="$t('factcards.remainingdaily.text')"></p>
+                                </v-flex>
+                                <v-flex xs12 sm6>
+                                    <h3>{{ $t('factcards.recenttotal.title') }}</h3>
+                                    <p  v-html="$t('factcards.recenttotal.text')"></p>
+                                </v-flex>
+                                <v-flex xs12 sm6>
+                                    <h3>{{ $t('factcards.bmi.title') }}</h3>
+                                    <p  v-html="$t('factcards.bmi.text')"></p>
+                                </v-flex>
+                                <v-flex xs12 sm6>
+                                    <h3>{{ $t('factcards.target.title') }}</h3>
+                                    <p  v-html="$t('factcards.target.text')"></p>
+                                </v-flex>
+                            </v-layout>
                         </v-card-text>
                     </v-card>
                 </v-tab-item>
@@ -116,13 +116,13 @@
                         remainingdaily : {
                             title: 'Verbleibend & Täglich',
                             text: `Bei diesen 2 Fakten handelt es sich um Statistiken zu deinen Kalorien. <b>Täglich</b> beschreibt dabei, wie
-                            viele Kalorien du pro Tag konsumieren kannst, um dein Ziel-Gewicht an deinem Ziel-Datum zu erreichen. Diese Zahl
+                            viele Kalorien du pro Tag konsumieren kannst, um dein Zielgewicht an deinem Ziel-Datum zu erreichen. Diese Zahl
                             beschreibt jedoch <b>nur deinen Grundumsatz bei sehr wenig aktivität</b>. Wenn du z.B. einen Bürojob hast, und dich
                             sonst nicht zusätzlich bewegst bzw. keinen Sport betreibst, kannst du diese Zahl nutzen. Falls du aber einen körperlich
                             anstrengenden Beruf hast oder in deiner Freizeit weitere Aktivitäten ausführst, solltest du diesen zusätzlichen Kalorienverbrauch
-                            berechnen und zum Grundumsatz hinzufügen. Zu wenig Kalorieneinnahme durch höheren Verbrauch kann sich auf deine Gesundheit schlecht
+                            berechnen und zum Grundumsatz hinzufügen. Zu wenig Kalorienaufnahme durch höheren Verbrauch kann sich auf deine Gesundheit schlecht
                             auswirken. Achte darauf, dass du deine Ziele so einstellst, dass dieser Wert mindestens über 900 Kalorien pro Tag beträgt.<br/>
-                            <b>Vergleibend</b> beschreibt wie viele Kalorien heute noch übrig sind. Die Zahl passt sich automatisch an, wenn du weitere Kalorien
+                            <b>Verbleibend</b> beschreibt wie viele Kalorien heute noch übrig sind. Die Zahl passt sich automatisch an, wenn du weitere Kalorien
                             hinzufügst oder löscht.`
                         },
                         recenttotal : {
