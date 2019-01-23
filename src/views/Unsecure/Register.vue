@@ -24,8 +24,16 @@
                         <v-flex xs12 sm6>
                             <v-text-field :label="$t('repeat')" outline :rules="rules.pass2" :type="'password'"></v-text-field>
                         </v-flex>
+
                         <v-flex xs12>
-                            <v-btn depressed block @click="sendRegistration()" large color="primary" :disabled="disabled" v-text="$t('button')"></v-btn>
+
+                            <v-btn :loading="loading" :disabled="loading" depressed block @click="sendRegistration()" large color="primary">
+                                {{ $t('button') }}
+                                <span slot="loader" class="custom-loader">
+                                    <v-icon light>cached</v-icon>
+                                </span>
+                            </v-btn>
+
                         </v-flex>
 
                     </v-layout>
@@ -90,6 +98,7 @@ export default {
 
             if(vm.$data.rules.valid){
                 vm.$data.disabled=true;
+                vm.$data.loading=true;
                 vm.axiosPost({
                     url:'user/create/',
                     data: vm.$data.formdata
@@ -100,6 +109,7 @@ export default {
                         title: vm.$t('created.title'),
                         text: vm.$t('created.text')
                     });
+                    vm.$data.loading=false;
                     vm.$router.push('/login');
                 }).catch(function (error) {
                     vm.$notify({
@@ -108,7 +118,8 @@ export default {
                         title: vm.$t('failed.title'),
                         text: vm.$t('failed.text')
                     });
-                    vm.disabled=false;
+                    vm.$data.disabled=false;
+                    vm.$data.loading=false;
                 });
 
             }
@@ -119,6 +130,7 @@ export default {
     data (){
         return {
             disabled: false,
+            loading: false,
             formdata: {
                 firstname: null,
                 lastname: null,

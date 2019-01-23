@@ -25,7 +25,12 @@
                         </v-flex>
 
                         <v-flex xs12>
-                            <v-btn :disabled="disabled" large block color="primary" @click="addWeight()">{{$t('add')}}</v-btn>
+                            <v-btn :loading="loading" :disabled="disabled" large block color="primary" @click="addWeight()">
+                                {{ $t('add') }}
+                                <span slot="loader" class="custom-loader">
+                                    <v-icon light>cached</v-icon>
+                                </span>
+                            </v-btn>
                         </v-flex>
 
                     </v-layout>
@@ -68,6 +73,7 @@ export default {
                 var postData = vm.$data.formdata;
                 postData.token = this.$store.state.auth.token;
                 vm.$data.disabled=true;
+                vm.$data.loading=true;
 
                 vm.axiosPost({
                     url:'weight/create/',
@@ -94,6 +100,7 @@ export default {
                     vm.$store.state.content.weights.unshift(tmp);
                     vm.$data.formdata.weight = null;
                     vm.$refs.addWeightForm.resetValidation();
+                    vm.$data.loading=false;
 
                 }).catch(function (error) {
                     vm.$notify({
@@ -102,7 +109,8 @@ export default {
                         title: vm.$t('alerts.error.title'),
                         text: vm.$t('alerts.error.text')
                     });
-                    vm.disabled=false;
+                    vm.$data.disabled=false;
+                    vm.$data.loading=false;
                 });
             }
 
@@ -125,6 +133,7 @@ export default {
         var tmp = new Date();
         return {
             disabled: true,
+            loading: false,
             dateMenu: false,
             formdata: {
                 weight: null,

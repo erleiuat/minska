@@ -138,6 +138,7 @@
 
                 var vm = this;
                 if(!vm.$store.state.content.calories || date.date !== new Date().toISOString().split('T')[0]){
+                    vm.$data.loading = true;
                     vm.axiosPost({
                         url:'calorie/read/byDay/',
                         data: {
@@ -146,6 +147,7 @@
                         },
                     }).then(function(response) {
                         vm.$data.calories = response.data.content;
+                        vm.$data.loading = false;
                     }).catch(function (error) {
                         vm.$notify({
                             group: 'default',
@@ -153,6 +155,7 @@
                             title: vm.$t('alerts.empty.title'),
                             text: vm.$t('alerts.empty.text')
                         });
+                        vm.$data.loading = false;
                     });
                 } else if(this.$store.state.content.calories){
                     vm.$data.calories = vm.$store.state.content.calories;

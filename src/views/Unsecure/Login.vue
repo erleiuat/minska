@@ -6,7 +6,12 @@
                     <h1 v-text="$t('title')"></h1>
                     <v-text-field :label="$t('mail')" v-model="formdata.email" :rules="rules.email" outline></v-text-field>
                     <v-text-field :label="$t('password')" v-model="formdata.password" outline :rules="rules.pass" :type="'password'"></v-text-field>
-                    <v-btn depressed block @click="sendLogin()" large color="primary" :disabled="disabled" v-text="$t('title')"></v-btn>
+                    <v-btn :loading="loading" :disabled="loading" depressed block @click="sendLogin()" large color="primary">
+                        {{ $t('login') }}
+                        <span slot="loader" class="custom-loader">
+                            <v-icon light>cached</v-icon>
+                        </span>
+                    </v-btn>
                 </v-flex>
             </v-layout>
         </v-form>
@@ -56,7 +61,7 @@ export default {
             vm.$refs.registrationForm.validate();
 
             if(vm.$data.rules.valid){
-                vm.$data.disabled=true;
+                vm.$data.loading=true;
                 vm.axiosPost({
                     url:'user/login/',
                     data: vm.$data.formdata
@@ -76,7 +81,7 @@ export default {
                         title: vm.$t('fail.title'),
                         text: vm.$t('fail.text')
                     });
-                    vm.disabled=false;
+                    vm.loading=false;
                 });
             }
 
@@ -86,7 +91,7 @@ export default {
 
     data (){
         return {
-            disabled: false,
+            loading: false,
             formdata: {
                 email: '',
                 password: ''
@@ -103,7 +108,7 @@ export default {
                 ],
             }
         }
-    }
+    },
 
 }
 </script>

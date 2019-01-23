@@ -39,7 +39,12 @@
 
 
                         <v-flex xs12>
-                            <v-btn :disabled="disabled" large block color="primary" @click="addCalorie()">{{$t('add')}}</v-btn>
+                            <v-btn :loading="loading" :disabled="disabled" large block color="primary" @click="addCalorie()">
+                                {{ $t('add') }}
+                                <span slot="loader" class="custom-loader">
+                                    <v-icon light>cached</v-icon>
+                                </span>
+                            </v-btn>
                         </v-flex>
 
                     </v-layout>
@@ -99,6 +104,7 @@ import CalorieSearch from './CalorieSearch'
                     var vm = this;
                     var postData = vm.$data.formdata;
                     postData.token = this.$store.state.auth.token;
+                    vm.$data.loading=true;
                     vm.$data.disabled=true;
 
                     vm.axiosPost({
@@ -125,6 +131,7 @@ import CalorieSearch from './CalorieSearch'
                         vm.$data.formdata.amount = null;
 
                         vm.$refs.addCalorieForm.resetValidation();
+                        vm.$data.loading=false;
 
                         vm.$notify({
                             group: 'default',
@@ -140,7 +147,8 @@ import CalorieSearch from './CalorieSearch'
                             title: vm.$t('alerts.error.title'),
                             text: vm.$t('alerts.error.text')
                         });
-                        vm.disabled=false;
+                        vm.$data.disabled=false;
+                        vm.$data.loading=false;
                     });
 
                 }
@@ -163,6 +171,7 @@ import CalorieSearch from './CalorieSearch'
             var tmp = new Date();
             return {
                 disabled: true,
+                loading: false,
                 dateMenu: false,
                 formdata: {
                     title: null,

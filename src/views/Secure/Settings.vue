@@ -44,7 +44,12 @@
                         </v-flex>
 
                         <v-flex xs12>
-                            <v-btn depressed block @click="sendUpdates()" large color="primary" :disabled="disabled" v-text="$t('save')"></v-btn>
+                            <v-btn :loading="loading" :disabled="disabled" depressed large block color="primary" @click="sendUpdates()">
+                                {{ $t('save') }}
+                                <span slot="loader" class="custom-loader">
+                                    <v-icon light>cached</v-icon>
+                                </span>
+                            </v-btn>
                         </v-flex>
 
                     </v-layout>
@@ -111,6 +116,7 @@
                     var postData = vm.$data.formdata;
                     postData.token = this.$store.state.auth.token;
                     vm.$data.disabled=true;
+                    vm.$data.loading=true;
 
                     vm.axiosPost({
                         url:'user/update/',
@@ -124,6 +130,7 @@
                             text: vm.$t('alerts.success.text')
                         });
                         vm.disabled=true;
+                        vm.$data.loading=false;
                     }).catch(function (error) {
                         vm.$notify({
                             group: 'default',
@@ -132,6 +139,7 @@
                             text: vm.$t('alerts.error.text')
                         });
                         vm.disabled=false;
+                        vm.$data.loading=false;
                     });
                 }
             }
@@ -172,6 +180,7 @@
             return {
 
                 disabled: true,
+                loading: false,
                 birthdateMenu: false,
                 aimdateMenu: false,
                 languageItems: [],
