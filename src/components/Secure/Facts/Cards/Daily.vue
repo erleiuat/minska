@@ -16,11 +16,11 @@ export default {
         messages: {
             en: {
                 title: 'Daily',
-                description: 'This is how much you can eat per Day to reach your aims',
+                description: 'To loose {value} Kg per day',
             },
             de: {
                 title: 'Täglich',
-                description: 'Mögliche Kalorien pro Tag um Ziele zu erreichen',
+                description: 'Um {value} Kg pro Tag abzunehmen',
             }
         }
     },
@@ -56,7 +56,7 @@ export default {
 
                 return {
                     title: this.$t('title'),
-                    description: this.$t('description'),
+                    description: this.$t('description', {value: Math.round( ((this.$store.state.user.aims.weight - this.$store.state.content.weights[0].weight)/difference_days)*100 )/100}),
                     value: value,
                     unit: 'KCal',
                     type: type

@@ -16,11 +16,11 @@ export default {
         messages: {
             en: {
                 title: 'Remaining',
-                description: 'This is how much is still remaining today (for {value} Kg pro Tag)',
+                description: '{value} already used',
             },
             de: {
                 title: 'Verbleibend',
-                description: 'Soviele sind heute noch übrig (für {value} Kg pro Tag)',
+                description: 'Bereits {value} verbraucht',
             }
         }
     },
@@ -66,7 +66,7 @@ export default {
 
                 return {
                     title: this.$t('title'),
-                    description: this.$t('description', {value: Math.round( ((this.$store.state.user.aims.weight - this.$store.state.content.weights[0].weight)/difference_days)*100 )/100}),
+                    description: this.$t('description', {value: Math.round((used)*100)/100}),
                     value: value,
                     unit: 'KCal',
                     type: type

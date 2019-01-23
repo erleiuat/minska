@@ -24,10 +24,6 @@
 
             <v-flex xs12>
                 <Facts />
-                <!--
-                <Recently/>
-                <Total/>
-                -->
             </v-flex>
 
         </v-layout>
@@ -38,9 +34,6 @@
 import WeightAdder from '@/components/Secure/Adder/Weight'
 import CalorieAdder from '@/components/Secure/Adder/Calorie'
 import Facts from '@/components/Secure/Facts/'
-//import Recently from '@/components/Secure/Facts/Recently'
-//import Total from '@/components/Secure/Facts/Total'
-
 export default {
 
     name: 'home',
@@ -48,9 +41,7 @@ export default {
     components: {
         WeightAdder,
         CalorieAdder,
-        Facts,
-        //Recently,
-        //Total
+        Facts
     },
 
     i18n: {
