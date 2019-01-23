@@ -16,11 +16,11 @@ export default {
         messages: {
             en: {
                 title: 'BMI',
-                description: 'Current Body-Mass-Index (Should be between 20 and 25)',
+                description: 'Current Body-Mass-Index',
             },
             de: {
                 title: 'BMI',
-                description: 'Aktueller Body-Mass-Index (Sollte zwischen 20 und 25 sein)',
+                description: 'Aktueller Body-Mass-Index',
             }
         }
     },

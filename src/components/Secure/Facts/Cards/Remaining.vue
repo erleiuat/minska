@@ -15,11 +15,11 @@ export default {
     i18n: {
         messages: {
             en: {
-                title: 'Remaining',
+                title: 'Remaining Calories',
                 description: '{value} already used',
             },
             de: {
-                title: 'Verbleibend',
+                title: 'Verbleibende Kalorien',
                 description: 'Bereits {value} verbraucht',
             }
         }
@@ -68,7 +68,7 @@ export default {
                     title: this.$t('title'),
                     description: this.$t('description', {value: Math.round((used)*100)/100}),
                     value: value,
-                    unit: 'KCal',
+                    unit: '',
                     type: type
                 }
 

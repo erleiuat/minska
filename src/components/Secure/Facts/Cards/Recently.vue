@@ -15,12 +15,12 @@ export default {
     i18n: {
         messages: {
             en: {
-                title: 'Recently',
-                description: 'Difference between latest 2 Entries (Most Recent: {value} Kg)',
+                title: 'Recent Loss',
+                description: '= Latest 2 Entries',
             },
             de: {
-                title: 'Kürzlich',
-                description: 'Unterschied zwischen den letzten 2 Einträgen (Neuster: {value} Kg)',
+                title: 'Kürzlich Abgenommen',
+                description: '= Letzte 2 Einträge',
             }
         }
     },
@@ -46,7 +46,7 @@ export default {
 
                 return {
                     title: this.$t('title'),
-                    description: this.$t('description', {value: this.$store.state.content.weights[0].weight}),
+                    description: this.$t('description'),
                     value: value,
                     unit: 'Kg',
                     type: type

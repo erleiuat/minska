@@ -19,7 +19,7 @@ export default {
                 description: 'To loose {value} Kg per day',
             },
             de: {
-                title: 'Täglich',
+                title: 'Tägliche Kalorien',
                 description: 'Um {value} Kg pro Tag abzunehmen',
             }
         }
@@ -58,7 +58,7 @@ export default {
                     title: this.$t('title'),
                     description: this.$t('description', {value: Math.round( ((this.$store.state.user.aims.weight - this.$store.state.content.weights[0].weight)/difference_days)*100 )/100}),
                     value: value,
-                    unit: 'KCal',
+                    unit: '',
                     type: type
                 }
 

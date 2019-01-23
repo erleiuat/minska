@@ -15,12 +15,12 @@ export default {
     i18n: {
         messages: {
             en: {
-                title: 'Total',
-                description: 'Difference between first and latest Entry',
+                title: 'Total Loss',
+                description: 'From start til now',
             },
             de: {
-                title: 'Insgesamt',
-                description: 'Unterschied zwischen deinem ersten und letzten Eintrag',
+                title: 'Insgesamt Abgenommen',
+                description: 'Vom Anfang bis jetzt',
             }
         }
     },

@@ -16,11 +16,11 @@ export default {
         messages: {
             en: {
                 title: 'Target',
-                description: 'Difference between latest and target. (Target: {value} Kg)',
+                description: 'To {value} Kg',
             },
             de: {
-                title: 'Ziel',
-                description: 'Unterschied zwischen aktuellem und Ziel-Gewicht. (Ziel: {value} Kg)',
+                title: 'Zum Ziel',
+                description: 'Bis {value} Kg',
             }
         }
     },
