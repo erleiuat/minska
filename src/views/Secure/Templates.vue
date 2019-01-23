@@ -11,7 +11,7 @@
 
         </v-layout>
         <v-layout row wrap>
-            <v-flex v-for="item in templates" xs12 sm4>
+            <v-flex v-for="item in templates" xs12 sm6 md4>
                 <Frame :item="item"/>
             </v-flex>
         </v-layout>

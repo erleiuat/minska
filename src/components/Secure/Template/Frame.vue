@@ -30,6 +30,11 @@
                     <v-list-tile-title>{{item.calories}}</v-list-tile-title>
                 </v-list-tile-content>
             </v-list-tile>
+            <v-list-tile >
+                <v-list-tile-content>
+                    <v-list-tile-sub-title>{{$t('total')}} {{ Math.round(item.amount/100*item.calories) }} Kcal</v-list-tile-sub-title>
+                </v-list-tile-content>
+            </v-list-tile>
         </v-list>
     </v-card>
 </template>
@@ -49,14 +54,14 @@ export default {
                 defaultAmount: 'Default Amount',
                 clickHere: 'Click here or drop Image to upload',
                 addTemplate: 'Add Template',
-                retry: 'Try Again'
+                total: 'Total'
             },
             de: {
                 caloriesPer: 'Kalorien pro 100 g/ml',
                 defaultAmount: 'Standartmenge',
                 clickHere: 'Klick hier oder ziehe ein Bild hierher um es hochzuladen',
                 addTemplate: 'Vorlage hinzufügen',
-                retry: 'Erneut versuchen'
+                total: 'Insgesamt'
             }
         }
     },

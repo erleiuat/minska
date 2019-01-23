@@ -14,15 +14,16 @@
                         <v-hover>
                         <v-card @click="useItem(item)" slot-scope="{ hover }" :class="`elevation-${hover ? 12 : 2}`">
                             <v-layout>
-                                <v-flex xs5>
-                                    <v-img :src="image(item.image)" height="125px"></v-img>
+                                <v-flex xs3 sm5>
+                                    <v-img :src="image(item.image)" height="100%"></v-img>
                                 </v-flex>
-                                <v-flex xs7>
+                                <v-flex xs9 sm6>
                                     <v-card-title primary-title>
                                         <div>
                                             <div class="headline">{{item.title}}</div>
-                                            <div>{{$t('caloriesPer')}} {{item.calories}}</div>
-                                            <div>{{$t('defaultAmount')}} {{item.amount}} g/ml</div>
+                                            <div>{{$t('caloriesPer')}} <b>{{item.calories}}</b></div>
+                                            <div>{{$t('defaultAmount')}} <b>{{item.amount}}</b> g/ml</div>
+                                            <div>{{$t('total')}} <b>{{ Math.round(item.amount/100*item.calories) }}</b> Kcal</div>
                                         </div>
                                     </v-card-title>
                                 </v-flex>
@@ -59,13 +60,15 @@ export default {
                 caloriesPer: 'Calories per 100 g/ml:',
                 defaultAmount: 'Default Amount (g/ml):',
                 select: 'Select Template',
-                close: 'Close'
+                close: 'Close',
+                total: 'Total'
             },
             de: {
                 caloriesPer: 'Kalorien pro 100 g/ml:',
-                defaultAmount: 'Standartmenge (g/ml):',
+                defaultAmount: 'Standartmenge:',
                 select: 'Vorlage auswählen',
-                close: 'Schliessen'
+                close: 'Schliessen',
+                total: 'Insgesamt'
             }
         }
     },
