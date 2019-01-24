@@ -14,7 +14,7 @@
                     <v-layout row wrap>
 
                         <v-flex sm12>
-                            <v-text-field :label="$t('weight')" v-model="formdata.weight" :rules="rules.weight" outline></v-text-field>
+                            <v-text-field :label="$t('weight')" v-model="formdata.weight" :rules="rules.weight" type="number" outline></v-text-field>
                         </v-flex>
 
                         <v-flex sm12>

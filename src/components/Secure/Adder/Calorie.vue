@@ -30,11 +30,11 @@
                         </v-flex>
 
                         <v-flex sm6>
-                            <v-text-field :label="$t('formCalories')" v-model="formdata.calories" :rules="rules.number" outline></v-text-field>
+                            <v-text-field :label="$t('formCalories')" v-model="formdata.calories" :rules="rules.number" type="number" outline></v-text-field>
                         </v-flex>
 
                         <v-flex sm6>
-                            <v-text-field :label="$t('formAmount')" v-model="formdata.amount" :rules="rules.number" outline></v-text-field>
+                            <v-text-field :label="$t('formAmount')" v-model="formdata.amount" :rules="rules.number" type="number" outline></v-text-field>
                         </v-flex>
 
 

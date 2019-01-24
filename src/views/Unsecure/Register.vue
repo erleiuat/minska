@@ -15,14 +15,14 @@
                             <v-text-field :label="$t('lastname')" v-model="formdata.lastname" :rules="rules.name" outline></v-text-field>
                         </v-flex>
                         <v-flex xs12 sm4>
-                            <v-text-field :label="$t('mail')" v-model="formdata.email" :rules="rules.email" outline></v-text-field>
+                            <v-text-field :label="$t('mail')" v-model="formdata.email" :rules="rules.email" type="email" outline></v-text-field>
                         </v-flex>
 
                         <v-flex xs12 sm6>
-                            <v-text-field :label="$t('password')" v-model="formdata.password" outline :rules="rules.pass" :type="'password'"></v-text-field>
+                            <v-text-field :label="$t('password')" v-model="formdata.password" outline :rules="rules.pass" type="password"></v-text-field>
                         </v-flex>
                         <v-flex xs12 sm6>
-                            <v-text-field :label="$t('repeat')" outline :rules="rules.pass2" :type="'password'"></v-text-field>
+                            <v-text-field :label="$t('repeat')" outline :rules="rules.pass2" type="password"></v-text-field>
                         </v-flex>
 
                         <v-flex xs12>
@@ -58,7 +58,7 @@ export default {
                 repeat: 'Repeat Password',
                 button: 'Register now',
                 match: "Passwords don't match",
-                strong: "Password isn't strong enough",
+                strong: "Min. 8 Characters, upper and lowercase, numbers",
                 created: {
                     title: 'Account created!',
                     text: 'You can now login'
@@ -77,7 +77,7 @@ export default {
                 repeat: 'Passwort wiederholen',
                 button: 'Registieren',
                 match: 'Passwörter stimmen nicht überein',
-                strong: 'Passwort ist nicht stark genug',
+                strong: 'Min. 8 Zeichen, Gross & Klein, Zahlen',
                 created: {
                     title: 'Account erstellt!',
                     text: 'Du kannst dich nun anmelden'
@@ -149,7 +149,8 @@ export default {
                 ],
                 pass: [
                 (v) => !!v || this.$t('errors.required'),
-                (v) => /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/.test(v) || this.$t('strong'),
+                (v) => /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})/.test(v) || this.$t('strong'),
+                //(v) => /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/.test(v) || this.$t('strong'), <- Too stong lol
                 ],
                 pass2: [
                 (v) => !!v || this.$t('repeat'),

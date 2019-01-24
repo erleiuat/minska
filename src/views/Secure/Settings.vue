@@ -19,7 +19,7 @@
                             <v-text-field :label="$t('lastname')" v-model="formdata.lastname" :rules="rules.name" outline></v-text-field>
                         </v-flex>
                         <v-flex sm6>
-                            <v-text-field :label="$t('height')" v-model="formdata.height" :rules="rules.height" outline></v-text-field>
+                            <v-text-field :label="$t('height')" v-model="formdata.height" :rules="rules.height" type="number" outline></v-text-field>
                         </v-flex>
 
                         <v-flex sm6>
@@ -33,7 +33,7 @@
                     <h2 v-text="$t('aims')"></h2>
                     <v-layout row wrap>
                         <v-flex sm6>
-                            <v-text-field :label="$t('weight')" v-model="formdata.aims.weight" :rules="rules.weight" outline></v-text-field>
+                            <v-text-field :label="$t('weight')" v-model="formdata.aims.weight" :rules="rules.weight" type="number" outline></v-text-field>
                         </v-flex>
 
                         <v-flex sm6>
