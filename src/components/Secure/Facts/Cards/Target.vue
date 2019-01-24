@@ -15,7 +15,7 @@ export default {
     i18n: {
         messages: {
             en: {
-                title: 'Target',
+                title: 'To the goal',
                 description: 'To {value} Kg',
             },
             de: {
