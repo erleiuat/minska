@@ -48,47 +48,47 @@
 </template>
 
 <script>
-    export default {
+export default {
 
-        name: 'CalorieSearch',
-        data () {
-            return {
-                dialog: false
+    name: 'CalorieSearch',
+    data () {
+        return {
+            dialog: false
 
+        }
+    },
+
+    i18n: {
+        messages: {
+            en: {
+                caloriesPer: 'Calories per 100 g/ml:',
+                defaultAmount: 'Default Amount (g/ml):',
+                select: 'Select Template',
+                close: 'Close',
+                total: 'Total'
+            },
+            de: {
+                caloriesPer: 'Kalorien pro 100 g/ml:',
+                defaultAmount: 'Standartmenge:',
+                select: 'Vorlage auswählen',
+                close: 'Schliessen',
+                total: 'Insgesamt'
             }
-        },
+        }
+    },
 
-        i18n: {
-            messages: {
-                en: {
-                    caloriesPer: 'Calories per 100 g/ml:',
-                    defaultAmount: 'Default Amount (g/ml):',
-                    select: 'Select Template',
-                    close: 'Close',
-                    total: 'Total'
-                },
-                de: {
-                    caloriesPer: 'Kalorien pro 100 g/ml:',
-                    defaultAmount: 'Standartmenge:',
-                    select: 'Vorlage auswählen',
-                    close: 'Schliessen',
-                    total: 'Insgesamt'
+    mounted () {
+        if (!this.$store.state.content.templates) {
+            var vm = this
+            vm.axiosPost({
+                url: 'template/read/',
+                data: {
+                    token: this.$store.state.auth.token
                 }
-            }
-        },
-
-        mounted () {
-            if (!this.$store.state.content.templates) {
-                var vm = this
-                vm.axiosPost({
-                    url: 'template/read/',
-                    data: {
-                        token: this.$store.state.auth.token
-                    }
-                }).then(function (response) {
-                    vm.$store.state.content.templates = response.data.content
-                }).catch(function () {
-                    /** Deactivated bc too much
+            }).then(function (response) {
+                vm.$store.state.content.templates = response.data.content
+            }).catch(function () {
+                /** Deactivated bc too much
                     vm.$notify({
                     group: 'default',
                     type: 'warning',
