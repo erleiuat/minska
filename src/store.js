@@ -82,11 +82,11 @@ export default new Vuex.Store({
                 state.user.language = navigator.language || navigator.userLanguage
             }
 
-            Cookies.set(
-                'authCookie',
-                JSON.stringify(state.auth),
-                { expires: 7, path: window.location.href, secure: true, httponly: true }
-            )
+            Cookies.set('authCookie', state.auth, {
+                expires: 7,
+                secure: process.env.NODE_ENV === 'production',
+                path: window.location.href
+            })
 
             state.app.navigation = [
                 { path: '/dashboard', title: 'dashboard', icon: 'dashboard' },
@@ -99,7 +99,7 @@ export default new Vuex.Store({
         },
 
         logout (state) {
-            Cookies.remove('authCookie')
+            Cookies.remove('authCookie', { path: window.location.href })
             state.user = { language: navigator.language || navigator.userLanguage }
 
             state.auth.token = false
@@ -123,9 +123,8 @@ export default new Vuex.Store({
 
         checkAuth ({ commit, state }) {
             var now = Math.floor(Date.now() / 1000)
-            var authCookie = JSON.parse(Cookies.get('authCookie'))
-
-            if (!state.auth.token && authCookie && authCookie !== null) {
+            if (!state.auth.token && Cookies.getJSON('authCookie')) {
+                var authCookie = Cookies.getJSON('authCookie')
                 if (authCookie.expiration.token > now && authCookie.expiration.app > now) {
                     commit('login', { token: authCookie.token, keep: authCookie.expiration.keep })
                     return null
