@@ -1,7 +1,7 @@
 <template>
     <v-container class="text-xs-center">
 
-        <v-img :src="titleImg" aspect-ratio="1.7" contain></v-img>
+        <v-img :src="require('@/media/title_color.png')" :lazy-src="require('@/media/title_color_low.png')" aspect-ratio="1.7" contain></v-img>
 
         <h1>{{ $t('title') }}</h1>
         <p>{{ $t('subtitle') }}</p>
@@ -34,12 +34,6 @@ export default {
                 login: 'Anmelden',
                 register: 'Account erstellen'
             }
-        }
-    },
-
-    computed: {
-        titleImg () {
-            return require('@/media/title_color_small.png')
         }
     }
 
