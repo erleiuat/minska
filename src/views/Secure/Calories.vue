@@ -50,176 +50,169 @@
 </template>
 
 <script>
-    import CalorieAdder from '@/components/Secure/Adder/Calorie'
+import CalorieAdder from '@/components/Secure/Adder/Calorie'
 
-    export default {
+export default {
 
-        name: 'Weight',
-        components: {
-            CalorieAdder,
-        },
-        i18n: {
-            messages: {
-                en: {
-                    calories: 'Calories',
-                    allEntries: 'All Entries',
-                    amount: 'Amount',
-                    title: 'Title',
-                    total: 'Total',
-                    actions: 'Actions',
-                    rows: 'Rows per page:'
-                },
-                de: {
-                    calories: 'Kalorien',
-                    allEntries: 'Alle Einträge',
-                    amount: 'Menge',
-                    title: 'Titel',
-                    total: 'Total',
-                    actions: 'Aktionen',
-                    rows: 'Einträge pro Seite:'
+    name: 'Weight',
+    components: {
+        CalorieAdder
+    },
+    i18n: {
+        messages: {
+            en: {
+                calories: 'Calories',
+                allEntries: 'All Entries',
+                amount: 'Amount',
+                title: 'Title',
+                total: 'Total',
+                actions: 'Actions',
+                rows: 'Rows per page:'
+            },
+            de: {
+                calories: 'Kalorien',
+                allEntries: 'Alle Einträge',
+                amount: 'Menge',
+                title: 'Titel',
+                total: 'Total',
+                actions: 'Aktionen',
+                rows: 'Einträge pro Seite:'
+            }
+        }
+    },
+
+    methods: {
+
+        deleteItem (item) {
+            var vm = this
+            vm.axiosPost({
+                url: 'calorie/delete/',
+                data: {
+                    id: item.id,
+                    token: this.$store.state.auth.token
                 }
+            }).then(function (response) {
+                const index = vm.$data.calories.indexOf(item)
+                vm.$data.calories.splice(index, 1)
+                if (vm.$store.state.content.calories && vm.$data.active.date == new Date().toISOString().split('T')[0]) {
+                    vm.$store.state.content.calories.splice(index, 1)
+                }
+                vm.$notify({
+                    group: 'default',
+                    type: 'success',
+                    title: vm.$t('alerts.success.title'),
+                    text: vm.$t('alerts.success.text')
+                })
+            }).catch(function (error) {
+                vm.$notify({
+                    group: 'default',
+                    type: 'error',
+                    title: vm.$t('alerts.error.title'),
+                    text: vm.$t('alerts.error.text')
+                })
+            })
+        },
+
+        prevDay () {
+            var vm = this
+            var currentIndex = (this.$data.dates.findIndex(function (element) {
+                return element == vm.$data.active
+            }))
+            if (currentIndex !== 0) {
+                vm.getDay(vm.$data.dates[currentIndex - 1])
             }
         },
 
-        methods: {
+        nextDay () {
+            var vm = this
+            var currentIndex = (this.$data.dates.findIndex(function (element) {
+                return element == vm.$data.active
+            }))
+            if (currentIndex < vm.$data.dates.length - 1) {
+                vm.getDay(vm.$data.dates[currentIndex + 1])
+            }
+        },
 
-            deleteItem(item){
-
-                var vm = this;
+        getDay (date) {
+            var vm = this
+            if (!vm.$store.state.content.calories || date.date !== new Date().toISOString().split('T')[0]) {
+                vm.$data.loading = true
                 vm.axiosPost({
-                    url:'calorie/delete/',
+                    url: 'calorie/read/byDay/',
                     data: {
-                        id: item.id,
                         token: this.$store.state.auth.token,
-                    },
-                }).then(function(response) {
-                    const index = vm.$data.calories.indexOf(item);
-                    vm.$data.calories.splice(index, 1);
-                    if(vm.$store.state.content.calories && vm.$data.active.date == new Date().toISOString().split('T')[0]){
-                        vm.$store.state.content.calories.splice(index, 1);
+                        date: date.date
                     }
-                    vm.$notify({
-                        group: 'default',
-                        type: 'success',
-                        title: vm.$t('alerts.success.title'),
-                        text: vm.$t('alerts.success.text')
-                    });
+                }).then(function (response) {
+                    vm.$data.calories = response.data.content
+                    vm.$data.loading = false
                 }).catch(function (error) {
-                    vm.$notify({
-                        group: 'default',
-                        type: 'error',
-                        title: vm.$t('alerts.error.title'),
-                        text: vm.$t('alerts.error.text')
-                    });
-                });
-            },
-
-            prevDay(){
-                var vm = this;
-                var currentIndex = (this.$data.dates.findIndex(function(element) {
-                    return element == vm.$data.active;
-                }));
-                if(currentIndex !== 0){
-                    vm.getDay(vm.$data.dates[currentIndex-1]);
-                }
-            },
-
-            nextDay(){
-                var vm = this;
-                var currentIndex = (this.$data.dates.findIndex(function(element) {
-                    return element == vm.$data.active;
-                }));
-                if(currentIndex < vm.$data.dates.length-1){
-                    vm.getDay(vm.$data.dates[currentIndex+1]);
-                }
-            },
-
-            getDay(date){
-
-                var vm = this;
-                if(!vm.$store.state.content.calories || date.date !== new Date().toISOString().split('T')[0]){
-                    vm.$data.loading = true;
-                    vm.axiosPost({
-                        url:'calorie/read/byDay/',
-                        data: {
-                            token: this.$store.state.auth.token,
-                            date: date.date
-                        },
-                    }).then(function(response) {
-                        vm.$data.calories = response.data.content;
-                        vm.$data.loading = false;
-                    }).catch(function (error) {
-                        vm.$notify({
-                            group: 'default',
-                            type: 'warning',
-                            title: vm.$t('alerts.empty.title'),
-                            text: vm.$t('alerts.empty.text')
-                        });
-                        vm.$data.loading = false;
-                    });
-                } else if(this.$store.state.content.calories){
-                    vm.$data.calories = vm.$store.state.content.calories;
-                }
-
-                vm.$data.active = date;
-
-            },
-
-            getDates(){
-
-                var vm = this;
-                vm.axiosPost({
-                    url:'calorie/read/days/',
-                    data: {token: this.$store.state.auth.token},
-                }).then(function(response) {
-
-                    var tmpDates = [];
-                    response.data.content.forEach(function(item){
-                        const [year, month, day] = item.date.split('-')
-                        var formatted = `${day}.${month}.${year}`
-                        tmpDates.push({
-                            date: item.date, format: formatted
-                        });
-                    });
-                    vm.$data.dates = tmpDates;
-                    if(!vm.$data.active.date){
-                        vm.getDay(tmpDates[0]);
-                    }
-
-                }).catch(function(error) {
                     vm.$notify({
                         group: 'default',
                         type: 'warning',
                         title: vm.$t('alerts.empty.title'),
                         text: vm.$t('alerts.empty.text')
-                    });
-                }).then(function(){
-                    vm.$data.loading = false;
-                });
-
+                    })
+                    vm.$data.loading = false
+                })
+            } else if (this.$store.state.content.calories) {
+                vm.$data.calories = vm.$store.state.content.calories
             }
 
+            vm.$data.active = date
         },
 
-        mounted(){
-            this.getDates();
-        },
+        getDates () {
+            var vm = this
+            vm.axiosPost({
+                url: 'calorie/read/days/',
+                data: { token: this.$store.state.auth.token }
+            }).then(function (response) {
+                var tmpDates = []
+                response.data.content.forEach(function (item) {
+                    const [year, month, day] = item.date.split('-')
+                    var formatted = `${day}.${month}.${year}`
+                    tmpDates.push({
+                        date: item.date, format: formatted
+                    })
+                })
+                vm.$data.dates = tmpDates
+                if (!vm.$data.active.date) {
+                    vm.getDay(tmpDates[0])
+                }
+            }).catch(function (error) {
+                vm.$notify({
+                    group: 'default',
+                    type: 'warning',
+                    title: vm.$t('alerts.empty.title'),
+                    text: vm.$t('alerts.empty.text')
+                })
+            }).then(function () {
+                vm.$data.loading = false
+            })
+        }
 
-        data(){
-            return {
-                active: {date: null, format: null},
-                loading: true,
-                dates: [],
-                calories: [],
-                headers: [
+    },
+
+    mounted () {
+        this.getDates()
+    },
+
+    data () {
+        return {
+            active: { date: null, format: null },
+            loading: true,
+            dates: [],
+            calories: [],
+            headers: [
                 { text: this.$t('title'), value: 'title' },
                 { text: this.$t('calories'), value: 'calories' },
                 { text: this.$t('amount'), value: 'amount' },
-                { text: this.$t('total'), value: 'total'},
-                { text: this.$t('actions'), value: null}
-                ],
-            }
-        },
-
+                { text: this.$t('total'), value: 'total' },
+                { text: this.$t('actions'), value: null }
+            ]
+        }
     }
+
+}
 </script>

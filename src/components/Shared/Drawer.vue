@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import {mapActions} from 'vuex'
+import { mapActions } from 'vuex'
 
 export default {
     name: 'Drawer',
@@ -27,7 +27,7 @@ export default {
                 this.$store.commit('drawer', val)
             }
         },
-        items(){return this.$store.state.app.navigation}
+        items () { return this.$store.state.app.navigation }
     }
 }
 </script>

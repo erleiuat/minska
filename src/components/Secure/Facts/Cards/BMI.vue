@@ -9,32 +9,30 @@ export default {
 
     name: 'BMI',
     components: {
-        FactCard,
+        FactCard
     },
 
     i18n: {
         messages: {
             en: {
                 title: 'BMI',
-                description: 'Current Body-Mass-Index',
+                description: 'Current Body-Mass-Index'
             },
             de: {
                 title: 'BMI',
-                description: 'Aktueller Body-Mass-Index',
+                description: 'Aktueller Body-Mass-Index'
             }
         }
     },
 
     computed: {
-        card(){
-
+        card () {
             try {
+                var value = Math.round(this.$store.state.content.weights[0].weight / ((this.$store.state.user.height / 1000) * (this.$store.state.user.height / 1000))) / 100
 
-                var value = Math.round(this.$store.state.content.weights[0].weight/((this.$store.state.user.height/1000)*(this.$store.state.user.height/1000)))/100;
-
-                var type = '';
-                if(value > 25 || value < 20){
-                    type = 'warning';
+                var type = ''
+                if (value > 25 || value < 20) {
+                    type = 'warning'
                 }
 
                 return {
@@ -44,14 +42,12 @@ export default {
                     unit: 'Kg',
                     type: type
                 }
-
-            } catch(err){
+            } catch (err) {
                 return {
                     title: this.$t('title'),
-                    description: this.$t('alerts.empty.short'),
-                };
+                    description: this.$t('alerts.empty.short')
+                }
             }
-
         }
     }
 

@@ -14,7 +14,6 @@
             <v-btn color="primary" dark large outline>{{ $t('register') }}</v-btn>
         </router-link>
 
-
     </v-container>
 </template>
 <script>
@@ -39,7 +38,7 @@ export default {
     },
 
     computed: {
-        titleImg(){
+        titleImg () {
             return require('@/media/title_color_small.png')
         }
     }

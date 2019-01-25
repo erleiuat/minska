@@ -34,45 +34,44 @@ export default {
 
     methods: {
         ...mapActions([
-            'checkAuth',
-        ]),
+            'checkAuth'
+        ])
     },
 
-    beforeMount(){
-
-        this.$store.watch((state)=>{
+    beforeMount () {
+        this.$store.watch((state) => {
             return this.$store.state.user.language
-        },(newValue, oldValue)=>{
-            if(newValue !== oldValue){
-                if(this.$store.state.user.language){
-                    this.$i18n.locale = this.$store.state.user.language;
+        }, (newValue, oldValue) => {
+            if (newValue !== oldValue) {
+                if (this.$store.state.user.language) {
+                    this.$i18n.locale = this.$store.state.user.language
                 }
             }
-        });
+        })
 
-        this.$store.dispatch('checkAuth');
+        this.$store.dispatch('checkAuth')
 
         this.$router.beforeResolve((to, from, next) => {
-            if(!this.$store.state.auth.token && to.meta.secure === true || this.$store.state.auth.token && to.meta.secure === false){
-                if(!from.name && this.$store.state.auth.token === true){
-                    this.$router.push('/dashboard');
+            if (!this.$store.state.auth.token && to.meta.secure === true || this.$store.state.auth.token && to.meta.secure === false) {
+                if (!from.name && this.$store.state.auth.token === true) {
+                    this.$router.push('/dashboard')
                 } else {
-                    this.$router.push('/');
+                    this.$router.push('/')
                 }
             } else {
-                next();
+                next()
             }
-        });
+        })
 
         this.$router.afterEach((to, from) => {
-            document.title = this.$store.state.app.title +' | '+ this.$t('views.'+to.meta.title);
-        });
+            document.title = this.$store.state.app.title + ' | ' + this.$t('views.' + to.meta.title)
+        })
 
-        this.$store.watch((state)=>{
+        this.$store.watch((state) => {
             return this.$store.state.auth.token
-        },(newValue, oldValue)=>{
-            if(!newValue && oldValue !== null){
-                this.$router.push('/');
+        }, (newValue, oldValue) => {
+            if (!newValue && oldValue !== null) {
+                this.$router.push('/')
                 this.$notify({
                     group: 'default',
                     type: 'warning',
@@ -80,25 +79,22 @@ export default {
                     text: this.$t('alerts.expired.text')
                 })
             }
-        });
-
+        })
     },
 
-    beforeUpdate(){
+    beforeUpdate () {
+        this.$store.dispatch('checkAuth')
 
-        this.$store.dispatch('checkAuth');
+        clearTimeout(this.$store.state.app.expTimer)
+        var appLeft = (this.$store.state.auth.expiration.app - Math.floor(Date.now() / 1000)) * 1000
+        var tokenLeft = (this.$store.state.auth.expiration.token - Math.floor(Date.now() / 1000)) * 1000
 
-        clearTimeout(this.$store.state.app.expTimer);
-        var appLeft = (this.$store.state.auth.expiration.app - Math.floor(Date.now() / 1000))*1000;
-        var tokenLeft = (this.$store.state.auth.expiration.token - Math.floor(Date.now() / 1000))*1000;
-
-        if(appLeft > 0 && tokenLeft > 0){
-            var vm = this;
-            vm.$store.state.app.expTimer = setTimeout(function(){
-                vm.$store.dispatch('checkAuth');
-            }, (appLeft));
+        if (appLeft > 0 && tokenLeft > 0) {
+            var vm = this
+            vm.$store.state.app.expTimer = setTimeout(function () {
+                vm.$store.dispatch('checkAuth')
+            }, (appLeft))
         }
-
     }
 
 }

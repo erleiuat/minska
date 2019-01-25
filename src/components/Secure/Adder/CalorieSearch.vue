@@ -47,9 +47,9 @@
 export default {
 
     name: 'CalorieSearch',
-    data(){
+    data () {
         return {
-            dialog: false,
+            dialog: false
 
         }
     },
@@ -74,30 +74,30 @@ export default {
     },
 
     methods: {
-        image(image){
-            if(image !== ''){
-                return image;
+        image (image) {
+            if (image !== '') {
+                return image
             } else {
-                return require('@/media/defaultFood.jpg');
+                return require('@/media/defaultFood.jpg')
             }
         },
-        useItem(item){
-            this.$data.dialog = false;
-            this.$emit('useItem', item);
+        useItem (item) {
+            this.$data.dialog = false
+            this.$emit('useItem', item)
         }
     },
 
     computed: {
-        items(){
-            if(!this.$store.state.content.templates){
-                var vm = this;
+        items () {
+            if (!this.$store.state.content.templates) {
+                var vm = this
                 vm.axiosPost({
-                    url:'template/read/',
+                    url: 'template/read/',
                     data: {
                         token: this.$store.state.auth.token
-                    },
-                }).then(function(response) {
-                    vm.$store.state.content.templates = response.data.content;
+                    }
+                }).then(function (response) {
+                    vm.$store.state.content.templates = response.data.content
                 }).catch(function (error) {
                     /** Deactivated bc too much
                     vm.$notify({
@@ -107,14 +107,14 @@ export default {
                         text: vm.$t('alerts.empty.text')
                     });
                     **/
-                }).then(function(){
-                    vm.$data.loading = false;
-                });
+                }).then(function () {
+                    vm.$data.loading = false
+                })
             }
 
-            return this.$store.state.content.templates;
+            return this.$store.state.content.templates
         }
-    },
+    }
 
 }
 </script>

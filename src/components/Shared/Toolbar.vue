@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import {mapActions} from 'vuex'
+import { mapActions } from 'vuex'
 
 export default {
 
@@ -30,22 +30,22 @@ export default {
     },
 
     computed: {
-        appTitle(){return this.$store.state.app.title},
-        authenticated(){return this.$store.state.auth.token}
+        appTitle () { return this.$store.state.app.title },
+        authenticated () { return this.$store.state.auth.token }
     },
     methods: {
-        drawer(){
+        drawer () {
             this.$store.commit('drawer', !this.$store.state.app.drawer)
         },
-        logout(){
-            this.$store.commit('logout');
+        logout () {
+            this.$store.commit('logout')
             this.$notify({
                 group: 'default',
                 type: 'success',
                 title: this.$t('title'),
-                text: this.$t('text'),
-            });
-            this.$router.push('/');
+                text: this.$t('text')
+            })
+            this.$router.push('/')
         }
     }
 }

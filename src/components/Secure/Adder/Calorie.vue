@@ -37,7 +37,6 @@
                             <v-text-field :label="$t('formAmount')" v-model="formdata.amount" :rules="rules.number" type="number" outline></v-text-field>
                         </v-flex>
 
-
                         <v-flex xs12>
                             <v-btn :loading="loading" :disabled="disabled" large block color="primary" @click="addCalorie()">
                                 {{ $t('add') }}
@@ -58,159 +57,155 @@
 <script>
 import CalorieSearch from './CalorieSearch'
 
-    export default {
-        name: 'CalorieAdder',
-        components: {
-            CalorieSearch
-        },
-        i18n: {
-            messages: {
-                en: {
-                    title: 'Add Calories',
-                    subtitle: 'Write down what you eat to keep track of your calories',
-                    weight: 'Weight (Kg)',
-                    add: 'Add',
-                    formTitle: 'Title',
-                    formCalories: 'Calories per 100 g/ml',
-                    formAmount: 'Amount (g/ml)',
-                    date: 'Date'
-                },
-                de: {
-                    title: 'Kalorien hinzufügen',
-                    subtitle: 'Dokumentiere was du isst um deine verbleibenden Kalorien zu berechnen',
-                    weight: 'Gewicht (Kg)',
-                    add: 'Hinzufügen',
-                    formTitle: 'Titel',
-                    formCalories: 'Kalorien per 100 g/ml',
-                    formAmount: 'Menge (g/ml)',
-                    date: 'Datum'
-                }
-            }
-        },
-
-        methods: {
-
-            useItem(item){
-                this.$data.formdata.title = item.title;
-                this.$data.formdata.calories = item.calories;
-                this.$data.formdata.amount = item.amount;
+export default {
+    name: 'CalorieAdder',
+    components: {
+        CalorieSearch
+    },
+    i18n: {
+        messages: {
+            en: {
+                title: 'Add Calories',
+                subtitle: 'Write down what you eat to keep track of your calories',
+                weight: 'Weight (Kg)',
+                add: 'Add',
+                formTitle: 'Title',
+                formCalories: 'Calories per 100 g/ml',
+                formAmount: 'Amount (g/ml)',
+                date: 'Date'
             },
-
-            addCalorie(){
-
-                this.$refs.addCalorieForm.validate();
-                if(this.$data.rules.valid){
-
-                    var vm = this;
-                    var postData = vm.$data.formdata;
-                    postData.token = this.$store.state.auth.token;
-                    vm.$data.loading=true;
-                    vm.$data.disabled=true;
-
-                    vm.axiosPost({
-                        url:'calorie/create/',
-                        data: postData,
-                    }).then(function(response) {
-                        var now = new Date();
-                        var today = now.getFullYear()+'-'+(now.getMonth()+1)+'-'+now.getDate();
-
-                        if(today == vm.$data.formdata.date){
-                            if(!vm.$store.state.content.calories || vm.$store.state.content.calories.lenght < 1){
-                                vm.$store.state.content.calories = [];
-                            }
-                            vm.$store.state.content.calories.unshift({
-                                id: response.data.content,
-                                amount: vm.$data.formdata.amount,
-                                calories: vm.$data.formdata.calories,
-                                title:vm.$data.formdata.title
-                            });
-                        }
-
-                        vm.$data.formdata.title = null;
-                        vm.$data.formdata.calories = null;
-                        vm.$data.formdata.amount = null;
-
-                        vm.$refs.addCalorieForm.resetValidation();
-                        vm.$data.loading=false;
-
-                        vm.$notify({
-                            group: 'default',
-                            type: 'success',
-                            title: vm.$t('alerts.success.title'),
-                            text: vm.$t('alerts.success.text')
-                        });
-
-                    }).catch(function (error) {
-                        vm.$notify({
-                            group: 'default',
-                            type: 'error',
-                            title: vm.$t('alerts.error.title'),
-                            text: vm.$t('alerts.error.text')
-                        });
-                        vm.$data.disabled=false;
-                        vm.$data.loading=false;
-                    });
-
-                }
-            }
-        },
-
-        computed: {
-            computedDateFormatted:{
-                get(){
-                    if (!this.$data.formdata.date) return null
-                    const [year, month, day] = this.$data.formdata.date.split('-')
-                    return `${day}.${month}.${year}`
-                },
-                set(){
-                }
-            },
-        },
-
-        data(){
-            var tmp = new Date();
-            return {
-                disabled: true,
-                loading: false,
-                dateMenu: false,
-                formdata: {
-                    title: null,
-                    date: tmp.getFullYear()+ '-' + (tmp.getMonth()+1) +'-'+ tmp.getDate(),
-                    calories: null,
-                    amount: null
-                },
-                rules: {
-                    valid: true,
-                    text: [
-                    (v) => !!v || this.$t('errors.required'),
-                    (v) => v && v.length <= 100 || this.$t('errors.valid')
-                    ],
-                    date: [
-                    (v) => !!v || this.$t('errors.required'),
-                    (v) => v && new Date(this.$data.formdata.date) != 'Invalid Date' || this.$t('errors.valid'),
-                    ],
-                    weight: [
-                    (v) => !!v || this.$t('errors.required'),
-                    (v) => v && v <= 500 && v >= 20 || this.$t('errors.valid'),
-                    ],
-                    number: [
-                    (v) => !!v || this.$t('errors.required'),
-                    (v) => v && v <= 9999 && v >= 0 || this.$t('errors.valid')
-                    ],
-                }
-            }
-        },
-
-        watch: {
-            'formdata': {
-                handler: function (val, oldVal) {
-                    if(val.title && val.calories && val.amount && val.date){
-                        this.disabled = false;
-                    }
-                },
-                deep: true
+            de: {
+                title: 'Kalorien hinzufügen',
+                subtitle: 'Dokumentiere was du isst um deine verbleibenden Kalorien zu berechnen',
+                weight: 'Gewicht (Kg)',
+                add: 'Hinzufügen',
+                formTitle: 'Titel',
+                formCalories: 'Kalorien per 100 g/ml',
+                formAmount: 'Menge (g/ml)',
+                date: 'Datum'
             }
         }
+    },
 
+    methods: {
+
+        useItem (item) {
+            this.$data.formdata.title = item.title
+            this.$data.formdata.calories = item.calories
+            this.$data.formdata.amount = item.amount
+        },
+
+        addCalorie () {
+            this.$refs.addCalorieForm.validate()
+            if (this.$data.rules.valid) {
+                var vm = this
+                var postData = vm.$data.formdata
+                postData.token = this.$store.state.auth.token
+                vm.$data.loading = true
+                vm.$data.disabled = true
+
+                vm.axiosPost({
+                    url: 'calorie/create/',
+                    data: postData
+                }).then(function (response) {
+                    var now = new Date()
+                    var today = now.getFullYear() + '-' + (now.getMonth() + 1) + '-' + now.getDate()
+
+                    if (today == vm.$data.formdata.date) {
+                        if (!vm.$store.state.content.calories || vm.$store.state.content.calories.lenght < 1) {
+                            vm.$store.state.content.calories = []
+                        }
+                        vm.$store.state.content.calories.unshift({
+                            id: response.data.content,
+                            amount: vm.$data.formdata.amount,
+                            calories: vm.$data.formdata.calories,
+                            title: vm.$data.formdata.title
+                        })
+                    }
+
+                    vm.$data.formdata.title = null
+                    vm.$data.formdata.calories = null
+                    vm.$data.formdata.amount = null
+
+                    vm.$refs.addCalorieForm.resetValidation()
+                    vm.$data.loading = false
+
+                    vm.$notify({
+                        group: 'default',
+                        type: 'success',
+                        title: vm.$t('alerts.success.title'),
+                        text: vm.$t('alerts.success.text')
+                    })
+                }).catch(function (error) {
+                    vm.$notify({
+                        group: 'default',
+                        type: 'error',
+                        title: vm.$t('alerts.error.title'),
+                        text: vm.$t('alerts.error.text')
+                    })
+                    vm.$data.disabled = false
+                    vm.$data.loading = false
+                })
+            }
+        }
+    },
+
+    computed: {
+        computedDateFormatted: {
+            get () {
+                if (!this.$data.formdata.date) return null
+                const [year, month, day] = this.$data.formdata.date.split('-')
+                return `${day}.${month}.${year}`
+            },
+            set () {
+            }
+        }
+    },
+
+    data () {
+        var tmp = new Date()
+        return {
+            disabled: true,
+            loading: false,
+            dateMenu: false,
+            formdata: {
+                title: null,
+                date: tmp.getFullYear() + '-' + (tmp.getMonth() + 1) + '-' + tmp.getDate(),
+                calories: null,
+                amount: null
+            },
+            rules: {
+                valid: true,
+                text: [
+                    (v) => !!v || this.$t('errors.required'),
+                    (v) => v && v.length <= 100 || this.$t('errors.valid')
+                ],
+                date: [
+                    (v) => !!v || this.$t('errors.required'),
+                    (v) => v && new Date(this.$data.formdata.date) != 'Invalid Date' || this.$t('errors.valid')
+                ],
+                weight: [
+                    (v) => !!v || this.$t('errors.required'),
+                    (v) => v && v <= 500 && v >= 20 || this.$t('errors.valid')
+                ],
+                number: [
+                    (v) => !!v || this.$t('errors.required'),
+                    (v) => v && v <= 9999 && v >= 0 || this.$t('errors.valid')
+                ]
+            }
+        }
+    },
+
+    watch: {
+        'formdata': {
+            handler: function (val, oldVal) {
+                if (val.title && val.calories && val.amount && val.date) {
+                    this.disabled = false
+                }
+            },
+            deep: true
+        }
     }
+
+}
 </script>

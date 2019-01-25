@@ -36,7 +36,7 @@ export default {
                 },
                 fail: {
                     title: 'Login failed',
-                    text: "E-Mail/Password are incorrect or Account not found"
+                    text: 'E-Mail/Password are incorrect or Account not found'
                 }
             },
             de: {
@@ -50,7 +50,7 @@ export default {
                 },
                 fail: {
                     title: 'Anmeldung fehlgeschlagen',
-                    text: "E-Mail/Password sind falsch oder der Account existiert nicht"
+                    text: 'E-Mail/Password sind falsch oder der Account existiert nicht'
                 }
             }
         }
@@ -58,41 +58,39 @@ export default {
 
     methods: {
 
-        sendLogin(){
+        sendLogin () {
+            var vm = this
+            vm.$refs.registrationForm.validate()
 
-            var vm = this;
-            vm.$refs.registrationForm.validate();
-
-            if(vm.$data.rules.valid){
-                vm.$data.loading=true;
+            if (vm.$data.rules.valid) {
+                vm.$data.loading = true
                 vm.axiosPost({
-                    url:'user/login/',
+                    url: 'user/login/',
                     data: vm.$data.formdata
-                }).then(function(response) {
-                    vm.$store.commit('login', {token: response.data.content, keep: vm.$data.keepLogin});
+                }).then(function (response) {
+                    vm.$store.commit('login', { token: response.data.content, keep: vm.$data.keepLogin })
                     vm.$notify({
                         group: 'default',
                         type: 'success',
                         title: vm.$t('success.title'),
                         text: vm.$t('success.text')
-                    });
-                    vm.$router.push('/dashboard');
+                    })
+                    vm.$router.push('/dashboard')
                 }).catch(function (error) {
                     vm.$notify({
                         group: 'default',
                         type: 'error',
                         title: vm.$t('fail.title'),
                         text: vm.$t('fail.text')
-                    });
-                    vm.loading=false;
-                });
+                    })
+                    vm.loading = false
+                })
             }
-
         }
 
     },
 
-    data (){
+    data () {
         return {
             loading: false,
             formdata: {
@@ -103,16 +101,16 @@ export default {
             rules: {
                 valid: false,
                 email: [
-                (v) => !!v || this.$t('errors.required'),
-                (v) => /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(v) || this.$t('errors.valid'),
+                    (v) => !!v || this.$t('errors.required'),
+                    (v) => /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(v) || this.$t('errors.valid')
                 ],
                 pass: [
-                (v) => !!v || this.$t('errors.required'),
-                (v) => /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/.test(v) || this.$t('errors.valid'),
-                ],
+                    (v) => !!v || this.$t('errors.required'),
+                    (v) => /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/.test(v) || this.$t('errors.valid')
+                ]
             }
         }
-    },
+    }
 
 }
 </script>

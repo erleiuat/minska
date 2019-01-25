@@ -9,39 +9,37 @@ export default {
 
     name: 'Recently',
     components: {
-        FactCard,
+        FactCard
     },
 
     i18n: {
         messages: {
             en: {
                 title: 'Recent Loss',
-                description: '= Latest 2 Entries',
+                description: '= Latest 2 Entries'
             },
             de: {
                 title: 'Kürzlich Abgenommen',
-                description: '= Letzte 2 Einträge',
+                description: '= Letzte 2 Einträge'
             }
         }
     },
 
     computed: {
-        card(){
+        card () {
+            if (this.$store.state.content.weights.length >= 2) {
+                var target = this.$store.state.user.aims.weight - this.$store.state.content.weights[0].weight
 
-            if(this.$store.state.content.weights.length >= 2){
-
-                var target = this.$store.state.user.aims.weight - this.$store.state.content.weights[0].weight;
-
-                var value = this.$store.state.content.weights[0].weight - this.$store.state.content.weights[1].weight;
-                value = Math.round(value*100)/100;
-                if(value > 0){
-                    value = '+'+value;
+                var value = this.$store.state.content.weights[0].weight - this.$store.state.content.weights[1].weight
+                value = Math.round(value * 100) / 100
+                if (value > 0) {
+                    value = '+' + value
                 }
 
-                if(target < 0 && value < 0){
-                    var type = 'success';
+                if (target < 0 && value < 0) {
+                    var type = 'success'
                 } else {
-                    var type = 'error';
+                    var type = 'error'
                 }
 
                 return {
@@ -51,14 +49,12 @@ export default {
                     unit: 'Kg',
                     type: type
                 }
-
             } else {
                 return {
                     title: this.$t('title'),
-                    description: this.$t('alerts.empty.short'),
-                };
+                    description: this.$t('alerts.empty.short')
+                }
             }
-
         }
     }
 

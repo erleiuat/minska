@@ -58,7 +58,7 @@ export default {
                 repeat: 'Repeat Password',
                 button: 'Register now',
                 match: "Passwords don't match",
-                strong: "Min. 8 Characters, upper and lowercase, numbers",
+                strong: 'Min. 8 Characters, upper and lowercase, numbers',
                 created: {
                     title: 'Account created!',
                     text: 'You can now login'
@@ -91,16 +91,15 @@ export default {
     },
 
     methods: {
-        sendRegistration(){
-
-            var vm = this;
+        sendRegistration () {
+            var vm = this
             vm.$refs.registrationForm.validate()
 
-            if(vm.$data.rules.valid){
-                vm.$data.disabled=true;
-                vm.$data.loading=true;
+            if (vm.$data.rules.valid) {
+                vm.$data.disabled = true
+                vm.$data.loading = true
                 vm.axiosPost({
-                    url:'user/create/',
+                    url: 'user/create/',
                     data: vm.$data.formdata
                 }).then(function (response) {
                     vm.$notify({
@@ -108,26 +107,24 @@ export default {
                         type: 'success',
                         title: vm.$t('created.title'),
                         text: vm.$t('created.text')
-                    });
-                    vm.$data.loading=false;
-                    vm.$router.push('/login');
+                    })
+                    vm.$data.loading = false
+                    vm.$router.push('/login')
                 }).catch(function (error) {
                     vm.$notify({
                         group: 'default',
                         type: 'error',
                         title: vm.$t('failed.title'),
                         text: vm.$t('failed.text')
-                    });
-                    vm.$data.disabled=false;
-                    vm.$data.loading=false;
-                });
-
+                    })
+                    vm.$data.disabled = false
+                    vm.$data.loading = false
+                })
             }
-
         }
     },
 
-    data (){
+    data () {
         return {
             disabled: false,
             loading: false,
@@ -140,21 +137,21 @@ export default {
             rules: {
                 valid: false,
                 name: [
-                (v) => !!v || this.$t('errors.required'),
-                (v) => v && v.length <= 90 || this.$t('errors.valid')
+                    (v) => !!v || this.$t('errors.required'),
+                    (v) => v && v.length <= 90 || this.$t('errors.valid')
                 ],
                 email: [
-                (v) => !!v || this.$t('errors.required'),
-                (v) => /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(v) || this.$t('errors.valid'),
+                    (v) => !!v || this.$t('errors.required'),
+                    (v) => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || this.$t('errors.valid')
                 ],
                 pass: [
-                (v) => !!v || this.$t('errors.required'),
-                (v) => /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})/.test(v) || this.$t('strong'),
-                //(v) => /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/.test(v) || this.$t('strong'), <- Too stong lol
+                    (v) => !!v || this.$t('errors.required'),
+                    (v) => /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})/.test(v) || this.$t('strong')
+                    // (v) => /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/.test(v) || this.$t('strong'), <- Too stong lol
                 ],
                 pass2: [
-                (v) => !!v || this.$t('repeat'),
-                (v) => v == this.$data.formdata.password || this.$t('match'),
+                    (v) => !!v || this.$t('repeat'),
+                    (v) => v === this.$data.formdata.password || this.$t('match')
                 ]
             }
         }

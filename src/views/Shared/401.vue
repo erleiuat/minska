@@ -21,6 +21,6 @@ export default {
                 text: 'Du hast nicht genügend Rechte um diese Seite aufzurufen. Bist du Eingeloggt?'
             }
         }
-    },
+    }
 }
 </script>

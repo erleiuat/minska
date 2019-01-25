@@ -67,41 +67,41 @@ export default {
     },
 
     methods: {
-        remove(item){
-            var vm = this;
+        remove (item) {
+            var vm = this
             vm.axiosPost({
-                url:'template/delete/',
+                url: 'template/delete/',
                 data: {
                     id: item.id,
                     token: this.$store.state.auth.token
-                },
-            }).then(function(response) {
-                const index = vm.$store.state.content.templates.indexOf(item);
-                vm.$store.state.content.templates.splice(index, 1);
+                }
+            }).then(function (response) {
+                const index = vm.$store.state.content.templates.indexOf(item)
+                vm.$store.state.content.templates.splice(index, 1)
                 vm.$notify({
                     group: 'default',
                     type: 'success',
                     title: vm.$t('alerts.success.title'),
                     text: vm.$t('alerts.success.text')
-                });
+                })
             }).catch(function (error) {
                 vm.$notify({
                     group: 'default',
                     type: 'warning',
                     title: vm.$t('alerts.error.title'),
                     text: vm.$t('alerts.error.text')
-                });
-            }).then(function(){
-                vm.$data.loading = false;
-            });
+                })
+            }).then(function () {
+                vm.$data.loading = false
+            })
         }
     },
     computed: {
-        image(){
-            if(this.item.image == null || this.item.image == ''){
-                return require('@/media/defaultFood.jpg');
+        image () {
+            if (this.item.image == null || this.item.image == '') {
+                return require('@/media/defaultFood.jpg')
             } else {
-                return this.item.image;
+                return this.item.image
             }
         }
     }

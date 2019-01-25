@@ -68,35 +68,33 @@ export default {
     },
 
     computed: {
-        call(){
-
-            var hour = (new Date()).getHours();
-            if(hour <= 11){
-                return this.$t('title.morning', {name: this.$data.firstname});
-            } else if (hour <= 17){
-                return this.$t('title.noon', {name: this.$data.firstname});
+        call () {
+            var hour = (new Date()).getHours()
+            if (hour <= 11) {
+                return this.$t('title.morning', { name: this.$data.firstname })
+            } else if (hour <= 17) {
+                return this.$t('title.noon', { name: this.$data.firstname })
             } else {
-                return this.$t('title.evening', {name: this.$data.firstname});
+                return this.$t('title.evening', { name: this.$data.firstname })
             }
-
         }
     },
 
     data () {
         return {
             newData: false,
-            firstname: this.$store.state.user.firstname,
+            firstname: this.$store.state.user.firstname
         }
     },
 
     watch: {
         newData: {
-            handler: function() {
-                this.$forceUpdate();
+            handler: function () {
+                this.$forceUpdate()
             },
             deep: true
         }
-    },
+    }
 
 }
 </script>

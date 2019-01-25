@@ -65,77 +65,77 @@ export default {
         }
     },
 
-    mounted() {
-        if(!this.$store.state.content.weights){
-            var vm = this;
+    mounted () {
+        if (!this.$store.state.content.weights) {
+            var vm = this
             vm.axiosPost({
-                url:'weight/read/all/',
+                url: 'weight/read/all/',
                 data: {
                     token: this.$store.state.auth.token
-                },
-            }).then(function(response) {
-                vm.$store.state.content.weights = response.data.content;
+                }
+            }).then(function (response) {
+                vm.$store.state.content.weights = response.data.content
             }).catch(function (error) {
                 vm.$notify({
                     group: 'default',
                     type: 'warning',
                     title: vm.$t('alerts.empty.title'),
                     text: vm.$t('alerts.empty.text')
-                });
-            }).then(function(){
-                vm.$data.loading = false;
-            });
+                })
+            }).then(function () {
+                vm.$data.loading = false
+            })
         }
     },
 
     methods: {
-        deleteItem(item){
-            var vm = this;
+        deleteItem (item) {
+            var vm = this
             vm.axiosPost({
-                url:'weight/delete/',
+                url: 'weight/delete/',
                 data: {
                     id: item.id,
-                    token: this.$store.state.auth.token,
-                },
-            }).then(function(response) {
-                const index = vm.weights.indexOf(item);
-                vm.$store.state.content.weights.splice(index, 1);
+                    token: this.$store.state.auth.token
+                }
+            }).then(function (response) {
+                const index = vm.weights.indexOf(item)
+                vm.$store.state.content.weights.splice(index, 1)
                 vm.$notify({
                     group: 'default',
                     type: 'success',
                     title: vm.$t('alerts.success.title'),
                     text: vm.$t('alerts.success.text')
-                });
+                })
             }).catch(function (error) {
                 vm.$notify({
                     group: 'default',
                     type: 'error',
                     title: vm.$t('alerts.error.title'),
                     text: vm.$t('alerts.error.text')
-                });
-            });
-        },
+                })
+            })
+        }
     },
 
-    data(){
+    data () {
         return {
             loading: true,
             headers: [
-            { text: '#', align: 'left', value: 'number' },
-            { text: this.$t('weight'), value: 'weight' },
-            { text: this.$t('measuredate'), value: 'measuredate' },
-            { text: this.$t('actions'), value: 'null'}
-            ],
+                { text: '#', align: 'left', value: 'number' },
+                { text: this.$t('weight'), value: 'weight' },
+                { text: this.$t('measuredate'), value: 'measuredate' },
+                { text: this.$t('actions'), value: 'null' }
+            ]
         }
     },
 
     computed: {
-        weights(){
-            if(this.$store.state.content.weights){
-                this.$data.loading = false;
-                return this.$store.state.content.weights;
+        weights () {
+            if (this.$store.state.content.weights) {
+                this.$data.loading = false
+                return this.$store.state.content.weights
             } else {
-                return [];
+                return []
             }
         }
     }

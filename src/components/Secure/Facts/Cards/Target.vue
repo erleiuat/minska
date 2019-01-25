@@ -9,53 +9,49 @@ export default {
 
     name: 'Target',
     components: {
-        FactCard,
+        FactCard
     },
 
     i18n: {
         messages: {
             en: {
                 title: 'To the goal',
-                description: 'To {value} Kg',
+                description: 'To {value} Kg'
             },
             de: {
                 title: 'Zum Ziel',
-                description: 'Bis {value} Kg',
+                description: 'Bis {value} Kg'
             }
         }
     },
 
     computed: {
-        card(){
-
+        card () {
             try {
-
-                var value = this.$store.state.user.aims.weight - this.$store.state.content.weights[0].weight;
-                value = Math.round(value*100)/100;
-                if(value > 0){
-                    value = '+'+value;
+                var value = this.$store.state.user.aims.weight - this.$store.state.content.weights[0].weight
+                value = Math.round(value * 100) / 100
+                if (value > 0) {
+                    value = '+' + value
                 }
 
-                var type = '';
-                if(value > -2 && value < 2){
-                    type = 'success';
+                var type = ''
+                if (value > -2 && value < 2) {
+                    type = 'success'
                 }
 
                 return {
                     title: this.$t('title'),
-                    description: this.$t('description', {value: this.$store.state.user.aims.weight }),
+                    description: this.$t('description', { value: this.$store.state.user.aims.weight }),
                     value: value,
                     unit: 'Kg',
                     type: type
                 }
-
-            } catch(err){
+            } catch (err) {
                 return {
                     title: this.$t('title'),
-                    description: this.$t('alerts.empty.short'),
-                };
+                    description: this.$t('alerts.empty.short')
+                }
             }
-
         }
     }
 

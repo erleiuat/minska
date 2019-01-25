@@ -21,6 +21,6 @@ export default {
                 text: 'Diese Seite konnte nicht gefunden werden oder ist momentan nicht verfügbar'
             }
         }
-    },
+    }
 }
 </script>

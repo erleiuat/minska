@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import VueCookie from 'vue-cookie';
+import VueCookie from 'vue-cookie'
 
 Vue.use(Vuex)
 Vue.use(VueCookie)
@@ -14,7 +14,7 @@ export default new Vuex.Store({
             expiration: {
                 app: null,
                 token: null,
-                keep: false,
+                keep: false
             }
         },
 
@@ -36,9 +36,9 @@ export default new Vuex.Store({
             expTimer: null,
             drawer: true,
             navigation: [
-                {path: '/login', title: 'login', icon: 'lock_open'},
-                {path: '/register', title: 'register', icon: 'subdirectory_arrow_right'},
-                {path: '/help', title: 'help', icon: 'question_answer'},
+                { path: '/login', title: 'login', icon: 'lock_open' },
+                { path: '/register', title: 'register', icon: 'subdirectory_arrow_right' },
+                { path: '/help', title: 'help', icon: 'question_answer' }
             ]
         },
 
@@ -52,96 +52,90 @@ export default new Vuex.Store({
 
     mutations: {
 
-        drawer(state, val) {
-            state.app.drawer = val;
+        drawer (state, val) {
+            state.app.drawer = val
         },
 
-        login(state, sources) {
-
-            if(sources['token']){
-                var token = sources['token'];
-                var keep = sources['keep'];
+        login (state, sources) {
+            if (sources['token']) {
+                var token = sources['token']
+                var keep = sources['keep']
             } else {
-                var token = sources;
-                var keep = false;
+                var token = sources
+                var keep = false
             }
 
-            state.auth.token = token;
-            var encoded = (token.split('.')[1]).replace('-', '+').replace('_', '/');
-            var decoded = JSON.parse(window.atob(encoded));
+            state.auth.token = token
+            var encoded = (token.split('.')[1]).replace('-', '+').replace('_', '/')
+            var decoded = JSON.parse(window.atob(encoded))
 
-            state.user = decoded.data;
-            state.auth.expiration.token = decoded.exp;
-            state.auth.expiration.app = Math.floor(Date.now() / 1000) + (20*60);
-            state.auth.expiration.keep = keep;
+            state.user = decoded.data
+            state.auth.expiration.token = decoded.exp
+            state.auth.expiration.app = Math.floor(Date.now() / 1000) + (20 * 60)
+            state.auth.expiration.keep = keep
 
-            if(decoded.data.isFemale == 1){
-                state.user.isFemale = true;
+            if (decoded.data.isFemale == 1) {
+                state.user.isFemale = true
             } else {
-                state.user.isFemale = false;
+                state.user.isFemale = false
             }
 
-            if(!decoded.data.language){
-                state.user.language = navigator.language || navigator.userLanguage;
+            if (!decoded.data.language) {
+                state.user.language = navigator.language || navigator.userLanguage
             }
 
-            VueCookie.set('authCookie', JSON.stringify(state.auth), {expires: 1, domain: window.location.hostname});
+            VueCookie.set('authCookie', JSON.stringify(state.auth))
 
             state.app.navigation = [
-                {path: '/dashboard', title: 'dashboard', icon: 'dashboard'},
-                {path: '/weight', title: 'weight', icon: 'linear_scale'},
-                {path: '/calories', title: 'calories', icon: 'cake'},
-                {path: '/templates', title: 'templates', icon: 'add_shopping_cart'},
-                {path: '/help', title: 'help', icon: 'question_answer'},
-                {path: '/settings', title: 'settings', icon: 'settings'},
+                { path: '/dashboard', title: 'dashboard', icon: 'dashboard' },
+                { path: '/weight', title: 'weight', icon: 'linear_scale' },
+                { path: '/calories', title: 'calories', icon: 'cake' },
+                { path: '/templates', title: 'templates', icon: 'add_shopping_cart' },
+                { path: '/help', title: 'help', icon: 'question_answer' },
+                { path: '/settings', title: 'settings', icon: 'settings' }
             ]
-
         },
 
-        logout(state) {
+        logout (state) {
+            VueCookie.delete('authCookie')
+            state.user = { language: navigator.language || navigator.userLanguage }
 
-            VueCookie.delete('authCookie', {domain: window.location.hostname});
-            state.user = {language: navigator.language || navigator.userLanguage};
-
-            state.auth.token = false;
-            state.auth.expiration.app = null;
-            state.auth.expiration.token = null;
+            state.auth.token = false
+            state.auth.expiration.app = null
+            state.auth.expiration.token = null
 
             state.app.navigation = [
-                {path: '/login', title: 'login', icon: 'lock_open'},
-                {path: '/register', title: 'register', icon: 'subdirectory_arrow_right'},
-                {path: '/help', title: 'help', icon: 'question_answer'},
+                { path: '/login', title: 'login', icon: 'lock_open' },
+                { path: '/register', title: 'register', icon: 'subdirectory_arrow_right' },
+                { path: '/help', title: 'help', icon: 'question_answer' }
             ]
-
         },
 
-        changeLanguage(state, newlang){
-            state.user.language = newlang;
-        },
+        changeLanguage (state, newlang) {
+            state.user.language = newlang
+        }
 
     },
 
     actions: {
 
-        checkAuth({commit, state}){
+        checkAuth ({ commit, state }) {
+            var now = Math.floor(Date.now() / 1000)
+            var authCookie = JSON.parse(VueCookie.get('authCookie'))
 
-            var now = Math.floor(Date.now() / 1000);
-            var authCookie = JSON.parse(VueCookie.get('authCookie'));
-
-            if(!state.auth.token && authCookie && authCookie !== null){
-                if(authCookie.expiration.token > now && authCookie.expiration.app > now){
-                    commit('login', {token: authCookie.token, keep: authCookie.expiration.keep});
-                    return null;
+            if (!state.auth.token && authCookie && authCookie !== null) {
+                if (authCookie.expiration.token > now && authCookie.expiration.app > now) {
+                    commit('login', { token: authCookie.token, keep: authCookie.expiration.keep })
+                    return null
                 }
-            } else if(state.auth.token){
-                if(state.auth.expiration.app > now && state.auth.expiration.token > now || state.auth.expiration.token > now && state.auth.expiration.keep){
-                    state.auth.expiration.app = Math.floor(Date.now() / 1000) + (20*60);
-                    return null;
+            } else if (state.auth.token) {
+                if (state.auth.expiration.app > now && state.auth.expiration.token > now || state.auth.expiration.token > now && state.auth.expiration.keep) {
+                    state.auth.expiration.app = Math.floor(Date.now() / 1000) + (20 * 60)
+                    return null
                 }
             }
 
-            commit('logout');
-
+            commit('logout')
         }
     },
 

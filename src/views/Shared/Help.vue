@@ -80,36 +80,35 @@
                 <a href="https://github.com/eliareutlinger/minska-ui">Github</a>
             </v-flex>
 
-
         </v-layout>
     </v-container>
 </template>
 
 <script>
-    export default {
+export default {
 
-        name: 'Help',
-        components: {
+    name: 'Help',
+    components: {
 
-        },
+    },
 
-        i18n: {
-            messages: {
-                en: {
-                    whatsminska: {
-                        title: "What's Minska?",
-                        text: `Minska means <i>to lose weight</i> in Swedish. And that's exactly what you can do with Minska.<br/>
+    i18n: {
+        messages: {
+            en: {
+                whatsminska: {
+                    title: "What's Minska?",
+                    text: `Minska means <i>to lose weight</i> in Swedish. And that's exactly what you can do with Minska.<br/>
                         The fastest and most useful way to lose weight is to count the calories you consume. This is the basic principle
                         of all apps that are designed to help you lose weight. Whether this happens in points (Weightwatchers) or directly
                         in calories, does not matter. With this tactic, <b>it doesn't matter what you eat</b>, it just matters how much.
                         Accordingly, you can occasionally treat yourself to a calorie bomb as long as you don't go beyond your daily routine.
                         Strictly speaking, <b>sport is not necessary either</b>, but you can use it to expand your calorie frame yourself.`
-                    },
-                    factcards: {
-                        title: 'The Facts',
-                        remainingdaily : {
-                            title: 'Remaining & Daily',
-                            text: `These 2 facts are statistics about your calories. <b>Daily</b> describes how many calories you can consume
+                },
+                factcards: {
+                    title: 'The Facts',
+                    remainingdaily: {
+                        title: 'Remaining & Daily',
+                        text: `These 2 facts are statistics about your calories. <b>Daily</b> describes how many calories you can consume
                             per day to reach your target weight on your target date. However, this number <b>only describes your basal metabolic
                                 rate with very little activity</b>. If, for example, you have an office job and do not do any other exercise or sports,
                                 you can use this number. However, if you have a physically demanding job or are doing other activities in your
@@ -118,32 +117,32 @@
                                 goals to be at least over 900 calories per day.<br/>
                                 <b>Remaining</b> describes how many calories are left today. The number adjusts automatically when you
                                 consume or burn more calories.`
-                            },
-                            recenttotal : {
-                                title: 'Recent & Total weight loss',
-                                text: `The value under <b>recent loss</b> is calculated from your last 2 entries.
+                    },
+                    recenttotal: {
+                        title: 'Recent & Total weight loss',
+                        text: `The value under <b>recent loss</b> is calculated from your last 2 entries.
                                 It shows how much you have lost (or gained) since your last weighing. <br/>
                                 <b>Total loss</b> berechnet sich aus deinem allerersten Eintrag und dem neusten. So siehst du immer deinen Gesamtfortschritt.`
-                            },
-                            target : {
-                                title: 'To the goal',
-                                text: `Here you can see how much you have to lose to reach your target weight.`
-                            },
-                            bmi : {
-                                title: 'BMI',
-                                text: `The body mass index is usually used to evaluate body weight in relation to height. However, it is only a rough guide
+                    },
+                    target: {
+                        title: 'To the goal',
+                        text: `Here you can see how much you have to lose to reach your target weight.`
+                    },
+                    bmi: {
+                        title: 'BMI',
+                        text: `The body mass index is usually used to evaluate body weight in relation to height. However, it is only a rough guide
                                 as it does not take into account the stature or the individual composition of the body mass.`
-                            }
-                        },
-                        templates: {
-                            title: 'Templates',
-                            text: `With templates, you can easily save food you use frequently for quick reuse. Use the magnifying glass next to the
+                    }
+                },
+                templates: {
+                    title: 'Templates',
+                    text: `With templates, you can easily save food you use frequently for quick reuse. Use the magnifying glass next to the
                             registration form to view and select your saved templates. Afterwards you don't have to enter the
                             values again, just click on <i>Add</i>.`
-                        },
-                        impressum: {
-                            title: 'Imprint',
-                            text: `
+                },
+                impressum: {
+                    title: 'Imprint',
+                    text: `
                             <h3>Contact</h3>
                             <p>
                                 Elia Reutlinger<br/>
@@ -189,27 +188,27 @@
                                 This application uses cookies to store certain data. By using the application, you consent to the storage of cookies.
                             </p>
                             `
-                        },
-                        ask: {
-                            title: 'Questions or Suggestions?',
-                            text: 'Follow these links to tell your concerns:'
-                        }
-                    },
-                    de: {
-                        whatsminska: {
-                            title: 'Was ist Minska?',
-                            text: `Minska bedeutet <i>abnehmen</i> auf Schwedisch. Und genau das kannst du mit Minska ganz einfach machen.<br/>
+                },
+                ask: {
+                    title: 'Questions or Suggestions?',
+                    text: 'Follow these links to tell your concerns:'
+                }
+            },
+            de: {
+                whatsminska: {
+                    title: 'Was ist Minska?',
+                    text: `Minska bedeutet <i>abnehmen</i> auf Schwedisch. Und genau das kannst du mit Minska ganz einfach machen.<br/>
                             Der schnellste und sinnvollste Weg um abzunehmen ist das Zählen deiner konsumierten Kalorien. Dies ist das Grundprinzip
                             aller Apps, welche dir beim Abnehmen helfen sollen. Ob dies nun in Punkten (Weightwatchers) oder direkt in Kalorien
                             geschieht, spielt dabei keine Rolle. Mit dieser Taktik <b>spielt es auch keine Rolle was du isst</b>, sondern nur wie viel.
                             Dementsprechend kannst du dir gelegentlich auch eine Kalorienbombe gönnen, solange du den täglichen Rahmen nicht sprengst.
                             <b>Sport ist streng genommen auch nicht nötig</b>, jedoch kannst du dir damit selbst den Kalorienrahmen erweitern.`
-                        },
-                        factcards: {
-                            title: 'Die Fakten',
-                            remainingdaily : {
-                                title: 'Verbleibend & Täglich',
-                                text: `Bei diesen 2 Fakten handelt es sich um Statistiken zu deinen Kalorien. <b>Täglich</b> beschreibt dabei, wie
+                },
+                factcards: {
+                    title: 'Die Fakten',
+                    remainingdaily: {
+                        title: 'Verbleibend & Täglich',
+                        text: `Bei diesen 2 Fakten handelt es sich um Statistiken zu deinen Kalorien. <b>Täglich</b> beschreibt dabei, wie
                                 viele Kalorien du pro Tag konsumieren kannst, um dein Zielgewicht an deinem Ziel-Datum zu erreichen. Diese Zahl
                                 beschreibt jedoch <b>nur deinen Grundumsatz bei sehr wenig aktivität</b>. Wenn du z.B. einen Bürojob hast, und dich
                                 sonst nicht zusätzlich bewegst bzw. keinen Sport betreibst, kannst du diese Zahl nutzen. Falls du aber einen körperlich
@@ -218,32 +217,32 @@
                                 auswirken. Achte darauf, dass du deine Ziele so einstellst, dass dieser Wert mindestens über 900 Kalorien pro Tag beträgt.<br/>
                                 <b>Verbleibend</b> beschreibt wie viele Kalorien heute noch übrig sind. Die Zahl passt sich automatisch an, wenn du weitere Kalorien
                                 hinzufügst oder löscht.`
-                            },
-                            recenttotal : {
-                                title: 'Kürzlich & Insgesamt Abgenommen',
-                                text: `Der Wert unter <b>kürzlich abgenommen</b> berechnet sich aus deinen letzten 2 Einträgen. Er zeigt, wie viel du seit deinem
+                    },
+                    recenttotal: {
+                        title: 'Kürzlich & Insgesamt Abgenommen',
+                        text: `Der Wert unter <b>kürzlich abgenommen</b> berechnet sich aus deinen letzten 2 Einträgen. Er zeigt, wie viel du seit deinem
                                 letzten Wiegen insgesamt abgenommen (oder zugenommen) hast. <br/>
                                 <b>Insgesamt Abgenommen</b> berechnet sich aus deinem allerersten Eintrag und dem neusten. So siehst du immer deinen Gesamtfortschritt.`
-                            },
-                            target : {
-                                title: 'Zum Ziel',
-                                text: `Hier siehst du wie viel du noch abnehmen musst, bis du dein Zielgewicht erreicht hast.`
-                            },
-                            bmi : {
-                                title: 'BMI',
-                                text: `Der Body-Mass-Index wird gewöhnlich genutzt um das Körpergewicht zur Körpergrösse zu bewerten. Er ist jedoch lediglich ein
+                    },
+                    target: {
+                        title: 'Zum Ziel',
+                        text: `Hier siehst du wie viel du noch abnehmen musst, bis du dein Zielgewicht erreicht hast.`
+                    },
+                    bmi: {
+                        title: 'BMI',
+                        text: `Der Body-Mass-Index wird gewöhnlich genutzt um das Körpergewicht zur Körpergrösse zu bewerten. Er ist jedoch lediglich ein
                                 grober Richtwert, da er weder Statur noch die individuelle Zusammensetzung der Körpermasse berücksichtigt.`
-                            }
-                        },
-                        templates: {
-                            title: 'Vorlagen',
-                            text: `Mit Vorlagen kannst du ganz einfach Lebensmittel, welche du häufig nutzt, zur schnellen Wiederverwendung abspeichern. Über die Lupe
+                    }
+                },
+                templates: {
+                    title: 'Vorlagen',
+                    text: `Mit Vorlagen kannst du ganz einfach Lebensmittel, welche du häufig nutzt, zur schnellen Wiederverwendung abspeichern. Über die Lupe
                             neben dem Formular zum Eintragen kannst du deine gespeicherten Vorlagen abrufen und auswählen. Anschliessend musst du die Werte nicht mehr
                             erneut eintragen, sondern nur auf <i>Hinzufügen</i> klicken.`
-                        },
-                        impressum: {
-                            title: 'Impressum',
-                            text: `
+                },
+                impressum: {
+                    title: 'Impressum',
+                    text: `
                             <h3>Kontakt</h3>
                             <p>
                                 Elia Reutlinger<br/>
@@ -296,14 +295,14 @@
                                 Mit der Nutzung der Anwendung stimmen Sie der Speicherung von Cookies zu.
                             </p>
                             `
-                        },
-                        ask: {
-                            title: 'Fragen oder Vorschläge?',
-                            text: 'Über folgende Links können Sie Ihr Anliegen mitteilen:'
-                        }
-                    }
+                },
+                ask: {
+                    title: 'Fragen oder Vorschläge?',
+                    text: 'Über folgende Links können Sie Ihr Anliegen mitteilen:'
                 }
-            },
-
+            }
         }
-    </script>
+    }
+
+}
+</script>

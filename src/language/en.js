@@ -28,20 +28,20 @@ export default (
         errors: {
             notfound: 'Diese Seite konnte nicht gefunden werden oder ist momentan nicht verfügbar.',
             nopermission: 'Du hast nicht genügend Rechte um diese Seite aufzurufen.',
-            required: "Eingabe ist nötig",
-            valid: "Eingabe muss gültig sein",
+            required: 'Eingabe ist nötig',
+            valid: 'Eingabe muss gültig sein'
         },
         alerts: {
-            saved: "Änderungen gespeichert",
-            savedMsg: "Deine Änderungen wurden erfolgreich gespeichert.",
-            error: "Problem bei der Ausführung",
-            errorMsg: "Bei der Ausführung ist ein Problem aufgetreten. Neue Daten wurden möglicherweise nicht gespeichert, oder die Anwendung weisst nun Fehler auf.",
-            warning: "Vorsicht!",
-            warningMsg: "",
-            info: "",
-            infoMsg: "",
-            sessionExp: "Session abgelaufen",
-            sessionExpMsg: "Ihre Session ist abgelaufen und Sie wurden abgemeldet. Melden Sie sich wieder an um die Anwendung zu nutzen."
+            saved: 'Änderungen gespeichert',
+            savedMsg: 'Deine Änderungen wurden erfolgreich gespeichert.',
+            error: 'Problem bei der Ausführung',
+            errorMsg: 'Bei der Ausführung ist ein Problem aufgetreten. Neue Daten wurden möglicherweise nicht gespeichert, oder die Anwendung weisst nun Fehler auf.',
+            warning: 'Vorsicht!',
+            warningMsg: '',
+            info: '',
+            infoMsg: '',
+            sessionExp: 'Session abgelaufen',
+            sessionExpMsg: 'Ihre Session ist abgelaufen und Sie wurden abgemeldet. Melden Sie sich wieder an um die Anwendung zu nutzen.'
         },
         views: {
             home: 'Startseite',
@@ -54,11 +54,11 @@ export default (
             login: 'Einloggen',
             register: 'Account erstellen',
             nopermission: 'Keine Rechte',
-            notfound: 'Nicht gefunden',
+            notfound: 'Nicht gefunden'
         },
         dashboard: {
             title: 'Hallo {0}!',
-            text:  'Hier sind einige persönliche Infos über dich:'
+            text: 'Hier sind einige persönliche Infos über dich:'
         }
     }
 )

@@ -31,33 +31,33 @@ export default {
     },
 
     computed: {
-        templates(){
-            return this.$store.state.content.templates;
+        templates () {
+            return this.$store.state.content.templates
         }
     },
 
-    mounted() {
-        if(!this.$store.state.content.templates){
-            var vm = this;
+    mounted () {
+        if (!this.$store.state.content.templates) {
+            var vm = this
             vm.axiosPost({
-                url:'template/read/',
+                url: 'template/read/',
                 data: {
                     token: this.$store.state.auth.token
-                },
-            }).then(function(response) {
-                vm.$store.state.content.templates = response.data.content;
+                }
+            }).then(function (response) {
+                vm.$store.state.content.templates = response.data.content
             }).catch(function (error) {
                 vm.$notify({
                     group: 'default',
                     type: 'warning',
                     title: vm.$t('alerts.empty.title'),
                     text: vm.$t('alerts.empty.text')
-                });
-            }).then(function(){
-                vm.$data.loading = false;
-            });
+                })
+            }).then(function () {
+                vm.$data.loading = false
+            })
         }
-    },
+    }
 
 }
 </script>

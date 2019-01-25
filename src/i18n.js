@@ -13,17 +13,17 @@ export default new VueI18n({
         en: {
             alerts: {
                 empty: {
-                    title: "No Data found",
-                    text: "Some functions need more Data",
-                    short: "Needs more data"
+                    title: 'No Data found',
+                    text: 'Some functions need more Data',
+                    short: 'Needs more data'
                 },
                 error: {
-                    title: "Error while execution",
-                    text: "There was an Error while executing this task. Changes may not be saved or the Application is in Error."
+                    title: 'Error while execution',
+                    text: 'There was an Error while executing this task. Changes may not be saved or the Application is in Error.'
                 },
                 success: {
-                    title: "Success",
-                    text: "Changes successfully saved"
+                    title: 'Success',
+                    text: 'Changes successfully saved'
                 },
                 expired: {
                     title: 'Session expired',
@@ -50,17 +50,17 @@ export default new VueI18n({
         de: {
             alerts: {
                 empty: {
-                    title: "Noch keine Einträge",
-                    text: "Einige Funktionen benötigen mehr Daten",
-                    short: "Benötigt mehr Daten"
+                    title: 'Noch keine Einträge',
+                    text: 'Einige Funktionen benötigen mehr Daten',
+                    short: 'Benötigt mehr Daten'
                 },
                 error: {
-                    title: "Problem bei der Ausführung",
-                    text: "Bei der Ausführung ist ein Problem aufgetreten. Neue Daten wurden möglicherweise nicht gespeichert, oder die Anwendung weisst nun Fehler auf."
+                    title: 'Problem bei der Ausführung',
+                    text: 'Bei der Ausführung ist ein Problem aufgetreten. Neue Daten wurden möglicherweise nicht gespeichert, oder die Anwendung weisst nun Fehler auf.'
                 },
                 success: {
-                    title: "Erfolg",
-                    text: "Änderungen wurden gespeichert"
+                    title: 'Erfolg',
+                    text: 'Änderungen wurden gespeichert'
                 },
                 expired: {
                     title: 'Sitzung abgelaufen',
@@ -84,6 +84,6 @@ export default new VueI18n({
             }
         }
 
-    },
+    }
 
 })

@@ -65,90 +65,86 @@ export default {
     },
 
     methods: {
-        addWeight(){
-
-            this.$refs.addWeightForm.validate();
-            if(this.$data.rules.valid){
-                var vm = this;
-                var postData = vm.$data.formdata;
-                postData.token = this.$store.state.auth.token;
-                vm.$data.disabled=true;
-                vm.$data.loading=true;
+        addWeight () {
+            this.$refs.addWeightForm.validate()
+            if (this.$data.rules.valid) {
+                var vm = this
+                var postData = vm.$data.formdata
+                postData.token = this.$store.state.auth.token
+                vm.$data.disabled = true
+                vm.$data.loading = true
 
                 vm.axiosPost({
-                    url:'weight/create/',
-                    data: postData,
+                    url: 'weight/create/',
+                    data: postData
                 }).then(function (response) {
-
                     vm.$notify({
                         group: 'default',
                         type: 'success',
                         title: vm.$t('alerts.success.title'),
                         text: vm.$t('alerts.success.text')
-                    });
+                    })
 
                     var tmp = {
                         id: response.data.content,
                         measuredate: vm.$data.formdata.date,
-                        weight:vm.$data.formdata.weight
+                        weight: vm.$data.formdata.weight
                     }
 
-                    if(!vm.$store.state.content.weights || vm.$store.state.content.weights.lenght < 1){
-                        vm.$store.state.content.weights = [];
+                    if (!vm.$store.state.content.weights || vm.$store.state.content.weights.lenght < 1) {
+                        vm.$store.state.content.weights = []
                     }
 
-                    vm.$store.state.content.weights.unshift(tmp);
-                    vm.$data.formdata.weight = null;
-                    vm.$refs.addWeightForm.resetValidation();
-                    vm.$data.loading=false;
-
+                    vm.$store.state.content.weights.unshift(tmp)
+                    vm.$data.formdata.weight = null
+                    vm.$refs.addWeightForm.resetValidation()
+                    vm.$data.loading = false
                 }).catch(function (error) {
                     vm.$notify({
                         group: 'default',
                         type: 'error',
                         title: vm.$t('alerts.error.title'),
                         text: vm.$t('alerts.error.text')
-                    });
-                    vm.$data.disabled=false;
-                    vm.$data.loading=false;
-                });
+                    })
+                    vm.$data.disabled = false
+                    vm.$data.loading = false
+                })
             }
-
         }
     },
 
     computed: {
         computedDateFormatted: {
-            get(){
+            get () {
                 if (!this.$data.formdata.date) return null
                 const [year, month, day] = this.$data.formdata.date.split('-')
                 return `${day}.${month}.${year}`
             },
-            set(){
+            set () {
             }
-        },
+        }
     },
 
-    data(){
-        var tmp = new Date();
+    data () {
+        var tmp = new Date()
         return {
             disabled: true,
             loading: false,
             dateMenu: false,
             formdata: {
                 weight: null,
-                date: tmp.getFullYear()+ '-' + (tmp.getMonth()+1) +'-'+ tmp.getDate(),
+                date: tmp.getFullYear() + '-' + (tmp.getMonth() + 1) + '-' + tmp.getDate()
             },
             rules: {
                 valid: true,
                 date: [
-                (v) => !!v || this.$t('errors.required'),
-                (v) => v && new Date(this.$data.formdata.date) != 'Invalid Date' || this.$t('errors.valid'),
+                    (v) => !!v || this.$t('errors.required'),
+                    (v) => v && new Date(this.$data.formdata.date) != 'Invalid Date' || this.$t('errors.valid')
                 ],
                 weight: [
-                (v) => !!v || this.$t('errors.required'),
-                (v) => v && v <= 500 && v >= 30 || this.$t('errors.valid'),
-                ],
+                    (v) => !!v || this.$t('errors.required'),
+                    (v) => v && v <= 500 && v >= 30 || this.$t('errors.valid')
+                ]
             }
         }
     },
@@ -156,8 +152,8 @@ export default {
     watch: {
         'formdata': {
             handler: function (val, oldVal) {
-                if(val.weight && val.date){
-                    this.disabled = false;
+                if (val.weight && val.date) {
+                    this.disabled = false
                 }
             },
             deep: true
