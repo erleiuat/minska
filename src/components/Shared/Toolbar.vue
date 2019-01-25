@@ -2,8 +2,6 @@
     <v-toolbar app class="primary" flat dark clipped-left>
         <v-toolbar-side-icon @click.stop="drawer()"></v-toolbar-side-icon>
         <v-toolbar-title>{{appTitle}}</v-toolbar-title>
-        <v-spacer></v-spacer>
-        <v-btn v-if="authenticated" flat @click="logout()"><b v-text="$t('button')"></b> <v-icon>exit_to_app</v-icon></v-btn>
     </v-toolbar>
 </template>
 
@@ -28,22 +26,14 @@ export default {
     },
 
     computed: {
-        appTitle () { return this.$store.state.app.title },
-        authenticated () { return this.$store.state.auth.token }
+        appTitle () {
+            return this.$store.state.app.title
+        }
     },
+
     methods: {
         drawer () {
             this.$store.commit('drawer', !this.$store.state.app.drawer)
-        },
-        logout () {
-            this.$store.commit('logout')
-            this.$notify({
-                group: 'default',
-                type: 'success',
-                title: this.$t('title'),
-                text: this.$t('text')
-            })
-            this.$router.push('/')
         }
     }
 }
