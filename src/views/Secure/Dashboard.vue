@@ -11,10 +11,11 @@
             </v-flex>
 
             <v-flex md6>
-                <WeightAdder />
-            </v-flex>
-            <v-flex md6>
                 <CalorieAdder />
+            </v-flex>
+            
+            <v-flex md6>
+                <WeightAdder />
             </v-flex>
 
             <v-flex xs12 pa-3>
