@@ -10,21 +10,6 @@ export default {
 
     name: 'Toolbar',
 
-    i18n: {
-        messages: {
-            en: {
-                button: 'Logout',
-                title: 'Successfully logged out',
-                text: 'You were redirected to the Homepage'
-            },
-            de: {
-                button: 'Abmelden',
-                title: 'Erfolgreich abgemeldet',
-                text: 'Du wurdest zur Startseite weitergeleitet'
-            }
-        }
-    },
-
     computed: {
         appTitle () {
             return this.$store.state.app.title

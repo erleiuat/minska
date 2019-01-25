@@ -42,14 +42,14 @@ export default {
                     dayNeed = 66 + (13.8 * this.$store.state.content.weights[0].weight) + (5.0 * this.$store.state.user.height) + (6.8 * dayNeed) // Mans
                 }
 
-                var value = Math.round((lossPerDayInCal + dayNeed) * 100) / 100
+                var value = Math.round((lossPerDayInCal + dayNeed))
                 var used = 0
 
                 if (this.$store.state.content.calories) {
                     this.$store.state.content.calories.forEach(function (item) {
                         used = used + (item.amount / 100 * item.calories)
                     })
-                    value = Math.round((value - used) * 100) / 100
+                    value = Math.round((value - used))
                 }
 
                 var type = 'error'

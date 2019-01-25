@@ -28,10 +28,13 @@ export default {
     computed: {
         card () {
             try {
-                var value = Math.round(this.$store.state.content.weights[0].weight / ((this.$store.state.user.height / 1000) * (this.$store.state.user.height / 1000))) / 100
+                var value = Math.round(this.$store.state.content.weights[0].weight / ((this.$store.state.user.height / 1000) * (this.$store.state.user.height / 1000)) / 10) / 10
 
                 var type = ''
-                if (value > 25 || value < 20) {
+
+                if (value > 30 || value < 15) {
+                    type = 'error'
+                } else if (value > 25 || value < 20) {
                     type = 'warning'
                 }
 
@@ -39,7 +42,7 @@ export default {
                     title: this.$t('title'),
                     description: this.$t('description'),
                     value: value,
-                    unit: 'Kg',
+                    unit: '',
                     type: type
                 }
             } catch (err) {

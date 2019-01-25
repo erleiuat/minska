@@ -35,8 +35,7 @@ export default new Vuex.Store({
             drawer: true,
             navigation: [
                 { path: '/login', title: 'login', icon: 'lock_open' },
-                { path: '/register', title: 'register', icon: 'subdirectory_arrow_right' },
-                { path: '/help', title: 'help', icon: 'question_answer' }
+                { path: '/register', title: 'register', icon: 'subdirectory_arrow_right' }
             ]
         },
 
@@ -93,7 +92,6 @@ export default new Vuex.Store({
                 { path: '/weight', title: 'weight', icon: 'linear_scale' },
                 { path: '/calories', title: 'calories', icon: 'cake' },
                 { path: '/templates', title: 'templates', icon: 'add_shopping_cart' },
-                { path: '/help', title: 'help', icon: 'question_answer' },
                 { path: '/settings', title: 'settings', icon: 'settings' }
             ]
         },
@@ -108,8 +106,7 @@ export default new Vuex.Store({
 
             state.app.navigation = [
                 { path: '/login', title: 'login', icon: 'lock_open' },
-                { path: '/register', title: 'register', icon: 'subdirectory_arrow_right' },
-                { path: '/help', title: 'help', icon: 'question_answer' }
+                { path: '/register', title: 'register', icon: 'subdirectory_arrow_right' }
             ]
         },
 

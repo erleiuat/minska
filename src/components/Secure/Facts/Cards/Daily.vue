@@ -43,7 +43,7 @@ export default {
                     dayNeed = 66 + (13.8 * this.$store.state.content.weights[0].weight) + (5.0 * this.$store.state.user.height) + (6.8 * dayNeed) // Mans
                 }
 
-                var value = Math.round((lossPerDayInCal + dayNeed) * 100) / 100
+                var value = Math.round((lossPerDayInCal + dayNeed))
 
                 var type = ''
                 if (value < 800) {

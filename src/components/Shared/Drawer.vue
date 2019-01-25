@@ -25,6 +25,14 @@
                         <v-list-tile-title v-text="$t('logout')"></v-list-tile-title>
                     </v-list-tile-content>
                 </v-list-tile>
+                <v-list-tile to="/help">
+                    <v-list-tile-action>
+                        <v-icon>question_answer</v-icon>
+                    </v-list-tile-action>
+                    <v-list-tile-content>
+                        <v-list-tile-title v-text="$t('help')"></v-list-tile-title>
+                    </v-list-tile-content>
+                </v-list-tile>
             </v-list>
 
         </v-layout>
@@ -38,10 +46,16 @@ export default {
     i18n: {
         messages: {
             en: {
-                logout: 'Logout'
+                logout: 'Logout',
+                title: 'Successfully logged out',
+                text: 'You were redirected to the Homepage',
+                help: 'Help'
             },
             de: {
-                logout: 'Abmelden'
+                logout: 'Abmelden',
+                title: 'Erfolgreich abgemeldet',
+                text: 'Du wurdest zur Startseite weitergeleitet',
+                help: 'Hilfe'
             }
         }
     },
