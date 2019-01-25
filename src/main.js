@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import 'babel-polyfill'
 import Vuetify from 'vuetify'
 import VueAxios from 'vue-axios'
 import Notifications from 'vue-notification'
