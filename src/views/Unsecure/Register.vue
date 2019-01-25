@@ -110,7 +110,7 @@ export default {
                     })
                     vm.$data.loading = false
                     vm.$router.push('/login')
-                }).catch(function (error) {
+                }).catch(function () {
                     vm.$notify({
                         group: 'default',
                         type: 'error',

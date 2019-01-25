@@ -37,40 +37,39 @@
 
                                     <v-flex xs12 v-if="!formdata.image">
                                         <v-btn :loading="loading1" large block @click="$refs.uploadfield.click()">
-                                        {{ $t('clickHere') }}
-                                        <v-icon right dark>cloud_upload</v-icon>
-                                    </v-btn>
+                                            {{ $t('clickHere') }}
+                                            <v-icon right dark>cloud_upload</v-icon>
+                                        </v-btn>
 
-                                </div>
-                            </v-flex>
+                                    </v-flex>
 
-                            <v-flex v-if="formdata.image" xs12>
-                                <div class="text-xs-center">
-                                    <h4>Image</h4>
-                                    <v-img :src="formdata.image" max-height="500" contain></v-img>
-                                    <v-btn @click="reset()">{{$t('retry')}}</v-btn>
-                                </div>
-                            </v-flex>
+                                    <v-flex v-if="formdata.image" xs12>
+                                        <div class="text-xs-center">
+                                            <h4>Image</h4>
+                                            <v-img :src="formdata.image" max-height="500" contain></v-img>
+                                            <v-btn @click="reset()">{{$t('retry')}}</v-btn>
+                                        </div>
+                                    </v-flex>
 
-                            <v-flex xs12>
+                                    <v-flex xs12>
 
-                                <v-btn :loading="loading2" :disabled="disabled" depressed block large color="primary" @click="addTemplate()">
-                                    {{ $t('addTemplate') }}
-                                    <span slot="loader" class="custom-loader">
-                                        <v-icon light>cached</v-icon>
-                                    </span>
-                                </v-btn>
+                                        <v-btn :loading="loading2" :disabled="disabled" depressed block large color="primary" @click="addTemplate()">
+                                            {{ $t('addTemplate') }}
+                                            <span slot="loader" class="custom-loader">
+                                                <v-icon light>cached</v-icon>
+                                            </span>
+                                        </v-btn>
 
-                            </v-flex>
-                        </v-layout>
-                    </v-form>
-                </v-flex>
-            </v-layout>
-        </v-container>
-    </v-card-text>
+                                    </v-flex>
+                                </v-layout>
+                            </v-form>
+                        </v-flex>
+                    </v-layout>
+                </v-container>
+            </v-card-text>
 
-</v-card>
-</v-dialog>
+        </v-card>
+    </v-dialog>
 </template>
 
 <script>
@@ -126,7 +125,7 @@ export default {
                 var path = response.config.baseURL + 'template/read/thumbnails/' + response.data.content
                 vm.$data.formdata.image = path
                 vm.$data.loading1 = false
-            }).catch(function (error) {
+            }).catch(function () {
                 vm.$notify({
                     group: 'default',
                     type: 'error',
@@ -183,7 +182,7 @@ export default {
                         title: vm.$t('alerts.success.title'),
                         text: vm.$t('alerts.success.text')
                     })
-                }).catch(function (error) {
+                }).catch(function () {
                     vm.$notify({
                         group: 'default',
                         type: 'error',

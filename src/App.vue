@@ -52,12 +52,10 @@ export default {
         this.$store.dispatch('checkAuth')
 
         this.$router.beforeResolve((to, from, next) => {
-            if (!this.$store.state.auth.token && to.meta.secure === true || this.$store.state.auth.token && to.meta.secure === false) {
-                if (!from.name && this.$store.state.auth.token === true) {
-                    this.$router.push('/dashboard')
-                } else {
-                    this.$router.push('/')
-                }
+            if (!this.$store.state.auth.token && to.meta.secure === true) {
+                this.$router.push('/')
+            } else if (this.$store.state.auth.token && to.meta.secure === false) {
+                this.$router.push('/dashboard')
             } else {
                 next()
             }

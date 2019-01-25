@@ -50,13 +50,11 @@
 </template>
 
 <script>
-import CalorieAdder from '@/components/Secure/Adder/Calorie'
-
 export default {
 
     name: 'Weight',
     components: {
-        CalorieAdder
+
     },
     i18n: {
         messages: {
@@ -94,7 +92,7 @@ export default {
             }).then(function (response) {
                 const index = vm.$data.calories.indexOf(item)
                 vm.$data.calories.splice(index, 1)
-                if (vm.$store.state.content.calories && vm.$data.active.date == new Date().toISOString().split('T')[0]) {
+                if (vm.$store.state.content.calories && vm.$data.active.date === new Date().toISOString().split('T')[0]) {
                     vm.$store.state.content.calories.splice(index, 1)
                 }
                 vm.$notify({
@@ -103,7 +101,7 @@ export default {
                     title: vm.$t('alerts.success.title'),
                     text: vm.$t('alerts.success.text')
                 })
-            }).catch(function (error) {
+            }).catch(function () {
                 vm.$notify({
                     group: 'default',
                     type: 'error',
@@ -116,7 +114,7 @@ export default {
         prevDay () {
             var vm = this
             var currentIndex = (this.$data.dates.findIndex(function (element) {
-                return element == vm.$data.active
+                return element === vm.$data.active
             }))
             if (currentIndex !== 0) {
                 vm.getDay(vm.$data.dates[currentIndex - 1])
@@ -126,7 +124,7 @@ export default {
         nextDay () {
             var vm = this
             var currentIndex = (this.$data.dates.findIndex(function (element) {
-                return element == vm.$data.active
+                return element === vm.$data.active
             }))
             if (currentIndex < vm.$data.dates.length - 1) {
                 vm.getDay(vm.$data.dates[currentIndex + 1])
@@ -146,7 +144,7 @@ export default {
                 }).then(function (response) {
                     vm.$data.calories = response.data.content
                     vm.$data.loading = false
-                }).catch(function (error) {
+                }).catch(function () {
                     vm.$notify({
                         group: 'default',
                         type: 'warning',
@@ -180,7 +178,7 @@ export default {
                 if (!vm.$data.active.date) {
                     vm.getDay(tmpDates[0])
                 }
-            }).catch(function (error) {
+            }).catch(function () {
                 vm.$notify({
                     group: 'default',
                     type: 'warning',

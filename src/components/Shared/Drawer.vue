@@ -1,7 +1,7 @@
 <template>
     <v-navigation-drawer app v-model="drawer" class="secondary" clipped floating>
         <v-list class="pt-0" dense>
-            <v-list-tile v-for="item in items" :key="item.title" @click="" :to="{path: item.path}">
+            <v-list-tile v-for="item in items" :key="item.title" :to="{path: item.path}">
                 <v-list-tile-action>
                     <v-icon>{{ item.icon }}</v-icon>
                 </v-list-tile-action>
@@ -14,8 +14,6 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
-
 export default {
     name: 'Drawer',
     computed: {

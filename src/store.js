@@ -57,12 +57,12 @@ export default new Vuex.Store({
         },
 
         login (state, sources) {
+            var token = sources
+            var keep = false
+
             if (sources['token']) {
-                var token = sources['token']
-                var keep = sources['keep']
-            } else {
-                var token = sources
-                var keep = false
+                token = sources['token']
+                keep = sources['keep']
             }
 
             state.auth.token = token
@@ -74,7 +74,7 @@ export default new Vuex.Store({
             state.auth.expiration.app = Math.floor(Date.now() / 1000) + (20 * 60)
             state.auth.expiration.keep = keep
 
-            if (decoded.data.isFemale == 1) {
+            if (decoded.data.isFemale === 1) {
                 state.user.isFemale = true
             } else {
                 state.user.isFemale = false

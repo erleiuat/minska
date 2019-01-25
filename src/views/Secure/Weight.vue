@@ -75,7 +75,7 @@ export default {
                 }
             }).then(function (response) {
                 vm.$store.state.content.weights = response.data.content
-            }).catch(function (error) {
+            }).catch(function () {
                 vm.$notify({
                     group: 'default',
                     type: 'warning',
@@ -85,6 +85,8 @@ export default {
             }).then(function () {
                 vm.$data.loading = false
             })
+        } else {
+            this.$data.loading = false
         }
     },
 
@@ -106,7 +108,7 @@ export default {
                     title: vm.$t('alerts.success.title'),
                     text: vm.$t('alerts.success.text')
                 })
-            }).catch(function (error) {
+            }).catch(function () {
                 vm.$notify({
                     group: 'default',
                     type: 'error',
@@ -132,7 +134,6 @@ export default {
     computed: {
         weights () {
             if (this.$store.state.content.weights) {
-                this.$data.loading = false
                 return this.$store.state.content.weights
             } else {
                 return []

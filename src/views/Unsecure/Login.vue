@@ -76,7 +76,7 @@ export default {
                         text: vm.$t('success.text')
                     })
                     vm.$router.push('/dashboard')
-                }).catch(function (error) {
+                }).catch(function () {
                     vm.$notify({
                         group: 'default',
                         type: 'error',
@@ -102,11 +102,11 @@ export default {
                 valid: false,
                 email: [
                     (v) => !!v || this.$t('errors.required'),
-                    (v) => /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(v) || this.$t('errors.valid')
+                    (v) => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || this.$t('errors.valid')
                 ],
                 pass: [
                     (v) => !!v || this.$t('errors.required'),
-                    (v) => /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/.test(v) || this.$t('errors.valid')
+                    (v) => /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/.test(v) || this.$t('errors.valid')
                 ]
             }
         }

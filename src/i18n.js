@@ -6,8 +6,7 @@ Vue.use(VueI18n)
 export default new VueI18n({
     locale: 'en',
     fallbackLocale: 'en',
-    silentTranslationWarn: process.env.NODE_ENV === 'production',
-    silentTranslationWarn: process.env.NODE_ENV === 'development',
+    silentTranslationWarn: process.env.NODE_ENV !== 'production',
     messages: {
 
         en: {

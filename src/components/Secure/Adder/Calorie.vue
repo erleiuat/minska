@@ -111,7 +111,7 @@ export default {
                     var now = new Date()
                     var today = now.getFullYear() + '-' + (now.getMonth() + 1) + '-' + now.getDate()
 
-                    if (today == vm.$data.formdata.date) {
+                    if (today === vm.$data.formdata.date) {
                         if (!vm.$store.state.content.calories || vm.$store.state.content.calories.lenght < 1) {
                             vm.$store.state.content.calories = []
                         }
@@ -136,7 +136,7 @@ export default {
                         title: vm.$t('alerts.success.title'),
                         text: vm.$t('alerts.success.text')
                     })
-                }).catch(function (error) {
+                }).catch(function () {
                     vm.$notify({
                         group: 'default',
                         type: 'error',
@@ -182,7 +182,7 @@ export default {
                 ],
                 date: [
                     (v) => !!v || this.$t('errors.required'),
-                    (v) => v && new Date(this.$data.formdata.date) != 'Invalid Date' || this.$t('errors.valid')
+                    (v) => v && new Date(this.$data.formdata.date) !== 'Invalid Date' || this.$t('errors.valid')
                 ],
                 weight: [
                     (v) => !!v || this.$t('errors.required'),

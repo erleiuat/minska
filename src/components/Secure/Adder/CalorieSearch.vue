@@ -10,7 +10,7 @@
                 <v-divider></v-divider>
 
                 <v-card-text>
-                    <v-flex xs12 pa-1 v-for="item in items">
+                    <v-flex xs12 pa-1 v-for="item in items" :key="item.id">
                         <v-hover>
                         <v-card @click="useItem(item)" slot-scope="{ hover }" :class="`elevation-${hover ? 12 : 2}`">
                             <v-layout>
@@ -73,6 +73,33 @@ export default {
         }
     },
 
+    mounted () {
+        if (!this.$store.state.content.templates) {
+            var vm = this
+            vm.axiosPost({
+                url: 'template/read/',
+                data: {
+                    token: this.$store.state.auth.token
+                }
+            }).then(function (response) {
+                vm.$store.state.content.templates = response.data.content
+            }).catch(function () {
+                /** Deactivated bc too much
+                vm.$notify({
+                    group: 'default',
+                    type: 'warning',
+                    title: vm.$t('alerts.empty.title'),
+                    text: vm.$t('alerts.empty.text')
+                });
+                **/
+            }).then(function () {
+                vm.$data.loading = false
+            })
+        } else {
+            this.$data.loading = false
+        }
+    },
+
     methods: {
         image (image) {
             if (image !== '') {
@@ -89,30 +116,11 @@ export default {
 
     computed: {
         items () {
-            if (!this.$store.state.content.templates) {
-                var vm = this
-                vm.axiosPost({
-                    url: 'template/read/',
-                    data: {
-                        token: this.$store.state.auth.token
-                    }
-                }).then(function (response) {
-                    vm.$store.state.content.templates = response.data.content
-                }).catch(function (error) {
-                    /** Deactivated bc too much
-                    vm.$notify({
-                        group: 'default',
-                        type: 'warning',
-                        title: vm.$t('alerts.empty.title'),
-                        text: vm.$t('alerts.empty.text')
-                    });
-                    **/
-                }).then(function () {
-                    vm.$data.loading = false
-                })
+            if (this.$store.state.content.templates) {
+                return this.$store.state.content.templates
+            } else {
+                return []
             }
-
-            return this.$store.state.content.templates
         }
     }
 

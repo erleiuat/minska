@@ -54,8 +54,8 @@ export default {
     },
 
     beforeMount () {
-        if (!this.$store.state.content.weights) {
-            var vm = this
+        var vm = this
+        if (!vm.$store.state.content.weights) {
             vm.axiosPost({
                 url: 'weight/read/all/',
                 data: {
@@ -63,20 +63,19 @@ export default {
                 }
             }).then(function (response) {
                 vm.$store.state.content.weights = response.data.content
-            }).catch(function (error) {
+            }).catch(function () {
                 /** Deactivated bc too much
                 vm.$notify({
-                    group: 'default',
-                    type: 'warning',
-                    title: vm.$t('alerts.empty.title'),
-                    text: vm.$t('alerts.empty.text')
-                });
-                **/
+                group: 'default',
+                type: 'warning',
+                title: vm.$t('alerts.empty.title'),
+                text: vm.$t('alerts.empty.text')
+            });
+            **/
             })
         }
 
-        if (!this.$store.state.content.calories) {
-            var vm = this
+        if (!vm.$store.state.content.calories) {
             vm.axiosPost({
                 url: 'calorie/read/byDay/',
                 data: {
@@ -85,15 +84,15 @@ export default {
                 }
             }).then(function (response) {
                 vm.$store.state.content.calories = response.data.content
-            }).catch(function (error) {
-                /** Deactivated bc too much
-                vm.$notify({
-                    group: 'default',
-                    type: 'warning',
-                    title: vm.$t('alerts.empty.title'),
-                    text: vm.$t('alerts.empty.text')
-                });
-                **/
+            }).catch(function () {
+            /** Deactivated bc too much
+            vm.$notify({
+            group: 'default',
+            type: 'warning',
+            title: vm.$t('alerts.empty.title'),
+            text: vm.$t('alerts.empty.text')
+        });
+        **/
             })
         }
     }

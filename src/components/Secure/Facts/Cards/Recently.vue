@@ -29,17 +29,16 @@ export default {
         card () {
             if (this.$store.state.content.weights.length >= 2) {
                 var target = this.$store.state.user.aims.weight - this.$store.state.content.weights[0].weight
-
                 var value = this.$store.state.content.weights[0].weight - this.$store.state.content.weights[1].weight
+
                 value = Math.round(value * 100) / 100
                 if (value > 0) {
                     value = '+' + value
                 }
 
+                var type = 'error'
                 if (target < 0 && value < 0) {
-                    var type = 'success'
-                } else {
-                    var type = 'error'
+                    type = 'success'
                 }
 
                 return {

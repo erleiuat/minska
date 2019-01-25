@@ -84,7 +84,7 @@ export default {
                     title: vm.$t('alerts.success.title'),
                     text: vm.$t('alerts.success.text')
                 })
-            }).catch(function (error) {
+            }).catch(function () {
                 vm.$notify({
                     group: 'default',
                     type: 'warning',
@@ -98,7 +98,7 @@ export default {
     },
     computed: {
         image () {
-            if (this.item.image == null || this.item.image == '') {
+            if (this.item.image === null || this.item.image === '') {
                 return require('@/media/defaultFood.jpg')
             } else {
                 return this.item.image

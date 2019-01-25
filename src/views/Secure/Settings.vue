@@ -129,7 +129,7 @@ export default {
                     })
                     vm.disabled = true
                     vm.$data.loading = false
-                }).catch(function (error) {
+                }).catch(function () {
                     vm.$notify({
                         group: 'default',
                         type: 'error',
@@ -200,10 +200,6 @@ export default {
                     (v) => !!v || this.$t('errors.required'),
                     (v) => v && v.length <= 20 || this.$t('errors.valid')
                 ],
-                email: [
-                    (v) => !!v || this.$t('errors.required'),
-                    (v) => /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(v) || this.$t('errors.valid')
-                ],
                 height: [
                     (v) => !!v || this.$t('errors.required'),
                     (v) => v && v <= 300 && v >= 50 || this.$t('errors.valid')
@@ -214,7 +210,7 @@ export default {
                 ],
                 date: [
                     (v) => !!v || this.$t('errors.required'),
-                    (v) => v && new Date(this.$data.formdata.aims.date) != 'Invalid Date' || this.$t('errors.valid')
+                    (v) => v && new Date(this.$data.formdata.aims.date) !== 'Invalid Date' || this.$t('errors.valid')
                 ],
                 selectGender: [
                     (v) => (typeof v) === 'boolean' || this.$t('errors.required')

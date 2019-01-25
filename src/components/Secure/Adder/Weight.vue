@@ -99,7 +99,7 @@ export default {
                     vm.$data.formdata.weight = null
                     vm.$refs.addWeightForm.resetValidation()
                     vm.$data.loading = false
-                }).catch(function (error) {
+                }).catch(function () {
                     vm.$notify({
                         group: 'default',
                         type: 'error',
@@ -139,7 +139,7 @@ export default {
                 valid: true,
                 date: [
                     (v) => !!v || this.$t('errors.required'),
-                    (v) => v && new Date(this.$data.formdata.date) != 'Invalid Date' || this.$t('errors.valid')
+                    (v) => v && new Date(this.$data.formdata.date) !== 'Invalid Date' || this.$t('errors.valid')
                 ],
                 weight: [
                     (v) => !!v || this.$t('errors.required'),
