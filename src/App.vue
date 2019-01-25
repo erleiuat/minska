@@ -40,22 +40,6 @@ export default {
 
     beforeMount(){
 
-        this.$router.beforeResolve((to, from, next) => {
-            if(!this.$store.state.auth.token && to.meta.secure === true || this.$store.state.auth.token && to.meta.secure === false){
-                if(!from.name && this.$store.state.auth.token === true){
-                    this.$router.push('/dashboard');
-                } else {
-                    this.$router.push('/login');
-                }
-            } else {
-                next();
-            }
-        });
-
-        this.$router.afterEach((to, from) => {
-            document.title = this.$store.state.app.title +' | '+ this.$t('views.'+to.meta.title);
-        });
-
         this.$store.watch((state)=>{
             return this.$store.state.user.language
         },(newValue, oldValue)=>{
@@ -64,6 +48,24 @@ export default {
                     this.$i18n.locale = this.$store.state.user.language;
                 }
             }
+        });
+
+        this.$store.dispatch('checkAuth');
+
+        this.$router.beforeResolve((to, from, next) => {
+            if(!this.$store.state.auth.token && to.meta.secure === true || this.$store.state.auth.token && to.meta.secure === false){
+                if(!from.name && this.$store.state.auth.token === true){
+                    this.$router.push('/dashboard');
+                } else {
+                    this.$router.push('/');
+                }
+            } else {
+                next();
+            }
+        });
+
+        this.$router.afterEach((to, from) => {
+            document.title = this.$store.state.app.title +' | '+ this.$t('views.'+to.meta.title);
         });
 
         this.$store.watch((state)=>{

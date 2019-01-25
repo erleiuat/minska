@@ -14,6 +14,7 @@ export default new Vuex.Store({
             expiration: {
                 app: null,
                 token: null,
+                keep: false,
             }
         },
 
@@ -55,15 +56,24 @@ export default new Vuex.Store({
             state.app.drawer = val;
         },
 
-        login(state, token) {
+        login(state, sources) {
+
+            if(sources['token']){
+                var token = sources['token'];
+                var keep = sources['keep'];
+            } else {
+                var token = sources;
+                var keep = false;
+            }
 
             state.auth.token = token;
             var encoded = (token.split('.')[1]).replace('-', '+').replace('_', '/');
             var decoded = JSON.parse(window.atob(encoded));
 
             state.user = decoded.data;
-            state.auth.expiration.app = Math.floor(Date.now() / 1000) + (20*60);
             state.auth.expiration.token = decoded.exp;
+            state.auth.expiration.app = Math.floor(Date.now() / 1000) + (20*60);
+            state.auth.expiration.keep = keep;
 
             if(decoded.data.isFemale == 1){
                 state.user.isFemale = true;
@@ -118,25 +128,20 @@ export default new Vuex.Store({
             var now = Math.floor(Date.now() / 1000);
             var authCookie = JSON.parse(VueCookie.get('authCookie'));
 
-            if(!state.auth.token){
-                if(authCookie && authCookie !== null){
-                    if(authCookie.expiration.token > now && authCookie.expiration.app > now){
-                        commit('login', authCookie.token);
-                    } else {
-                        commit('logout');
-                    }
-                } else {
-                    commit('logout');
+            if(!state.auth.token && authCookie && authCookie !== null){
+                if(authCookie.expiration.token > now && authCookie.expiration.app > now){
+                    commit('login', {token: authCookie.token, keep: authCookie.expiration.keep});
+                    return null;
                 }
             } else if(state.auth.token){
-                if(state.auth.expiration.app > now && state.auth.expiration.token > now){
-                    if(!state.app.authState){
-                        commit('login', state.auth.token);
-                    }
-                } else {
-                    commit('logout');
+                if(state.auth.expiration.app > now && state.auth.expiration.token > now || state.auth.expiration.token > now && state.auth.expiration.keep){
+                    state.auth.expiration.app = Math.floor(Date.now() / 1000) + (20*60);
+                    return null;
                 }
             }
+
+            commit('logout');
+
         }
     },
 

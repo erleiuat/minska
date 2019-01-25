@@ -6,6 +6,7 @@
                     <h1 v-text="$t('title')"></h1>
                     <v-text-field :label="$t('mail')" v-model="formdata.email" :rules="rules.email" type="email" outline></v-text-field>
                     <v-text-field :label="$t('password')" v-model="formdata.password" outline :rules="rules.pass" type="password"></v-text-field>
+                    <v-checkbox color="primary" v-model="keepLogin" label="Eingeloggt bleiben"></v-checkbox>
                     <v-btn :loading="loading" :disabled="loading" depressed block @click="sendLogin()" large color="primary">
                         {{ $t('login') }}
                         <span slot="loader" class="custom-loader">
@@ -28,6 +29,7 @@ export default {
                 title: 'Login',
                 mail: 'E-Mail',
                 password: 'Password',
+                keepLogged: 'Keep Login',
                 success: {
                     title: 'Login Successful!',
                     text: 'You were redirected to your Dashboard'
@@ -41,6 +43,7 @@ export default {
                 title: 'Anmelden',
                 mail: 'E-Mail',
                 password: 'Passwort',
+                keepLogged: 'Eingeloggt bleiben',
                 success: {
                     title: 'Erfolgreich angemeldet!',
                     text: 'Du wurdest zu deinem Dashboard weitergeleitet'
@@ -66,7 +69,7 @@ export default {
                     url:'user/login/',
                     data: vm.$data.formdata
                 }).then(function(response) {
-                    vm.$store.commit('login', response.data.content);
+                    vm.$store.commit('login', {token: response.data.content, keep: vm.$data.keepLogin});
                     vm.$notify({
                         group: 'default',
                         type: 'success',
@@ -96,6 +99,7 @@ export default {
                 email: '',
                 password: ''
             },
+            keepLogin: false,
             rules: {
                 valid: false,
                 email: [
