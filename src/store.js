@@ -31,7 +31,7 @@ export default new Vuex.Store({
 
         app: {
             title: 'Minska',
-            version: '1.0',
+            version: '1.0.1',
             expTimer: null,
             drawer: true,
             navigation: [
