@@ -20,12 +20,12 @@ Vue.use(VueChartkick, { adapter: Chart })
 Vue.use(Vuetify, {
     theme: {
     // Logo-Font: Ultra Fresh
-        primary: '#00A2A3',
-        secondary: '#EBFFFF',
-        error: '#B30000',
+        primary: '#381d56',
+        secondary: '#e8d5fc',
+        success: '#2c942c',
+        error: '#c01f1f',
         info: '#006061',
-        success: '#006600',
-        warning: '#CC5E00'
+        warning: '#e5860e'
     }
 })
 
