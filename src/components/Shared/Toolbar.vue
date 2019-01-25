@@ -1,12 +1,21 @@
 <template>
     <v-toolbar app class="primary" flat dark clipped-left>
-        <v-toolbar-side-icon @click.stop="drawer()"></v-toolbar-side-icon>
-        <v-spacer></v-spacer>
-        <v-toolbar-title>
-            <v-img min-width="150px" :src="require('@/media/toolbar.png')" :lazy-src="require('@/media/toolbar.png')">
-            </v-img>
-        </v-toolbar-title>
-        <v-spacer></v-spacer>
+
+            <v-layout row>
+                <v-flex xs2>
+                    <v-toolbar-side-icon @click.stop="drawer()"></v-toolbar-side-icon>
+                </v-flex>
+                <v-flex xs8>
+                    <v-toolbar-title class="pt-1">
+                        <v-img max-height="40px" contain :src="require('@/media/toolbar.png')" :lazy-src="require('@/media/toolbarLow.png')">
+                        </v-img>
+                    </v-toolbar-title>
+                </v-flex>
+                <v-flex xs2>
+                </v-flex>
+            </v-layout>
+
+
     </v-toolbar>
 </template>
 
