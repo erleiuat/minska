@@ -1,6 +1,6 @@
 <template>
     <v-card v-if="item">
-        <v-img :src="image" height="300px">
+        <v-img :lazy-src="require('@/media/loadingFood.jpg')" :src="image" height="300px">
             <v-layout column fill-height>
                 <v-card-title>
                     <v-spacer></v-spacer>
