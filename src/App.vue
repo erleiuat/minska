@@ -37,23 +37,8 @@ export default {
             'checkAuth',
         ]),
     },
-    beforeUpdate(){
-        this.$store.dispatch('checkAuth');
-    },
 
-    beforeCreate(){
-
-        this.$store.watch((state)=>{
-            return this.$store.state.user.language
-        },(newValue, oldValue)=>{
-            if(newValue !== oldValue){
-                if(this.$store.state.user.language){
-                    this.$i18n.locale = this.$store.state.user.language;
-                }
-            }
-        });
-
-        this.$store.dispatch('checkAuth');
+    beforeMount(){
 
         this.$router.beforeResolve((to, from, next) => {
             if(!this.$store.state.auth.token && to.meta.secure === true || this.$store.state.auth.token && to.meta.secure === false){
@@ -72,6 +57,16 @@ export default {
         });
 
         this.$store.watch((state)=>{
+            return this.$store.state.user.language
+        },(newValue, oldValue)=>{
+            if(newValue !== oldValue){
+                if(this.$store.state.user.language){
+                    this.$i18n.locale = this.$store.state.user.language;
+                }
+            }
+        });
+
+        this.$store.watch((state)=>{
             return this.$store.state.auth.token
         },(newValue, oldValue)=>{
             if(!newValue && oldValue !== null){
@@ -84,6 +79,23 @@ export default {
                 })
             }
         });
+
+    },
+
+    beforeUpdate(){
+
+        this.$store.dispatch('checkAuth');
+
+        clearTimeout(this.$store.state.app.expTimer);
+        var appLeft = (this.$store.state.auth.expiration.app - Math.floor(Date.now() / 1000))*1000;
+        var tokenLeft = (this.$store.state.auth.expiration.token - Math.floor(Date.now() / 1000))*1000;
+
+        if(appLeft > 0 && tokenLeft > 0){
+            var vm = this;
+            vm.$store.state.app.expTimer = setTimeout(function(){
+                vm.$store.dispatch('checkAuth');
+            }, (appLeft));
+        }
 
     }
 

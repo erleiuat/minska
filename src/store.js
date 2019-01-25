@@ -21,6 +21,7 @@ export default new Vuex.Store({
             id: null,
             firstname: null,
             lastname: null,
+            email: null,
             language: null,
             isFemale: false,
             aims: {
@@ -31,7 +32,7 @@ export default new Vuex.Store({
 
         app: {
             title: 'Minska',
-            secured: false,
+            expTimer: null,
             drawer: true,
             navigation: [
                 {path: '/login', title: 'login', icon: 'lock_open'},
