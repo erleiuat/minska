@@ -98,6 +98,7 @@ export default {
 }
 </script>
 <style>
+    @import url('https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons');
     .custom-loader {
         animation: loader 1s infinite;
         display: flex;

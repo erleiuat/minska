@@ -19,7 +19,7 @@ Vue.use(Notifications)
 Vue.use(VueChartkick, { adapter: Chart })
 Vue.use(Vuetify, {
     theme: {
-    // Font: Ultra Fresh
+    // Logo-Font: Ultra Fresh
         primary: '#00A2A3',
         secondary: '#EBFFFF',
         error: '#B30000',
