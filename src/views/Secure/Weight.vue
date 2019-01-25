@@ -6,7 +6,7 @@
             </v-flex>
 
             <v-flex xs12>
-                <Chart :chartValues="weights" xData="measuredate" yData="weight"/>
+                <Chart :weights="weights"/>
             </v-flex>
 
             <v-flex xs12>
@@ -18,9 +18,8 @@
                 <v-data-table :rows-per-page-text="$t('rows')" :no-data-text="$t('alerts.empty.title')" :headers="headers" :items="weights" :loading="loading" :rows-per-page-items="[10,20,30]" class="elevation-1">
                     <v-progress-linear slot="progress" color="blue" indeterminate></v-progress-linear>
                     <template slot="items" slot-scope="props">
-                        <td>{{ props.item.number }}</td>
                         <td>{{ props.item.weight }}</td>
-                        <td>{{ props.item.measuredate }}</td>
+                        <td>{{ formatted(props.item.measuredate) }}</td>
                         <td class="text-xs-center">
                             <v-icon small @click="deleteItem(props.item)">
                                 delete
@@ -116,6 +115,11 @@ export default {
                     text: vm.$t('alerts.error.text')
                 })
             })
+        },
+        formatted (date) {
+            if (!date) return null
+            const [year, month, day] = date.split('-')
+            return `${day}.${month}.${year}`
         }
     },
 
@@ -123,7 +127,6 @@ export default {
         return {
             loading: true,
             headers: [
-                { text: '#', align: 'left', value: 'number' },
                 { text: this.$t('weight'), value: 'weight' },
                 { text: this.$t('measuredate'), value: 'measuredate' },
                 { text: this.$t('actions'), value: 'null' }
