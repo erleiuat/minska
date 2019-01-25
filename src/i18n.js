@@ -36,6 +36,7 @@ export default new VueI18n({
                 templates: 'Templates',
                 help: 'Help',
                 settings: 'Settings',
+                group: 'Group',
                 login: 'Login',
                 register: 'Register',
                 home: 'Home'
@@ -73,6 +74,7 @@ export default new VueI18n({
                 templates: 'Vorlagen',
                 help: 'Hilfe',
                 settings: 'Einstellungen',
+                group: 'Gruppe',
                 login: 'Anmelden',
                 register: 'Registrieren',
                 home: 'Start'

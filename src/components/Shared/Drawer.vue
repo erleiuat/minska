@@ -25,14 +25,31 @@
                         <v-list-tile-title v-text="$t('logout')"></v-list-tile-title>
                     </v-list-tile-content>
                 </v-list-tile>
+
                 <v-list-tile to="/help">
                     <v-list-tile-action>
                         <v-icon>question_answer</v-icon>
                     </v-list-tile-action>
                     <v-list-tile-content>
-                        <v-list-tile-title v-text="$t('help')"></v-list-tile-title>
+                        <v-list-tile-title v-text="$t('views.help')"></v-list-tile-title>
                     </v-list-tile-content>
                 </v-list-tile>
+
+                <v-list-tile to="/settings">
+                    <v-list-tile-action>
+                        <v-icon>settings</v-icon>
+                    </v-list-tile-action>
+                    <v-list-tile-content>
+                        <v-list-tile-title v-text="$t('views.settings')"></v-list-tile-title>
+                    </v-list-tile-content>
+                </v-list-tile>
+
+                <v-list-tile>
+                    <v-list-tile-content class="caption">
+                        {{info}}
+                    </v-list-tile-content>
+                </v-list-tile>
+
             </v-list>
 
         </v-layout>
@@ -48,18 +65,19 @@ export default {
             en: {
                 logout: 'Logout',
                 title: 'Successfully logged out',
-                text: 'You were redirected to the Homepage',
-                help: 'Help'
+                text: 'You were redirected to the Homepage'
             },
             de: {
                 logout: 'Abmelden',
                 title: 'Erfolgreich abgemeldet',
-                text: 'Du wurdest zur Startseite weitergeleitet',
-                help: 'Hilfe'
+                text: 'Du wurdest zur Startseite weitergeleitet'
             }
         }
     },
     computed: {
+        info () {
+            return this.$store.state.app.title + ' v' + this.$store.state.app.version
+        },
         drawer: {
             get () {
                 return this.$store.state.app.drawer

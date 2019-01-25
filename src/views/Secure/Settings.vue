@@ -1,10 +1,11 @@
 <template>
     <v-container grid-list-sm pa-0>
-        <h1 v-text="$t('title')"></h1>
+
+        <h1 class="display-1" v-text="$t('title')"></h1>
         <v-card>
             <v-container fluid grid-list-md>
                 <v-form v-model="rules.valid" ref="settingsForm">
-                    <h2 v-text="$t('basic')"></h2>
+                    <h2 class="headline" v-text="$t('basic')"></h2>
                     <v-layout row wrap>
                         <v-flex sm6>
                             <v-select :label="$t('language')" v-model="formdata.language" :rules="rules.selectLanguage" :items="languageItems" item-text="text" item-value="value"></v-select>
@@ -30,7 +31,7 @@
                         </v-flex>
 
                     </v-layout>
-                    <h2 v-text="$t('aims')"></h2>
+                    <h2 class="headline" v-text="$t('aims')"></h2>
                     <v-layout row wrap>
                         <v-flex sm6>
                             <v-text-field :label="$t('weight')" v-model="formdata.aims.weight" :rules="rules.weight" type="number" outline></v-text-field>

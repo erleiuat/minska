@@ -2,69 +2,71 @@
     <v-container grid-list-md pa-0>
         <v-layout row wrap>
 
-            <v-flex xs12>
-                <h1>{{ $t('views.help') }}</h1>
+            <v-flex xs12 class="display-1">
+                {{ $t('views.help') }}
             </v-flex>
 
-            <v-tabs slider-color="primary">
+            <v-flex xs12>
+                <v-tabs slider-color="primary">
 
-                <v-tab key="whatis" ripple>
-                    {{ $t('whatsminska.title') }}
-                </v-tab>
-                <v-tab key="facts" ripple>
-                    {{ $t('factcards.title') }}
-                </v-tab>
-                <v-tab key="template" ripple>
-                    {{ $t('templates.title') }}
-                </v-tab>
-                <v-tab key="impress" ripple>
-                    {{ $t('impressum.title') }}
-                </v-tab>
+                    <v-tab key="whatis" ripple>
+                        {{ $t('whatsminska.title') }}
+                    </v-tab>
+                    <v-tab key="facts" ripple>
+                        {{ $t('factcards.title') }}
+                    </v-tab>
+                    <v-tab key="template" ripple>
+                        {{ $t('templates.title') }}
+                    </v-tab>
+                    <v-tab key="impress" ripple>
+                        {{ $t('impressum.title') }}
+                    </v-tab>
 
-                <v-tab-item key="whatis">
-                    <v-card flat>
-                        <v-card-text v-html="$t('whatsminska.text')"></v-card-text>
-                    </v-card>
-                </v-tab-item>
+                    <v-tab-item key="whatis">
+                        <v-card flat>
+                            <v-card-text v-html="$t('whatsminska.text')"></v-card-text>
+                        </v-card>
+                    </v-tab-item>
 
-                <v-tab-item key="facts">
-                    <v-card flat>
-                        <v-card-text>
-                            <v-layout row wrap>
-                                <v-flex xs12>
-                                    <h3>{{ $t('factcards.remainingdaily.title') }}</h3>
-                                    <p  v-html="$t('factcards.remainingdaily.text')"></p>
-                                </v-flex>
-                                <v-flex xs12 sm6>
-                                    <h3>{{ $t('factcards.recenttotal.title') }}</h3>
-                                    <p  v-html="$t('factcards.recenttotal.text')"></p>
-                                </v-flex>
-                                <v-flex xs12 sm6>
-                                    <h3>{{ $t('factcards.bmi.title') }}</h3>
-                                    <p  v-html="$t('factcards.bmi.text')"></p>
-                                </v-flex>
-                                <v-flex xs12 sm6>
-                                    <h3>{{ $t('factcards.target.title') }}</h3>
-                                    <p  v-html="$t('factcards.target.text')"></p>
-                                </v-flex>
-                            </v-layout>
-                        </v-card-text>
-                    </v-card>
-                </v-tab-item>
+                    <v-tab-item key="facts">
+                        <v-card flat>
+                            <v-card-text>
+                                <v-layout row wrap>
+                                    <v-flex xs12>
+                                        <h3>{{ $t('factcards.remainingdaily.title') }}</h3>
+                                        <p  v-html="$t('factcards.remainingdaily.text')"></p>
+                                    </v-flex>
+                                    <v-flex xs12 sm6>
+                                        <h3>{{ $t('factcards.recenttotal.title') }}</h3>
+                                        <p  v-html="$t('factcards.recenttotal.text')"></p>
+                                    </v-flex>
+                                    <v-flex xs12 sm6>
+                                        <h3>{{ $t('factcards.bmi.title') }}</h3>
+                                        <p  v-html="$t('factcards.bmi.text')"></p>
+                                    </v-flex>
+                                    <v-flex xs12 sm6>
+                                        <h3>{{ $t('factcards.target.title') }}</h3>
+                                        <p  v-html="$t('factcards.target.text')"></p>
+                                    </v-flex>
+                                </v-layout>
+                            </v-card-text>
+                        </v-card>
+                    </v-tab-item>
 
-                <v-tab-item key="template">
-                    <v-card flat>
-                        <v-card-text v-html="$t('templates.text')"></v-card-text>
-                    </v-card>
-                </v-tab-item>
+                    <v-tab-item key="template">
+                        <v-card flat>
+                            <v-card-text v-html="$t('templates.text')"></v-card-text>
+                        </v-card>
+                    </v-tab-item>
 
-                <v-tab-item key="impress">
-                    <v-card flat>
-                        <v-card-text v-html="$t('impressum.text')"></v-card-text>
-                    </v-card>
-                </v-tab-item>
+                    <v-tab-item key="impress">
+                        <v-card flat>
+                            <v-card-text v-html="$t('impressum.text')"></v-card-text>
+                        </v-card>
+                    </v-tab-item>
 
-            </v-tabs>
+                </v-tabs>
+            </v-flex>
 
             <v-flex xs12>
                 <v-divider></v-divider>

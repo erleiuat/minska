@@ -2,9 +2,12 @@
     <v-container pa-0>
         <v-layout row wrap>
 
-            <v-flex xs12>
-                <h1>{{ call }}</h1>
-                <i>{{ $t('subtitle') }}</i>
+            <v-flex xs12 class="display-1">
+                {{ call }}
+            </v-flex>
+
+            <v-flex xs12 class="caption font-italic">
+                {{ $t('subtitle') }}
             </v-flex>
 
             <v-flex md6>
@@ -18,8 +21,8 @@
                 <v-divider></v-divider>
             </v-flex>
 
-            <v-flex xs12>
-                <h1>{{ $t('factsTitle') }}</h1>
+            <v-flex xs12 class="display-1">
+                {{ $t('factsTitle') }}
             </v-flex>
 
             <v-flex xs12>

@@ -3,7 +3,7 @@
     <v-layout row justify-center>
         <v-dialog v-model="dialog" scrollable max-width="600px">
             <v-btn color="primary" slot="activator" fab small dark>
-                <v-icon>search</v-icon>
+                <v-icon>unarchive</v-icon>
             </v-btn>
             <v-card>
                 <v-card-title>{{$t('select')}}</v-card-title>

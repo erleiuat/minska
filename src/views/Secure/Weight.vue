@@ -1,8 +1,8 @@
 <template>
     <v-container grid-list-md pa-0>
         <v-layout row wrap>
-            <v-flex xs12>
-                <h1 v-text="$t('weight')"></h1>
+            <v-flex xs12 class="display-1">
+                {{ $t('weight') }}
             </v-flex>
 
             <v-flex xs12>
@@ -11,7 +11,10 @@
 
             <v-flex xs12>
                 <v-divider></v-divider>
-                <h1 v-text="$t('allEntries')"></h1>
+            </v-flex>
+
+            <v-flex xs12 class="headline">
+                {{ $t('allEntries') }}
             </v-flex>
 
             <v-flex xs12>

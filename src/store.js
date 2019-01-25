@@ -31,6 +31,7 @@ export default new Vuex.Store({
 
         app: {
             title: 'Minska',
+            version: '1.0',
             expTimer: null,
             drawer: true,
             navigation: [
@@ -91,8 +92,8 @@ export default new Vuex.Store({
                 { path: '/dashboard', title: 'dashboard', icon: 'dashboard' },
                 { path: '/weight', title: 'weight', icon: 'linear_scale' },
                 { path: '/calories', title: 'calories', icon: 'cake' },
-                { path: '/templates', title: 'templates', icon: 'add_shopping_cart' },
-                { path: '/settings', title: 'settings', icon: 'settings' }
+                { path: '/templates', title: 'templates', icon: 'archive' },
+                { path: '/group', title: 'group', icon: 'group' }
             ]
         },
 

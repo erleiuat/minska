@@ -61,6 +61,17 @@ export default new Router({
             }
         },
         {
+            path: '/group',
+            name: 'group',
+            meta: {
+                title: 'group',
+                secure: true
+            },
+            component: function () {
+                return import('./views/Secure/Group.vue')
+            }
+        },
+        {
             path: '/settings',
             name: 'settings',
             meta: {

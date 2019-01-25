@@ -4,11 +4,13 @@
 
             <v-flex xs12>
                 <v-layout row>
-                    <v-flex xs12>
-                        <h1>{{ $t('calories')}}</h1>
-                        <i>{{ $t('allEntries') }}</i>
+
+                    <v-flex xs10 class="display-1">
+                        {{ $t('calories')}}
                     </v-flex>
+
                     <v-spacer></v-spacer>
+
                     <v-btn fab small @click="prevDay()">
                         <v-icon>keyboard_arrow_left</v-icon>
                     </v-btn>
