@@ -49,6 +49,20 @@ export default {
             }
         })
 
+        this.$store.watch((state) => {
+            return this.$store.state.auth.token
+        }, (newValue, oldValue) => {
+            if (!newValue && oldValue !== null) {
+                this.$router.push('/')
+                this.$notify({
+                    group: 'default',
+                    type: 'warning',
+                    title: this.$t('alerts.expired.title'),
+                    text: this.$t('alerts.expired.text')
+                })
+            }
+        })
+
         this.$store.dispatch('checkAuth')
 
         this.$router.beforeResolve((to, from, next) => {
@@ -65,34 +79,19 @@ export default {
             document.title = this.$store.state.app.title + ' | ' + this.$t('views.' + to.meta.title)
         })
 
-        this.$store.watch((state) => {
-            return this.$store.state.auth.token
-        }, (newValue, oldValue) => {
-            if (!newValue && oldValue !== null) {
-                this.$router.push('/')
-                this.$notify({
-                    group: 'default',
-                    type: 'warning',
-                    title: this.$t('alerts.expired.title'),
-                    text: this.$t('alerts.expired.text')
-                })
-            }
-        })
     },
 
     beforeUpdate () {
-        this.$store.dispatch('checkAuth')
 
-        clearTimeout(this.$store.state.app.expTimer)
-        var appLeft = (this.$store.state.auth.expiration.app - Math.floor(Date.now() / 1000)) * 1000
-        var tokenLeft = (this.$store.state.auth.expiration.token - Math.floor(Date.now() / 1000)) * 1000
 
-        if (appLeft > 0 && tokenLeft > 0) {
-            var vm = this
-            vm.$store.state.app.expTimer = setTimeout(function () {
-                vm.$store.dispatch('checkAuth')
-            }, (appLeft))
-        }
+        var vm = this
+        vm.$store.dispatch('checkAuth')
+        clearInterval(vm.$store.state.app.timeout)
+        var appLeft = (vm.$store.state.auth.expiration.app - Math.floor(Date.now() / 1000)) * 1000
+        vm.$store.state.app.timeout = setInterval(function () {
+            vm.$store.dispatch('checkAuth')
+        }, (appLeft))
+
     }
 
 }

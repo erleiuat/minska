@@ -7,6 +7,18 @@ export default new Vuex.Store({
 
     state: {
 
+        app: {
+            title: 'Minska',
+            version: '1.0.2',
+            defaultExpire: 20*60,
+            timeout: null,
+            drawer: true,
+            navigation: [
+                { path: '/login', title: 'login', icon: 'lock_open' },
+                { path: '/register', title: 'register', icon: 'subdirectory_arrow_right' }
+            ]
+        },
+
         auth: {
             token: null,
             expiration: {
@@ -27,17 +39,6 @@ export default new Vuex.Store({
                 weight: null,
                 date: null
             }
-        },
-
-        app: {
-            title: 'Minska',
-            version: '1.0.1',
-            expTimer: null,
-            drawer: true,
-            navigation: [
-                { path: '/login', title: 'login', icon: 'lock_open' },
-                { path: '/register', title: 'register', icon: 'subdirectory_arrow_right' }
-            ]
         },
 
         content: {
@@ -69,7 +70,7 @@ export default new Vuex.Store({
 
             state.user = decoded.data
             state.auth.expiration.token = decoded.exp
-            state.auth.expiration.app = Math.floor(Date.now() / 1000) + (20 * 60)
+            state.auth.expiration.app = Math.floor(Date.now() / 1000) + state.app.defaultExpire
             state.auth.expiration.keep = keep
 
             if (decoded.data.isFemale === 1) {
@@ -84,8 +85,7 @@ export default new Vuex.Store({
 
             Cookies.set('authCookie', state.auth, {
                 expires: 7,
-                secure: process.env.NODE_ENV === 'production',
-                path: window.location.href
+                secure: process.env.NODE_ENV === 'production'
             })
 
             state.app.navigation = [
@@ -98,7 +98,7 @@ export default new Vuex.Store({
         },
 
         logout (state) {
-            Cookies.remove('authCookie', { path: window.location.href })
+            Cookies.remove('authCookie')
             state.user = { language: navigator.language || navigator.userLanguage }
 
             state.auth.token = false
@@ -121,20 +121,26 @@ export default new Vuex.Store({
 
         checkAuth ({ commit, state }) {
             var now = Math.floor(Date.now() / 1000)
+
             if (!state.auth.token && Cookies.getJSON('authCookie')) {
                 var authCookie = Cookies.getJSON('authCookie')
-                if (authCookie.expiration.token > now && authCookie.expiration.app > now) {
+                if (authCookie.expiration.token > now) {
                     commit('login', { token: authCookie.token, keep: authCookie.expiration.keep })
-                    return null
+                } else {
+                    commit('logout')
                 }
             } else if (state.auth.token) {
-                if (state.auth.expiration.app > now && state.auth.expiration.token > now || state.auth.expiration.token > now && state.auth.expiration.keep) {
-                    state.auth.expiration.app = Math.floor(Date.now() / 1000) + (20 * 60)
-                    return null
+                if (state.auth.expiration.app > now && state.auth.expiration.token > now) {
+                    state.auth.expiration.app = Math.floor(Date.now() / 1000) + state.app.defaultExpire
+                } else if (state.auth.expiration.token > now && state.auth.expiration.keep) {
+                    state.auth.expiration.app = Math.floor(Date.now() / 1000) + state.app.defaultExpire
+                } else {
+                    commit('logout')
                 }
+            } else {
+                commit('logout')
             }
 
-            commit('logout')
         }
     },
 
