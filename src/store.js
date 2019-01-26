@@ -10,7 +10,7 @@ export default new Vuex.Store({
         app: {
             title: 'Minska',
             version: '1.0.2',
-            defaultExpire: 20*60,
+            defaultExpire: 20 * 60,
             timeout: null,
             drawer: true,
             navigation: [
@@ -140,7 +140,6 @@ export default new Vuex.Store({
             } else {
                 commit('logout')
             }
-
         }
     },
 

@@ -78,12 +78,9 @@ export default {
         this.$router.afterEach((to, from) => {
             document.title = this.$store.state.app.title + ' | ' + this.$t('views.' + to.meta.title)
         })
-
     },
 
     beforeUpdate () {
-
-
         var vm = this
         vm.$store.dispatch('checkAuth')
         clearInterval(vm.$store.state.app.timeout)
@@ -91,7 +88,6 @@ export default {
         vm.$store.state.app.timeout = setInterval(function () {
             vm.$store.dispatch('checkAuth')
         }, (appLeft))
-
     }
 
 }
