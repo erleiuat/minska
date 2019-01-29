@@ -69,13 +69,8 @@ export default {
     methods: {
         remove (item) {
             var vm = this
-            vm.axiosPost({
-                url: 'template/delete/',
-                data: {
-                    id: item.id,
-                    token: this.$store.state.auth.token
-                }
-            }).then(function (response) {
+            vm.$http.post('template/delete/', item.id)
+            .then(function (response) {
                 const index = vm.$store.state.content.templates.indexOf(item)
                 vm.$store.state.content.templates.splice(index, 1)
                 vm.$notify({

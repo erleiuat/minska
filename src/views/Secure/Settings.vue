@@ -113,14 +113,11 @@ export default {
             if (this.$data.rules.valid) {
                 var vm = this
                 var postData = vm.$data.formdata
-                postData.token = this.$store.state.auth.token
                 vm.$data.disabled = true
                 vm.$data.loading = true
 
-                vm.axiosPost({
-                    url: 'user/update/',
-                    data: postData
-                }).then(function (response) {
+                vm.$http.post('user/update/',postData)
+                .then(function (response) {
                     vm.$store.commit('login', response.data.content)
                     vm.$notify({
                         group: 'default',

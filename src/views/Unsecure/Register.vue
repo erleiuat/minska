@@ -98,10 +98,8 @@ export default {
             if (vm.$data.rules.valid) {
                 vm.$data.disabled = true
                 vm.$data.loading = true
-                vm.axiosPost({
-                    url: 'user/create/',
-                    data: vm.$data.formdata
-                }).then(function (response) {
+                vm.$http.post('user/create/',vm.$data.formdata)
+                .then(function (response) {
                     vm.$notify({
                         group: 'default',
                         type: 'success',

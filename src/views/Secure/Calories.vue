@@ -85,13 +85,8 @@ export default {
 
         deleteItem (item) {
             var vm = this
-            vm.axiosPost({
-                url: 'calorie/delete/',
-                data: {
-                    id: item.id,
-                    token: this.$store.state.auth.token
-                }
-            }).then(function (response) {
+            vm.$http.post('calorie/delete/', item.id)
+            .then(function (response) {
                 const index = vm.$data.calories.indexOf(item)
                 vm.$data.calories.splice(index, 1)
                 if (vm.$store.state.content.calories && vm.$data.active.date === new Date().toISOString().split('T')[0]) {
@@ -137,13 +132,8 @@ export default {
             var vm = this
             if (!vm.$store.state.content.calories || date.date !== new Date().toISOString().split('T')[0]) {
                 vm.$data.loading = true
-                vm.axiosPost({
-                    url: 'calorie/read/byDay/',
-                    data: {
-                        token: this.$store.state.auth.token,
-                        date: date.date
-                    }
-                }).then(function (response) {
+                vm.$http.post('calorie/read/byDay/', date.date)
+                .then(function (response) {
                     vm.$data.calories = response.data.content
                     vm.$data.loading = false
                 }).catch(function () {
@@ -164,10 +154,8 @@ export default {
 
         getDates () {
             var vm = this
-            vm.axiosPost({
-                url: 'calorie/read/days/',
-                data: { token: this.$store.state.auth.token }
-            }).then(function (response) {
+            vm.$http.get('calorie/read/days/')
+            .then(function (response) {
                 var tmpDates = []
                 response.data.content.forEach(function (item) {
                     const [year, month, day] = item.date.split('-')

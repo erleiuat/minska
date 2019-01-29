@@ -39,6 +39,7 @@ export default {
     },
 
     beforeMount () {
+
         this.$store.watch((state) => {
             return this.$store.state.user.language
         }, (newValue, oldValue) => {
@@ -64,6 +65,7 @@ export default {
         })
 
         this.$store.dispatch('checkAuth')
+        this.$http.defaults.headers.common['Authorization'] = 'Bearer ' + this.$store.state.auth.token
 
         this.$router.beforeResolve((to, from, next) => {
             if (!this.$store.state.auth.token && to.meta.secure === true) {
@@ -78,6 +80,7 @@ export default {
         this.$router.afterEach((to, from) => {
             document.title = this.$store.state.app.title + ' | ' + this.$t('views.' + to.meta.title)
         })
+
     },
 
     beforeUpdate () {

@@ -70,14 +70,11 @@ export default {
             if (this.$data.rules.valid) {
                 var vm = this
                 var postData = vm.$data.formdata
-                postData.token = this.$store.state.auth.token
                 vm.$data.disabled = true
                 vm.$data.loading = true
 
-                vm.axiosPost({
-                    url: 'weight/create/',
-                    data: postData
-                }).then(function (response) {
+                vm.$http.post('weight/create/', postData)
+                .then(function (response) {
                     vm.$notify({
                         group: 'default',
                         type: 'success',

@@ -64,11 +64,10 @@ export default {
 
             if (vm.$data.rules.valid) {
                 vm.$data.loading = true
-                vm.axiosPost({
-                    url: 'user/login/',
-                    data: vm.$data.formdata
-                }).then(function (response) {
+                vm.$http.post('user/login/', vm.$data.formdata)
+                .then(function (response) {
                     vm.$store.commit('login', { token: response.data.content, keep: vm.$data.keepLogin })
+                    vm.$http.defaults.headers.common['Authorization'] = 'Bearer ' + response.data.content;
                     vm.$notify({
                         group: 'default',
                         type: 'success',
@@ -83,9 +82,12 @@ export default {
                         title: vm.$t('fail.title'),
                         text: vm.$t('fail.text')
                     })
+                }).then(function(){
                     vm.loading = false
                 })
+
             }
+
         }
 
     },
@@ -101,12 +103,12 @@ export default {
             rules: {
                 valid: false,
                 email: [
-                    (v) => !!v || this.$t('errors.required'),
-                    (v) => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || this.$t('errors.valid')
+                (v) => !!v || this.$t('errors.required'),
+                (v) => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || this.$t('errors.valid')
                 ],
                 pass: [
-                    (v) => !!v || this.$t('errors.required'),
-                    (v) => /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/.test(v) || this.$t('errors.valid')
+                (v) => !!v || this.$t('errors.required'),
+                (v) => /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/.test(v) || this.$t('errors.valid')
                 ]
             }
         }

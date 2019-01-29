@@ -70,12 +70,7 @@ export default {
     mounted () {
         if (!this.$store.state.content.weights) {
             var vm = this
-            vm.axiosPost({
-                url: 'weight/read/all/',
-                data: {
-                    token: this.$store.state.auth.token
-                }
-            }).then(function (response) {
+            vm.$http.get('weight/read/').then(function (response) {
                 vm.$store.state.content.weights = response.data.content
             }).catch(function () {
                 vm.$notify({
@@ -95,13 +90,8 @@ export default {
     methods: {
         deleteItem (item) {
             var vm = this
-            vm.axiosPost({
-                url: 'weight/delete/',
-                data: {
-                    id: item.id,
-                    token: this.$store.state.auth.token
-                }
-            }).then(function (response) {
+            vm.$http.post('weight/delete/', item.id)
+            .then(function (response) {
                 const index = vm.weights.indexOf(item)
                 vm.$store.state.content.weights.splice(index, 1)
                 vm.$notify({

@@ -99,15 +99,11 @@ export default {
             this.$refs.addCalorieForm.validate()
             if (this.$data.rules.valid) {
                 var vm = this
-                var postData = vm.$data.formdata
-                postData.token = this.$store.state.auth.token
                 vm.$data.loading = true
                 vm.$data.disabled = true
 
-                vm.axiosPost({
-                    url: 'calorie/create/',
-                    data: postData
-                }).then(function (response) {
+                vm.$http.post('calorie/create/', vm.$data.formdata)
+                .then(function (response) {
                     var now = new Date()
                     var today = now.getFullYear() + '-' + (now.getMonth() + 1) + '-' + now.getDate()
 

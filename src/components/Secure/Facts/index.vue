@@ -22,6 +22,7 @@
         </v-layout>
     </v-container>
 </template>
+
 <script>
 import Recently from './Cards/Recently'
 import Total from './Cards/Total'
@@ -56,43 +57,16 @@ export default {
     beforeMount () {
         var vm = this
         if (!vm.$store.state.content.weights) {
-            vm.axiosPost({
-                url: 'weight/read/all/',
-                data: {
-                    token: this.$store.state.auth.token
-                }
-            }).then(function (response) {
+            vm.$http.get('weight/read/')
+            .then(function (response) {
                 vm.$store.state.content.weights = response.data.content
-            }).catch(function () {
-                /** Deactivated bc too much
-                vm.$notify({
-                group: 'default',
-                type: 'warning',
-                title: vm.$t('alerts.empty.title'),
-                text: vm.$t('alerts.empty.text')
-            });
-            **/
             })
         }
 
         if (!vm.$store.state.content.calories) {
-            vm.axiosPost({
-                url: 'calorie/read/byDay/',
-                data: {
-                    token: this.$store.state.auth.token,
-                    date: new Date().toISOString().split('T')[0]
-                }
-            }).then(function (response) {
+            vm.$http.post('calorie/read/byDay/', (new Date().toISOString().split('T')[0]) )
+            .then(function (response) {
                 vm.$store.state.content.calories = response.data.content
-            }).catch(function () {
-            /** Deactivated bc too much
-            vm.$notify({
-            group: 'default',
-            type: 'warning',
-            title: vm.$t('alerts.empty.title'),
-            text: vm.$t('alerts.empty.text')
-        });
-        **/
             })
         }
     }

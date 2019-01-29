@@ -116,12 +116,8 @@ export default {
             const formData = new FormData()
             if (!fileList.length) { return };
             formData.append(fieldName, fileList[0], fileList[0].name)
-            formData.append('token', this.$store.state.auth.token)
-
-            vm.axiosPost({
-                url: 'template/create/upload/',
-                data: formData
-            }).then(function (response) {
+            vm.$http.post('template/create/upload/',formData)
+            .then(function (response) {
                 var path = response.config.baseURL + 'template/read/thumbnails/' + response.data.content
                 vm.$data.formdata.image = path
                 vm.$data.loading1 = false
@@ -141,14 +137,11 @@ export default {
 
             if (vm.$refs.adderForm.validate()) {
                 var postData = vm.$data.formdata
-                postData.token = this.$store.state.auth.token
                 vm.$data.disabled = true
                 vm.$data.loading2 = true
 
-                vm.axiosPost({
-                    url: 'template/create/',
-                    data: postData
-                }).then(function (response) {
+                vm.$http.post('template/create/',vm.$data.formdata
+                ).then(function (response) {
                     if (!vm.$store.state.content.templates || vm.$store.state.content.templates.lenght < 1) {
                         vm.$store.state.content.templates = []
                     }

@@ -39,12 +39,8 @@ export default {
     mounted () {
         if (!this.$store.state.content.templates) {
             var vm = this
-            vm.axiosPost({
-                url: 'template/read/',
-                data: {
-                    token: this.$store.state.auth.token
-                }
-            }).then(function (response) {
+            vm.$http.get('template/read/')
+            .then(function (response) {
                 vm.$store.state.content.templates = response.data.content
             }).catch(function () {
                 vm.$notify({

@@ -10,16 +10,14 @@ import Chart from 'chart.js'
 import App from './App.vue'
 import router from './router'
 import store from './store'
-import axios from 'axios'
 import i18n from './i18n'
+import axios from 'axios'
 
-Vue.config.productionTip = false
-Vue.use(VueAxios, axios)
 Vue.use(Notifications)
 Vue.use(VueChartkick, { adapter: Chart })
 Vue.use(Vuetify, {
     theme: {
-    // Logo-Font: Ultra Fresh
+        // Logo-Font: Ultra Fresh
         primary: '#381d56',
         secondary: '#e8d5fc',
         success: '#2c942c',
@@ -29,25 +27,21 @@ Vue.use(Vuetify, {
     }
 })
 
-Vue.mixin({
-    methods: {
-        axiosPost: axios.create({
-            baseURL: process.env.NODE_ENV === 'production' ? 'https://minska.api.eliareutlinger.ch/' : 'http://localhost/minska-api/',
-            timeout: 8000,
-            method: 'post',
-            headers: {
-                'Content-Type': 'text/plain'
-            },
-            validateStatus: function (status) {
-                if (status >= 200 && status < 300 && status !== 204) {
-                    return true
-                } else {
-                    return false
-                }
-            }
-        })
+Vue.config.productionTip = false
+Vue.prototype.$http = axios.create({
+    baseURL: 'http://localhost/minska-api/',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    validateStatus: function (status) {
+        if (status >= 200 && status < 300 && status !== 204) {
+            return true
+        } else {
+            return false
+        }
     }
 })
+
 
 new Vue({
     router,
