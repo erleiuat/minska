@@ -29,7 +29,7 @@ Vue.use(Vuetify, {
 
 Vue.config.productionTip = false
 Vue.prototype.$http = axios.create({
-    baseURL: 'http://localhost/minska-api/',
+    baseURL: process.env.NODE_ENV === 'production' ? 'https://minska.api.eliareutlinger.ch/' : 'http://localhost/minska-api/',
     headers: {
         'Content-Type': 'application/json'
     },
