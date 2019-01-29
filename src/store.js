@@ -12,11 +12,7 @@ export default new Vuex.Store({
             version: '1.0.2',
             defaultExpire: 20 * 60,
             timeout: null,
-            drawer: true,
-            navigation: [
-                { path: '/login', title: 'login', icon: 'lock_open' },
-                { path: '/register', title: 'register', icon: 'subdirectory_arrow_right' }
-            ]
+            drawer: true
         },
 
         auth: {
@@ -88,13 +84,6 @@ export default new Vuex.Store({
                 secure: process.env.NODE_ENV === 'production'
             })
 
-            state.app.navigation = [
-                { path: '/dashboard', title: 'dashboard', icon: 'dashboard' },
-                { path: '/weight', title: 'weight', icon: 'linear_scale' },
-                { path: '/calories', title: 'calories', icon: 'cake' },
-                { path: '/templates', title: 'templates', icon: 'archive' },
-                { path: '/group', title: 'group', icon: 'group' }
-            ]
         },
 
         logout (state) {
@@ -105,10 +94,6 @@ export default new Vuex.Store({
             state.auth.expiration.app = null
             state.auth.expiration.token = null
 
-            state.app.navigation = [
-                { path: '/login', title: 'login', icon: 'lock_open' },
-                { path: '/register', title: 'register', icon: 'subdirectory_arrow_right' }
-            ]
         },
 
         changeLanguage (state, newlang) {

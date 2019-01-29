@@ -7,9 +7,10 @@ export default new Router({
     routes: [
         {
             path: '/',
-            name: 'home',
             meta: {
                 title: 'home',
+                icon: null,
+                main: false,
                 secure: false
             },
             component: function () {
@@ -18,9 +19,10 @@ export default new Router({
         },
         {
             path: '/dashboard',
-            name: 'dashboard',
             meta: {
                 title: 'dashboard',
+                icon: 'dashboard',
+                main: true,
                 secure: true
             },
             component: function () {
@@ -29,9 +31,10 @@ export default new Router({
         },
         {
             path: '/weight',
-            name: 'weight',
             meta: {
                 title: 'weight',
+                icon: 'linear_scale',
+                main: true,
                 secure: true
             },
             component: function () {
@@ -40,9 +43,10 @@ export default new Router({
         },
         {
             path: '/calories',
-            name: 'calories',
             meta: {
                 title: 'calories',
+                icon: 'cake',
+                main: true,
                 secure: true
             },
             component: function () {
@@ -51,9 +55,10 @@ export default new Router({
         },
         {
             path: '/templates',
-            name: 'templates',
             meta: {
                 title: 'templates',
+                icon: 'archive',
+                main: true,
                 secure: true
             },
             component: function () {
@@ -62,9 +67,10 @@ export default new Router({
         },
         {
             path: '/group',
-            name: 'group',
             meta: {
                 title: 'group',
+                icon: 'group',
+                main: true,
                 secure: true
             },
             component: function () {
@@ -73,9 +79,10 @@ export default new Router({
         },
         {
             path: '/settings',
-            name: 'settings',
             meta: {
                 title: 'settings',
+                icon: 'dashboard',
+                main: false,
                 secure: true
             },
             component: function () {
@@ -84,9 +91,10 @@ export default new Router({
         },
         {
             path: '/login',
-            name: 'login',
             meta: {
                 title: 'login',
+                icon: 'lock_open',
+                main: true,
                 secure: false
             },
             component: function () {
@@ -95,9 +103,10 @@ export default new Router({
         },
         {
             path: '/register',
-            name: 'register',
             meta: {
                 title: 'register',
+                icon: 'subdirectory_arrow_right',
+                main: true,
                 secure: false
             },
             component: function () {
@@ -106,9 +115,10 @@ export default new Router({
         },
         {
             path: '/help',
-            name: 'help',
             meta: {
                 title: 'help',
+                icon: 'question_answer',
+                main: false,
                 secure: null
             },
             component: function () {
@@ -117,9 +127,10 @@ export default new Router({
         },
         {
             path: '/401',
-            name: 'noPermission',
             meta: {
                 title: 'nopermission',
+                icon: null,
+                main: false,
                 secure: null
             },
             component: function () {
@@ -128,9 +139,10 @@ export default new Router({
         },
         {
             path: '*',
-            name: 'notFound',
             meta: {
                 title: 'notfound',
+                icon: null,
+                main: false,
                 secure: null
             },
             component: function () {

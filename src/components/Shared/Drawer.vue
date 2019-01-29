@@ -17,7 +17,7 @@
             <v-spacer></v-spacer>
 
             <v-list>
-                <v-list-tile v-if="authenticated" @click="logout()">
+                <v-list-tile v-if="this.$store.state.auth.token" @click="logout()">
                     <v-list-tile-action>
                         <v-icon>exit_to_app</v-icon>
                     </v-list-tile-action>
@@ -86,11 +86,32 @@ export default {
                 this.$store.commit('drawer', val)
             }
         },
-        items () {
-            return this.$store.state.app.navigation
-        },
-        authenticated () {
-            return this.$store.state.auth.token
+        items(){
+
+            var list = []
+            this.$router.options.routes.forEach(route => {
+
+                if(this.$store.state.auth.token && route.meta.secure && route.meta.main){
+
+                    list.push({
+                        title: route.meta.title,
+                        icon: route.meta.icon,
+                        path: route.path
+                    })
+
+                } else if(!this.$store.state.auth.token && !route.meta.secure && route.meta.main){
+
+                    list.push({
+                        title: route.meta.title,
+                        icon: route.meta.icon,
+                        path: route.path
+                    })
+
+                }
+
+            })
+            return list;
+
         }
     },
     methods: {
