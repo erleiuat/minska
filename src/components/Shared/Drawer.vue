@@ -86,32 +86,24 @@ export default {
                 this.$store.commit('drawer', val)
             }
         },
-        items(){
-
+        items () {
             var list = []
             this.$router.options.routes.forEach(route => {
-
-                if(this.$store.state.auth.token && route.meta.secure && route.meta.main){
-
+                if (this.$store.state.auth.token && route.meta.secure && route.meta.main) {
                     list.push({
                         title: route.meta.title,
                         icon: route.meta.icon,
                         path: route.path
                     })
-
-                } else if(!this.$store.state.auth.token && !route.meta.secure && route.meta.main){
-
+                } else if (!this.$store.state.auth.token && !route.meta.secure && route.meta.main) {
                     list.push({
                         title: route.meta.title,
                         icon: route.meta.icon,
                         path: route.path
                     })
-
                 }
-
             })
-            return list;
-
+            return list
         }
     },
     methods: {

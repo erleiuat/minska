@@ -116,65 +116,11 @@ export default {
             const formData = new FormData()
             if (!fileList.length) { return };
             formData.append(fieldName, fileList[0], fileList[0].name)
-            vm.$http.post('template/create/upload/',formData)
-            .then(function (response) {
-                var path = response.config.baseURL + 'template/read/thumbnails/' + response.data.content
-                vm.$data.formdata.image = path
-                vm.$data.loading1 = false
-            }).catch(function () {
-                vm.$notify({
-                    group: 'default',
-                    type: 'error',
-                    title: vm.$t('alerts.error.title'),
-                    text: vm.$t('alerts.error.text')
-                })
-                vm.$data.loading1 = false
-            })
-        },
-
-        addTemplate () {
-            var vm = this
-
-            if (vm.$refs.adderForm.validate()) {
-                var postData = vm.$data.formdata
-                vm.$data.disabled = true
-                vm.$data.loading2 = true
-
-                vm.$http.post('template/create/',vm.$data.formdata
-                ).then(function (response) {
-                    if (!vm.$store.state.content.templates || vm.$store.state.content.templates.lenght < 1) {
-                        vm.$store.state.content.templates = []
-                    }
-
-                    if (!vm.$data.formdata.image) {
-                        vm.$store.state.content.templates.unshift({
-                            id: response.data.content,
-                            title: vm.$data.formdata.title,
-                            calories: vm.$data.formdata.calories,
-                            amount: vm.$data.formdata.amount
-                        })
-                    } else {
-                        vm.$store.state.content.templates.unshift({
-                            id: response.data.content,
-                            title: vm.$data.formdata.title,
-                            calories: vm.$data.formdata.calories,
-                            amount: vm.$data.formdata.amount,
-                            image: vm.$data.formdata.image
-                        })
-                    }
-
-                    vm.$data.dialog = false
-                    vm.$refs.adderForm.reset()
-                    vm.reset()
-                    vm.$data.disabled = false
-                    vm.$data.loading2 = false
-
-                    vm.$notify({
-                        group: 'default',
-                        type: 'success',
-                        title: vm.$t('alerts.success.title'),
-                        text: vm.$t('alerts.success.text')
-                    })
+            vm.$http.post('template/create/upload/', formData)
+                .then(function (response) {
+                    var path = response.config.baseURL + 'template/read/thumbnails/' + response.data.content
+                    vm.$data.formdata.image = path
+                    vm.$data.loading1 = false
                 }).catch(function () {
                     vm.$notify({
                         group: 'default',
@@ -182,9 +128,62 @@ export default {
                         title: vm.$t('alerts.error.title'),
                         text: vm.$t('alerts.error.text')
                     })
-                    vm.$data.disabled = false
-                    vm.$data.loading2 = false
+                    vm.$data.loading1 = false
                 })
+        },
+
+        addTemplate () {
+            var vm = this
+
+            if (vm.$refs.adderForm.validate()) {
+                vm.$data.disabled = true
+                vm.$data.loading2 = true
+
+                vm.$http.post('template/create/', vm.$data.formdata)
+                    .then(function (response) {
+                        if (!vm.$store.state.content.templates || vm.$store.state.content.templates.lenght < 1) {
+                            vm.$store.state.content.templates = []
+                        }
+
+                        if (!vm.$data.formdata.image) {
+                            vm.$store.state.content.templates.unshift({
+                                id: response.data.content,
+                                title: vm.$data.formdata.title,
+                                calories: vm.$data.formdata.calories,
+                                amount: vm.$data.formdata.amount
+                            })
+                        } else {
+                            vm.$store.state.content.templates.unshift({
+                                id: response.data.content,
+                                title: vm.$data.formdata.title,
+                                calories: vm.$data.formdata.calories,
+                                amount: vm.$data.formdata.amount,
+                                image: vm.$data.formdata.image
+                            })
+                        }
+
+                        vm.$data.dialog = false
+                        vm.$refs.adderForm.reset()
+                        vm.reset()
+                        vm.$data.disabled = false
+                        vm.$data.loading2 = false
+
+                        vm.$notify({
+                            group: 'default',
+                            type: 'success',
+                            title: vm.$t('alerts.success.title'),
+                            text: vm.$t('alerts.success.text')
+                        })
+                    }).catch(function () {
+                        vm.$notify({
+                            group: 'default',
+                            type: 'error',
+                            title: vm.$t('alerts.error.title'),
+                            text: vm.$t('alerts.error.text')
+                        })
+                        vm.$data.disabled = false
+                        vm.$data.loading2 = false
+                    })
             }
         }
 

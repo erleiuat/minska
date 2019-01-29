@@ -3,7 +3,6 @@ import '@/registerServiceWorker'
 import 'vuetify/dist/vuetify.min.css'
 import Vue from 'vue'
 import Vuetify from 'vuetify'
-import VueAxios from 'vue-axios'
 import Notifications from 'vue-notification'
 import VueChartkick from 'vue-chartkick'
 import Chart from 'chart.js'
@@ -41,7 +40,6 @@ Vue.prototype.$http = axios.create({
         }
     }
 })
-
 
 new Vue({
     router,

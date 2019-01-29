@@ -103,45 +103,45 @@ export default {
                 vm.$data.disabled = true
 
                 vm.$http.post('calorie/create/', vm.$data.formdata)
-                .then(function (response) {
-                    var now = new Date()
-                    var today = now.getFullYear() + '-' + (now.getMonth() + 1) + '-' + now.getDate()
+                    .then(function (response) {
+                        var now = new Date()
+                        var today = now.getFullYear() + '-' + (now.getMonth() + 1) + '-' + now.getDate()
 
-                    if (today === vm.$data.formdata.date) {
-                        if (!vm.$store.state.content.calories || vm.$store.state.content.calories.lenght < 1) {
-                            vm.$store.state.content.calories = []
+                        if (today === vm.$data.formdata.date) {
+                            if (!vm.$store.state.content.calories || vm.$store.state.content.calories.lenght < 1) {
+                                vm.$store.state.content.calories = []
+                            }
+                            vm.$store.state.content.calories.unshift({
+                                id: response.data.content,
+                                amount: vm.$data.formdata.amount,
+                                calories: vm.$data.formdata.calories,
+                                title: vm.$data.formdata.title
+                            })
                         }
-                        vm.$store.state.content.calories.unshift({
-                            id: response.data.content,
-                            amount: vm.$data.formdata.amount,
-                            calories: vm.$data.formdata.calories,
-                            title: vm.$data.formdata.title
+
+                        vm.$data.formdata.title = null
+                        vm.$data.formdata.calories = null
+                        vm.$data.formdata.amount = null
+
+                        vm.$refs.addCalorieForm.resetValidation()
+                        vm.$data.loading = false
+
+                        vm.$notify({
+                            group: 'default',
+                            type: 'success',
+                            title: vm.$t('alerts.success.title'),
+                            text: vm.$t('alerts.success.text')
                         })
-                    }
-
-                    vm.$data.formdata.title = null
-                    vm.$data.formdata.calories = null
-                    vm.$data.formdata.amount = null
-
-                    vm.$refs.addCalorieForm.resetValidation()
-                    vm.$data.loading = false
-
-                    vm.$notify({
-                        group: 'default',
-                        type: 'success',
-                        title: vm.$t('alerts.success.title'),
-                        text: vm.$t('alerts.success.text')
+                    }).catch(function () {
+                        vm.$notify({
+                            group: 'default',
+                            type: 'error',
+                            title: vm.$t('alerts.error.title'),
+                            text: vm.$t('alerts.error.text')
+                        })
+                        vm.$data.disabled = false
+                        vm.$data.loading = false
                     })
-                }).catch(function () {
-                    vm.$notify({
-                        group: 'default',
-                        type: 'error',
-                        title: vm.$t('alerts.error.title'),
-                        text: vm.$t('alerts.error.text')
-                    })
-                    vm.$data.disabled = false
-                    vm.$data.loading = false
-                })
             }
         }
     },

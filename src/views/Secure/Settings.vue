@@ -116,28 +116,28 @@ export default {
                 vm.$data.disabled = true
                 vm.$data.loading = true
 
-                vm.$http.post('user/update/',postData)
-                .then(function (response) {
-                    vm.$store.commit('login', response.data.content)
-                    vm.$http.defaults.headers.common['Authorization'] = 'Bearer ' + response.data.content;
-                    vm.$notify({
-                        group: 'default',
-                        type: 'success',
-                        title: vm.$t('alerts.success.title'),
-                        text: vm.$t('alerts.success.text')
+                vm.$http.post('user/update/', postData)
+                    .then(function (response) {
+                        vm.$store.commit('login', response.data.content)
+                        vm.$http.defaults.headers.common['Authorization'] = 'Bearer ' + response.data.content
+                        vm.$notify({
+                            group: 'default',
+                            type: 'success',
+                            title: vm.$t('alerts.success.title'),
+                            text: vm.$t('alerts.success.text')
+                        })
+                        vm.disabled = true
+                        vm.$data.loading = false
+                    }).catch(function () {
+                        vm.$notify({
+                            group: 'default',
+                            type: 'error',
+                            title: vm.$t('alerts.error.title'),
+                            text: vm.$t('alerts.error.text')
+                        })
+                        vm.disabled = false
+                        vm.$data.loading = false
                     })
-                    vm.disabled = true
-                    vm.$data.loading = false
-                }).catch(function () {
-                    vm.$notify({
-                        group: 'default',
-                        type: 'error',
-                        title: vm.$t('alerts.error.title'),
-                        text: vm.$t('alerts.error.text')
-                    })
-                    vm.disabled = false
-                    vm.$data.loading = false
-                })
             }
         }
     },

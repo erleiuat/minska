@@ -98,26 +98,26 @@ export default {
             if (vm.$data.rules.valid) {
                 vm.$data.disabled = true
                 vm.$data.loading = true
-                vm.$http.post('user/create/',vm.$data.formdata)
-                .then(function (response) {
-                    vm.$notify({
-                        group: 'default',
-                        type: 'success',
-                        title: vm.$t('created.title'),
-                        text: vm.$t('created.text')
+                vm.$http.post('user/create/', vm.$data.formdata)
+                    .then(function (response) {
+                        vm.$notify({
+                            group: 'default',
+                            type: 'success',
+                            title: vm.$t('created.title'),
+                            text: vm.$t('created.text')
+                        })
+                        vm.$data.loading = false
+                        vm.$router.push('/login')
+                    }).catch(function () {
+                        vm.$notify({
+                            group: 'default',
+                            type: 'error',
+                            title: vm.$t('failed.title'),
+                            text: vm.$t('failed.text')
+                        })
+                        vm.$data.disabled = false
+                        vm.$data.loading = false
                     })
-                    vm.$data.loading = false
-                    vm.$router.push('/login')
-                }).catch(function () {
-                    vm.$notify({
-                        group: 'default',
-                        type: 'error',
-                        title: vm.$t('failed.title'),
-                        text: vm.$t('failed.text')
-                    })
-                    vm.$data.disabled = false
-                    vm.$data.loading = false
-                })
             }
         }
     },

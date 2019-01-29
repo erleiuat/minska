@@ -83,7 +83,6 @@ export default new Vuex.Store({
                 expires: 7,
                 secure: process.env.NODE_ENV === 'production'
             })
-
         },
 
         logout (state) {
@@ -93,7 +92,6 @@ export default new Vuex.Store({
             state.auth.token = false
             state.auth.expiration.app = null
             state.auth.expiration.token = null
-
         },
 
         changeLanguage (state, newlang) {

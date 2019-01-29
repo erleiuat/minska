@@ -40,18 +40,18 @@ export default {
         if (!this.$store.state.content.templates) {
             var vm = this
             vm.$http.get('template/read/')
-            .then(function (response) {
-                vm.$store.state.content.templates = response.data.content
-            }).catch(function () {
-                vm.$notify({
-                    group: 'default',
-                    type: 'warning',
-                    title: vm.$t('alerts.empty.title'),
-                    text: vm.$t('alerts.empty.text')
+                .then(function (response) {
+                    vm.$store.state.content.templates = response.data.content
+                }).catch(function () {
+                    vm.$notify({
+                        group: 'default',
+                        type: 'warning',
+                        title: vm.$t('alerts.empty.title'),
+                        text: vm.$t('alerts.empty.text')
+                    })
+                }).then(function () {
+                    vm.$data.loading = false
                 })
-            }).then(function () {
-                vm.$data.loading = false
-            })
         }
     }
 

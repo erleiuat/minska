@@ -86,26 +86,26 @@ export default {
         deleteItem (item) {
             var vm = this
             vm.$http.post('calorie/delete/', item.id)
-            .then(function (response) {
-                const index = vm.$data.calories.indexOf(item)
-                vm.$data.calories.splice(index, 1)
-                if (vm.$store.state.content.calories && vm.$data.active.date === new Date().toISOString().split('T')[0]) {
-                    vm.$store.state.content.calories.splice(index, 1)
-                }
-                vm.$notify({
-                    group: 'default',
-                    type: 'success',
-                    title: vm.$t('alerts.success.title'),
-                    text: vm.$t('alerts.success.text')
+                .then(function (response) {
+                    const index = vm.$data.calories.indexOf(item)
+                    vm.$data.calories.splice(index, 1)
+                    if (vm.$store.state.content.calories && vm.$data.active.date === new Date().toISOString().split('T')[0]) {
+                        vm.$store.state.content.calories.splice(index, 1)
+                    }
+                    vm.$notify({
+                        group: 'default',
+                        type: 'success',
+                        title: vm.$t('alerts.success.title'),
+                        text: vm.$t('alerts.success.text')
+                    })
+                }).catch(function () {
+                    vm.$notify({
+                        group: 'default',
+                        type: 'error',
+                        title: vm.$t('alerts.error.title'),
+                        text: vm.$t('alerts.error.text')
+                    })
                 })
-            }).catch(function () {
-                vm.$notify({
-                    group: 'default',
-                    type: 'error',
-                    title: vm.$t('alerts.error.title'),
-                    text: vm.$t('alerts.error.text')
-                })
-            })
         },
 
         prevDay () {
@@ -133,18 +133,18 @@ export default {
             if (!vm.$store.state.content.calories || date.date !== new Date().toISOString().split('T')[0]) {
                 vm.$data.loading = true
                 vm.$http.post('calorie/read/byDay/', date.date)
-                .then(function (response) {
-                    vm.$data.calories = response.data.content
-                    vm.$data.loading = false
-                }).catch(function () {
-                    vm.$notify({
-                        group: 'default',
-                        type: 'warning',
-                        title: vm.$t('alerts.empty.title'),
-                        text: vm.$t('alerts.empty.text')
+                    .then(function (response) {
+                        vm.$data.calories = response.data.content
+                        vm.$data.loading = false
+                    }).catch(function () {
+                        vm.$notify({
+                            group: 'default',
+                            type: 'warning',
+                            title: vm.$t('alerts.empty.title'),
+                            text: vm.$t('alerts.empty.text')
+                        })
+                        vm.$data.loading = false
                     })
-                    vm.$data.loading = false
-                })
             } else if (this.$store.state.content.calories) {
                 vm.$data.calories = vm.$store.state.content.calories
             }
@@ -155,29 +155,29 @@ export default {
         getDates () {
             var vm = this
             vm.$http.get('calorie/read/days/')
-            .then(function (response) {
-                var tmpDates = []
-                response.data.content.forEach(function (item) {
-                    const [year, month, day] = item.date.split('-')
-                    var formatted = `${day}.${month}.${year}`
-                    tmpDates.push({
-                        date: item.date, format: formatted
+                .then(function (response) {
+                    var tmpDates = []
+                    response.data.content.forEach(function (item) {
+                        const [year, month, day] = item.date.split('-')
+                        var formatted = `${day}.${month}.${year}`
+                        tmpDates.push({
+                            date: item.date, format: formatted
+                        })
                     })
+                    vm.$data.dates = tmpDates
+                    if (!vm.$data.active.date) {
+                        vm.getDay(tmpDates[0])
+                    }
+                }).catch(function () {
+                    vm.$notify({
+                        group: 'default',
+                        type: 'warning',
+                        title: vm.$t('alerts.empty.title'),
+                        text: vm.$t('alerts.empty.text')
+                    })
+                }).then(function () {
+                    vm.$data.loading = false
                 })
-                vm.$data.dates = tmpDates
-                if (!vm.$data.active.date) {
-                    vm.getDay(tmpDates[0])
-                }
-            }).catch(function () {
-                vm.$notify({
-                    group: 'default',
-                    type: 'warning',
-                    title: vm.$t('alerts.empty.title'),
-                    text: vm.$t('alerts.empty.text')
-                })
-            }).then(function () {
-                vm.$data.loading = false
-            })
         }
 
     },

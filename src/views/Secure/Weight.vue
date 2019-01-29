@@ -91,23 +91,23 @@ export default {
         deleteItem (item) {
             var vm = this
             vm.$http.post('weight/delete/', item.id)
-            .then(function (response) {
-                const index = vm.weights.indexOf(item)
-                vm.$store.state.content.weights.splice(index, 1)
-                vm.$notify({
-                    group: 'default',
-                    type: 'success',
-                    title: vm.$t('alerts.success.title'),
-                    text: vm.$t('alerts.success.text')
+                .then(function (response) {
+                    const index = vm.weights.indexOf(item)
+                    vm.$store.state.content.weights.splice(index, 1)
+                    vm.$notify({
+                        group: 'default',
+                        type: 'success',
+                        title: vm.$t('alerts.success.title'),
+                        text: vm.$t('alerts.success.text')
+                    })
+                }).catch(function () {
+                    vm.$notify({
+                        group: 'default',
+                        type: 'error',
+                        title: vm.$t('alerts.error.title'),
+                        text: vm.$t('alerts.error.text')
+                    })
                 })
-            }).catch(function () {
-                vm.$notify({
-                    group: 'default',
-                    type: 'error',
-                    title: vm.$t('alerts.error.title'),
-                    text: vm.$t('alerts.error.text')
-                })
-            })
         },
         formatted (date) {
             if (!date) return null

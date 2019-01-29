@@ -39,7 +39,6 @@ export default {
     },
 
     beforeMount () {
-
         this.$store.watch((state) => {
             return this.$store.state.user.language
         }, (newValue, oldValue) => {
@@ -80,7 +79,6 @@ export default {
         this.$router.afterEach((to, from) => {
             document.title = this.$store.state.app.title + ' | ' + this.$t('views.' + to.meta.title)
         })
-
     },
 
     beforeUpdate () {

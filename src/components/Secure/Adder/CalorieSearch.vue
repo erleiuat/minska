@@ -82,13 +82,12 @@ export default {
             var vm = this
 
             vm.$http.get('template/read/')
-            .then(function (response) {
-                vm.$store.state.content.templates = response.data.content
-            }).catch(function () {
-            }).then(function () {
-                vm.$data.loading = false
-            })
-
+                .then(function (response) {
+                    vm.$store.state.content.templates = response.data.content
+                }).catch(function () {
+                }).then(function () {
+                    vm.$data.loading = false
+                })
         } else {
             this.$data.loading = false
         }

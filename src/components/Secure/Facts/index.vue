@@ -58,16 +58,16 @@ export default {
         var vm = this
         if (!vm.$store.state.content.weights) {
             vm.$http.get('weight/read/')
-            .then(function (response) {
-                vm.$store.state.content.weights = response.data.content
-            })
+                .then(function (response) {
+                    vm.$store.state.content.weights = response.data.content
+                })
         }
 
         if (!vm.$store.state.content.calories) {
-            vm.$http.post('calorie/read/byDay/', (new Date().toISOString().split('T')[0]) )
-            .then(function (response) {
-                vm.$store.state.content.calories = response.data.content
-            })
+            vm.$http.post('calorie/read/byDay/', (new Date().toISOString().split('T')[0]))
+                .then(function (response) {
+                    vm.$store.state.content.calories = response.data.content
+                })
         }
     }
 
