@@ -67,7 +67,7 @@ export default {
                 vm.$http.post('user/login/', vm.$data.formdata)
                 .then(function (response) {
                     vm.$store.commit('login', { token: response.data.content, keep: vm.$data.keepLogin })
-                    vm.$http.defaults.headers.common['Authorization'] = 'Bearer ' + response.data.content;
+                    vm.$http.defaults.headers.common['authorization'] = 'Bearer ' + response.data.content;
                     vm.$notify({
                         group: 'default',
                         type: 'success',

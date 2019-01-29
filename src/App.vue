@@ -65,7 +65,7 @@ export default {
         })
 
         this.$store.dispatch('checkAuth')
-        this.$http.defaults.headers.common['Authorization'] = 'Bearer ' + this.$store.state.auth.token
+        this.$http.defaults.headers.common['authorization'] = 'Bearer ' + this.$store.state.auth.token
 
         this.$router.beforeResolve((to, from, next) => {
             if (!this.$store.state.auth.token && to.meta.secure === true) {
