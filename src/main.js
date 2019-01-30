@@ -16,10 +16,10 @@ Vue.use(Vuetify, {
         // Logo-Font: Ultra Fresh
         primary: '#381d56',
         secondary: '#e8d5fc',
-        success: '#2c942c',
+        success: '#288528',
         error: '#c01f1f',
         info: '#006061',
-        warning: '#e5860e'
+        warning: '#AB640D'
     }
 })
 
