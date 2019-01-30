@@ -6,7 +6,7 @@
             </v-flex>
 
             <v-flex xs12>
-                <Chart :weights="weights"/>
+                <WeightChart :weights="weights" />
             </v-flex>
 
             <v-flex xs12>
@@ -37,13 +37,13 @@
 </template>
 
 <script>
-import Chart from '@/components/Secure/Chart/Chart'
+import WeightChart from '@/components/Secure/WeightChart'
 
 export default {
 
     name: 'Weight',
     components: {
-        Chart
+        WeightChart
     },
 
     i18n: {
