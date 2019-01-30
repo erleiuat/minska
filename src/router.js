@@ -1,6 +1,10 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
+const Home = () => import(/* webpackChunkName: "views" */ './views/Unsecure/Home.vue')
+const Dashboard = () => import(/* webpackChunkName: "views" */ './views/Secure/Dashboard.vue')
+const Weight = () => import(/* webpackChunkName: "views" */ './views/Secure/Weight.vue')
+
 Vue.use(Router)
 
 export default new Router({
@@ -13,9 +17,7 @@ export default new Router({
                 main: false,
                 secure: false
             },
-            component: function () {
-                return import('./views/Unsecure/Home.vue')
-            }
+            component: Home
         },
         {
             path: '/dashboard',
@@ -25,9 +27,7 @@ export default new Router({
                 main: true,
                 secure: true
             },
-            component: function () {
-                return import('./views/Secure/Dashboard.vue')
-            }
+            component: Dashboard
         },
         {
             path: '/weight',
@@ -37,9 +37,7 @@ export default new Router({
                 main: true,
                 secure: true
             },
-            component: function () {
-                return import('./views/Secure/Weight.vue')
-            }
+            component: Weight
         },
         {
             path: '/calories',
