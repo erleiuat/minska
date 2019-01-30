@@ -60,17 +60,15 @@ export default {
             vm.$http.get('weight/read/')
                 .then(function (response) {
                     vm.$store.state.content.weights = response.data.content
-                })
+                }).catch(function () {})
         }
 
         if (!vm.$store.state.content.calories) {
             vm.$http.post('calorie/read/byDay/', (new Date().toISOString().split('T')[0]))
                 .then(function (response) {
                     vm.$store.state.content.calories = response.data.content
-                })
+                }).catch(function () {})
         }
     }
-
 }
-
 </script>

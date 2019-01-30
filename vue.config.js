@@ -1,4 +1,7 @@
+const VuetifyLoaderPlugin = require('vuetify-loader/lib/plugin')
+
 module.exports = {
+
     pwa: {
         name: 'Minska',
         themeColor: '#381d56',
@@ -8,5 +11,11 @@ module.exports = {
         workboxOptions: {
             skipWaiting: true
         }
+    },
+    configureWebpack: {
+        plugins: [
+            new VuetifyLoaderPlugin()
+        ]
     }
+
 }
