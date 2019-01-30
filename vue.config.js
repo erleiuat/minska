@@ -1,5 +1,6 @@
 const VuetifyLoaderPlugin = require('vuetify-loader/lib/plugin')
 const webpack = require('webpack')
+//const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 
 module.exports = {
 
@@ -13,11 +14,14 @@ module.exports = {
             skipWaiting: true
         }
     },
-    configureWebpack: {
-        plugins: [
-            new VuetifyLoaderPlugin(),
-            new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/)
-        ]
+    configureWebpack: () => {
+        return {
+            plugins: [
+                //new BundleAnalyzerPlugin(),
+                new VuetifyLoaderPlugin(),
+                new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/)
+            ]
+        }
     }
 
 }

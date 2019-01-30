@@ -1,38 +1,12 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-
-const Dashboard = () => import(/* webpackChunkName: "viewsSecure" */ './views/Secure/Dashboard.vue')
-const Weight = () => import(/* webpackChunkName: "viewsSecure" */ './views/Secure/Weight.vue')
-const Calories = () => import(/* webpackChunkName: "viewsSecure" */ './views/Secure/Calories.vue')
-const Templates = () => import(/* webpackChunkName: "viewsSecure" */ './views/Secure/Templates.vue')
-const Group = () => import(/* webpackChunkName: "viewsSecure" */ './views/Secure/Group.vue')
-const Settings = () => import(/* webpackChunkName: "viewsSecure" */ './views/Secure/Settings.vue')
-
-const Home = () => import(/* webpackChunkName: "viewsUnsecure" */ './views/Unsecure/Home.vue')
-const Login = () => import(/* webpackChunkName: "viewsUnsecure" */ './views/Unsecure/Login.vue')
-const Register = () => import(/* webpackChunkName: "viewsUnsecure" */ './views/Unsecure/Register.vue')
-
-const Help = () => import(/* webpackChunkName: "viewsDefault" */ './views/Shared/Help.vue')
-const error401 = () => import(/* webpackChunkName: "viewsDefault" */ './views/Shared/401.vue')
-const error404 = () => import(/* webpackChunkName: "viewsDefault" */ './views/Shared/404.vue')
-
 Vue.use(Router)
 
 export default new Router({
     routes: [
         {
-            path: '/',
-            component: Home,
-            meta: {
-                title: 'home',
-                icon: null,
-                main: false,
-                secure: false
-            }
-        },
-        {
             path: '/dashboard',
-            component: Dashboard,
+            component: () => import('./views/Secure/Dashboard.vue'),
             meta: {
                 title: 'dashboard',
                 icon: 'dashboard',
@@ -42,7 +16,7 @@ export default new Router({
         },
         {
             path: '/weight',
-            component: Weight,
+            component: () => import('./views/Secure/Weight.vue'),
             meta: {
                 title: 'weight',
                 icon: 'linear_scale',
@@ -52,7 +26,7 @@ export default new Router({
         },
         {
             path: '/calories',
-            component: Calories,
+            component: () => import('./views/Secure/Calories.vue'),
             meta: {
                 title: 'calories',
                 icon: 'cake',
@@ -62,7 +36,7 @@ export default new Router({
         },
         {
             path: '/templates',
-            component: Templates,
+            component: () => import('./views/Secure/Templates.vue'),
             meta: {
                 title: 'templates',
                 icon: 'archive',
@@ -72,7 +46,7 @@ export default new Router({
         },
         {
             path: '/group',
-            component: Group,
+            component: () => import('./views/Secure/Group.vue'),
             meta: {
                 title: 'group',
                 icon: 'group',
@@ -82,7 +56,7 @@ export default new Router({
         },
         {
             path: '/settings',
-            component: Settings,
+            component: () => import('./views/Secure/Settings.vue'),
             meta: {
                 title: 'settings',
                 icon: 'dashboard',
@@ -91,8 +65,18 @@ export default new Router({
             }
         },
         {
+            path: '/',
+            component: () => import('./views/Unsecure/Home.vue'),
+            meta: {
+                title: 'home',
+                icon: null,
+                main: false,
+                secure: false
+            }
+        },
+        {
             path: '/login',
-            component: Login,
+            component: () => import('./views/Unsecure/Login.vue'),
             meta: {
                 title: 'login',
                 icon: 'lock_open',
@@ -102,7 +86,7 @@ export default new Router({
         },
         {
             path: '/register',
-            component: Register,
+            component: () => import('./views/Unsecure/Register.vue'),
             meta: {
                 title: 'register',
                 icon: 'subdirectory_arrow_right',
@@ -112,7 +96,7 @@ export default new Router({
         },
         {
             path: '/help',
-            component: Help,
+            component: () => import('./views/Shared/Help.vue'),
             meta: {
                 title: 'help',
                 icon: 'question_answer',
@@ -122,7 +106,7 @@ export default new Router({
         },
         {
             path: '/401',
-            component: error401,
+            component: () => import('./views/Shared/401.vue'),
             meta: {
                 title: 'nopermission',
                 icon: null,
@@ -132,7 +116,7 @@ export default new Router({
         },
         {
             path: '*',
-            component: error404,
+            component: () => import('./views/Shared/404.vue'),
             meta: {
                 title: 'notfound',
                 icon: null,

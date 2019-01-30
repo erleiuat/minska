@@ -10,7 +10,7 @@
                     <h1>{{ card.value }} {{ card.unit }}</h1>
                 </v-flex>
                 <v-flex xs12>
-                    <i>{{ card.description }}</i>
+                    {{ card.description }}
                 </v-flex>
             </v-layout>
 
