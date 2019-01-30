@@ -37,7 +37,7 @@
 </template>
 
 <script>
-import Chart from '@/components/Secure/Chart'
+import Chart from '@/components/Secure/Chart/Chart'
 
 export default {
 

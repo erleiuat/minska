@@ -1,7 +1,7 @@
 {
     "name": "Minska",
     "short_name": "Minska",
-    "start_url": "/#/dashboard",
+    "start_url": "/",
     "display": "standalone",
     "background_color": "#381d56",
     "theme_color": "#381d56",
