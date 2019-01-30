@@ -9,7 +9,7 @@ export default new Vuex.Store({
 
         app: {
             title: 'Minska',
-            version: '1.0.2',
+            version: '1.5.0',
             defaultExpire: 20 * 60,
             timeout: null,
             drawer: true
