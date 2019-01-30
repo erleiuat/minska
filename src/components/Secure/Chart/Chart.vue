@@ -1,5 +1,5 @@
 <template>
-    <line-chart v-if="cData.length" :min="null" :chart-data="datacollection" download="boom" :colors="['black']"></line-chart>
+    <line-chart v-if="datacollection" :chart-data="datacollection" :options="options"></line-chart>
 </template>
 
 <script>
@@ -9,48 +9,44 @@ export default {
 
     name: 'Chart',
     props: {
-
         weights: Array
-
     },
     components: {
-
         LineChart
-
     },
     data () {
-
-      return {
-
-        datacollection: {
-            labels: ['Weight', 'Date'],
-            datasets: [
-                { label: null, data: ['12.12.2019', '100'] }
-            ]
+        return {
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                legend: {
+                    display: false
+                }
+            }
         }
-
-      }
-
     },
     computed: {
 
-        cData () {
+        datacollection () {
+            var tmpLabels = []
             var tmpData = []
+
             if (this.weights.length > 0) {
                 for (var i = 0; i < this.weights.length; i++) {
-                    tmpData.push([this.weights[i].measuredate, this.weights[i].weight])
+                    const [year, month, day] = this.weights[i].measuredate.split('-')
+                    tmpLabels.unshift(`${day}.${month}.${year}`)
+                    tmpData.unshift(this.weights[i].weight)
                 }
+            } else {
+                return false
             }
-            return tmpData
+
+            return {
+                labels: tmpLabels,
+                datasets: [{ data: tmpData }]
+            }
         }
 
     }
 }
 </script>
-
-<style>
-.small {
-    max-width: 600px;
-    margin:  150px auto;
-}
-</style>

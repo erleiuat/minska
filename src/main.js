@@ -4,8 +4,6 @@ import 'vuetify/src/stylus/app.styl'
 import Vue from 'vue'
 import Vuetify from 'vuetify/lib'
 import Notifications from 'vue-notification'
-import VueChartkick from 'vue-chartkick'
-import Chart from 'chart.js'
 import App from './App.vue'
 import router from './router'
 import store from './store'
@@ -13,7 +11,6 @@ import i18n from './i18n'
 import axios from 'axios'
 
 Vue.use(Notifications)
-Vue.use(VueChartkick, { adapter: Chart })
 Vue.use(Vuetify, {
     theme: {
         // Logo-Font: Ultra Fresh
@@ -29,9 +26,6 @@ Vue.use(Vuetify, {
 Vue.config.productionTip = false
 Vue.prototype.$http = axios.create({
     baseURL: process.env.NODE_ENV === 'production' ? 'https://minska.api.eliareutlinger.ch/' : 'http://localhost/minska-api/',
-    headers: {
-        'Content-Type': 'application/json'
-    },
     validateStatus: function (status) {
         if (status >= 200 && status < 300 && status !== 204) {
             return true
