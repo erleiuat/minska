@@ -1,6 +1,10 @@
 {
     "name": "Minska",
     "short_name": "Minska",
+    "start_url": "/#/dashboard",
+    "display": "standalone",
+    "background_color": "#381d56",
+    "theme_color": "#381d56",
     "icons": [
         {
             "src": "./img/icons/android-chrome-192x192.png",
@@ -12,9 +16,5 @@
             "sizes": "512x512",
             "type": "image/png"
         }
-    ],
-    "start_url": "/#/dashboard",
-    "theme_color": "#381d56",
-    "background_color": "#381d56",
-    "display": "standalone"
+    ]
 }

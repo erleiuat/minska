@@ -3,11 +3,11 @@
 
             <v-layout row>
                 <v-flex xs2>
-                    <v-toolbar-side-icon @click.stop="drawer()"></v-toolbar-side-icon>
+                    <v-toolbar-side-icon aria-label="OpenMenu" @click.stop="drawer()"></v-toolbar-side-icon>
                 </v-flex>
                 <v-flex xs8>
                     <v-toolbar-title class="pt-1">
-                        <v-img max-height="40px" contain :src="require('@/media/toolbar.png')" :lazy-src="require('@/media/toolbarLow.png')">
+                        <v-img max-height="40px":lazy-src="require('@/media/toolbarLow.png')" :src="require('@/media/toolbar.png')" contain>
                         </v-img>
                     </v-toolbar-title>
                 </v-flex>

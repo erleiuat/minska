@@ -2,7 +2,7 @@
     <v-container grid-list-xs pa-1>
         <v-layout row justify-center>
             <v-dialog v-model="dialog" scrollable max-width="600px">
-                <v-btn color="primary" slot="activator" fab small dark>
+                <v-btn aria-label="Select" color="primary" slot="activator" fab small dark>
                     <v-icon>unarchive</v-icon>
                 </v-btn>
                 <v-card>
