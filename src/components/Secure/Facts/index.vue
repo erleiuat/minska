@@ -54,7 +54,7 @@ export default {
         }
     },
 
-    beforeMount () {
+    mounted () {
         var vm = this
         if (!vm.$store.state.content.weights) {
             vm.$http.get('weight/read/')

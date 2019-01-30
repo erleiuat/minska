@@ -1,4 +1,5 @@
 const VuetifyLoaderPlugin = require('vuetify-loader/lib/plugin')
+const webpack = require('webpack')
 
 module.exports = {
 
@@ -14,7 +15,8 @@ module.exports = {
     },
     configureWebpack: {
         plugins: [
-            new VuetifyLoaderPlugin()
+            new VuetifyLoaderPlugin(),
+            new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/)
         ]
     }
 
