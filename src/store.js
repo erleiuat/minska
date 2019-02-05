@@ -12,7 +12,7 @@ export default new Vuex.Store({
             version: '1.5.0',
             defaultExpire: 20 * 60,
             timeout: null,
-            drawer: true
+            drawer: false
         },
 
         auth: {
