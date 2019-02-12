@@ -108,26 +108,25 @@ export default {
     },
     methods: {
         logout () {
-            var vm = this;
+            var vm = this
             vm.$http.post('user/logout/')
-            .then(function (response) {
-                vm.$store.commit('logout')
-                vm.$notify({
-                    group: 'default',
-                    type: 'success',
-                    title: vm.$t('title'),
-                    text: vm.$t('text')
+                .then(function (response) {
+                    vm.$store.commit('logout')
+                    vm.$notify({
+                        group: 'default',
+                        type: 'success',
+                        title: vm.$t('title'),
+                        text: vm.$t('text')
+                    })
+                    vm.$router.push('/')
+                }).catch(function () {
+                    vm.$notify({
+                        group: 'default',
+                        type: 'error',
+                        title: vm.$t('fail.title'),
+                        text: vm.$t('fail.text')
+                    })
                 })
-                vm.$router.push('/')
-            }).catch(function () {
-                vm.$notify({
-                    group: 'default',
-                    type: 'error',
-                    title: vm.$t('fail.title'),
-                    text: vm.$t('fail.text')
-                })
-            })
-
         }
     }
 }
