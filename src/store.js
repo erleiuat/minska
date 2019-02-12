@@ -79,14 +79,15 @@ export default new Vuex.Store({
                 state.user.language = navigator.language || navigator.userLanguage
             }
 
-            Cookies.set('authCookie', state.auth, {
+            Cookies.set('sessionState', state.auth, {
                 expires: 7,
                 secure: process.env.NODE_ENV === 'production'
             })
+
         },
 
         logout (state) {
-            Cookies.remove('authCookie')
+            Cookies.remove('sessionState')
             state.user = { language: navigator.language || navigator.userLanguage }
 
             state.auth.token = false
@@ -105,10 +106,10 @@ export default new Vuex.Store({
         checkAuth ({ commit, state }) {
             var now = Math.floor(Date.now() / 1000)
 
-            if (!state.auth.token && Cookies.getJSON('authCookie')) {
-                var authCookie = Cookies.getJSON('authCookie')
-                if (authCookie.expiration.token > now) {
-                    commit('login', { token: authCookie.token, keep: authCookie.expiration.keep })
+            if (!state.auth.token && Cookies.getJSON('sessionState')) {
+                var sessionState = Cookies.getJSON('sessionState')
+                if (sessionState.expiration.token > now) {
+                    commit('login', { token: sessionState.token, keep: sessionState.expiration.keep })
                 } else {
                     commit('logout')
                 }
