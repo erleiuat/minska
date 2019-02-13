@@ -1,5 +1,7 @@
 <template>
-    <highcharts v-if="chartOptions" :options="chartOptions"></highcharts>
+    <v-flex xs12>
+        <highcharts v-if="chartOptions" :options="chartOptions"></highcharts>
+    </v-flex>
 </template>
 
 <script>
