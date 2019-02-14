@@ -39,6 +39,7 @@ export default {
     },
 
     beforeMount () {
+
         this.$store.watch((state) => {
             return this.$store.state.user.language
         }, (newValue, oldValue) => {
@@ -52,6 +53,7 @@ export default {
         this.$store.watch((state) => {
             return this.$store.state.auth.token
         }, (newValue, oldValue) => {
+            console.log('changed')
             if (!newValue && oldValue !== null) {
                 this.$router.push('/')
                 this.$notify({
@@ -64,6 +66,8 @@ export default {
         })
 
         this.$store.dispatch('checkAuth')
+        this.$http.defaults.headers.common['Authorization'] = 'Bearer ' + this.$store.state.auth.token
+
         this.$router.beforeResolve((to, from, next) => {
             if (!this.$store.state.auth.token && to.meta.secure === true) {
                 this.$router.push('/')
@@ -77,16 +81,10 @@ export default {
         this.$router.afterEach((to, from) => {
             document.title = this.$store.state.app.title + ' | ' + this.$t('views.' + to.meta.title)
         })
-    },
 
-    beforeUpdate () {
-        var vm = this
-        vm.$store.dispatch('checkAuth')
-        clearInterval(vm.$store.state.app.timeout)
-        var appLeft = (vm.$store.state.auth.expiration.app - Math.floor(Date.now() / 1000)) * 1000
-        vm.$store.state.app.timeout = setInterval(function () {
-            vm.$store.dispatch('checkAuth')
-        }, (appLeft))
+    },
+    beforeUpdate(){
+        this.$store.dispatch('checkAuth')
     }
 
 }

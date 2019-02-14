@@ -66,14 +66,20 @@ export default {
                 vm.$data.loading = true
                 vm.$http.post('user/login/', vm.$data.formdata)
                     .then(function (response) {
-                        vm.$store.commit('login', { token: response.data.content, keep: vm.$data.keepLogin })
-                        vm.$notify({
-                            group: 'default',
-                            type: 'success',
-                            title: vm.$t('success.title'),
-                            text: vm.$t('success.text')
-                        })
-                        vm.$router.push('/dashboard')
+                        try {
+                            vm.$store.commit('login')
+                            vm.$http.defaults.headers.common['Authorization'] = 'Bearer ' + vm.$store.state.auth.token
+                            vm.$notify({
+                                group: 'default',
+                                type: 'success',
+                                title: vm.$t('success.title'),
+                                text: vm.$t('success.text')
+                            })
+                            vm.$router.push('/dashboard')
+                        }catch(e){
+                            console.log(e);
+                        }
+
                     }).catch(function () {
                         vm.$notify({
                             group: 'default',

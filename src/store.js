@@ -10,18 +10,12 @@ export default new Vuex.Store({
         app: {
             title: 'Minska',
             version: '1.5.0',
-            defaultExpire: 20 * 60,
-            timeout: null,
             drawer: false
         },
 
         auth: {
             token: null,
-            expiration: {
-                app: null,
-                token: null,
-                keep: false
-            }
+            expiration: null
         },
 
         user: {
@@ -51,23 +45,15 @@ export default new Vuex.Store({
             state.app.drawer = val
         },
 
-        login (state, sources) {
-            var token = sources
-            var keep = false
+        login (state) {
 
-            if (sources['token']) {
-                token = sources['token']
-                keep = sources['keep']
-            }
-
-            state.auth.token = token
+            var token = Cookies.getJSON('appToken')
             var encoded = (token.split('.')[1]).replace('-', '+').replace('_', '/')
             var decoded = JSON.parse(window.atob(encoded))
 
+            state.auth.token = token
             state.user = decoded.data
-            state.auth.expiration.token = decoded.exp
-            state.auth.expiration.app = Math.floor(Date.now() / 1000) + state.app.defaultExpire
-            state.auth.expiration.keep = keep
+            state.auth.expiration = decoded.exp
 
             if (decoded.data.isFemale === 1) {
                 state.user.isFemale = true
@@ -78,20 +64,19 @@ export default new Vuex.Store({
             if (!decoded.data.language) {
                 state.user.language = navigator.language || navigator.userLanguage
             }
-
-            Cookies.set('sessionState', state.auth, {
-                expires: 7,
-                secure: process.env.NODE_ENV === 'production'
-            })
         },
 
         logout (state) {
-            Cookies.remove('sessionState')
-            state.user = { language: navigator.language || navigator.userLanguage }
-
+            console.log('logout doing')
+            Cookies.remove('appToken')
+            state.content = {
+                weights: false,
+                calories: false,
+                templates: false
+            }
             state.auth.token = false
-            state.auth.expiration.app = null
-            state.auth.expiration.token = null
+            state.auth.expiration = null
+            state.user = { language: navigator.language || navigator.userLanguage }
         },
 
         changeLanguage (state, newlang) {
@@ -103,26 +88,24 @@ export default new Vuex.Store({
     actions: {
 
         checkAuth ({ commit, state }) {
-            var now = Math.floor(Date.now() / 1000)
 
-            if (!state.auth.token && Cookies.getJSON('sessionState')) {
-                var sessionState = Cookies.getJSON('sessionState')
-                if (sessionState.expiration.token > now) {
-                    commit('login', { token: sessionState.token, keep: sessionState.expiration.keep })
+            var now = Math.floor(Date.now() / 1000)
+            if (Cookies.getJSON('appToken')) {
+
+                console.log(Cookies.getJSON('appToken'));
+                var encoded = (Cookies.getJSON('appToken').split('.')[1]).replace('-', '+').replace('_', '/')
+                var decoded = JSON.parse(window.atob(encoded))
+
+                if (decoded.exp > now) {
+                    commit('login')
                 } else {
                     commit('logout')
                 }
-            } else if (state.auth.token) {
-                if (state.auth.expiration.app > now && state.auth.expiration.token > now) {
-                    state.auth.expiration.app = Math.floor(Date.now() / 1000) + state.app.defaultExpire
-                } else if (state.auth.expiration.token > now && state.auth.expiration.keep) {
-                    state.auth.expiration.app = Math.floor(Date.now() / 1000) + state.app.defaultExpire
-                } else {
-                    commit('logout')
-                }
+
             } else {
                 commit('logout')
             }
+
         }
     },
 
