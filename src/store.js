@@ -67,7 +67,6 @@ export default new Vuex.Store({
         },
 
         logout (state) {
-            console.log('logout doing')
             Cookies.remove('appToken')
             state.content = {
                 weights: false,
@@ -92,7 +91,6 @@ export default new Vuex.Store({
             var now = Math.floor(Date.now() / 1000)
             if (Cookies.getJSON('appToken')) {
 
-                console.log(Cookies.getJSON('appToken'));
                 var encoded = (Cookies.getJSON('appToken').split('.')[1]).replace('-', '+').replace('_', '/')
                 var decoded = JSON.parse(window.atob(encoded))
 

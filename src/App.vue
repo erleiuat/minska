@@ -53,7 +53,6 @@ export default {
         this.$store.watch((state) => {
             return this.$store.state.auth.token
         }, (newValue, oldValue) => {
-            console.log('changed')
             if (!newValue && oldValue !== null) {
                 this.$router.push('/')
                 this.$notify({
