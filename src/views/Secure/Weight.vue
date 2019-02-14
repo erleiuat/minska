@@ -5,9 +5,7 @@
                 {{ $t('weight') }}
             </v-flex>
 
-            
                 <WeightChart :weights="weights" />
-
 
             <v-flex xs12>
                 <v-divider></v-divider>

@@ -46,7 +46,6 @@ export default new Vuex.Store({
         },
 
         login (state) {
-
             var token = Cookies.getJSON('appToken')
             var encoded = (token.split('.')[1]).replace('-', '+').replace('_', '/')
             var decoded = JSON.parse(window.atob(encoded))
@@ -87,10 +86,8 @@ export default new Vuex.Store({
     actions: {
 
         checkAuth ({ commit, state }) {
-
             var now = Math.floor(Date.now() / 1000)
             if (Cookies.getJSON('appToken')) {
-
                 var encoded = (Cookies.getJSON('appToken').split('.')[1]).replace('-', '+').replace('_', '/')
                 var decoded = JSON.parse(window.atob(encoded))
 
@@ -99,11 +96,9 @@ export default new Vuex.Store({
                 } else {
                     commit('logout')
                 }
-
             } else {
                 commit('logout')
             }
-
         }
     },
 
