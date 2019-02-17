@@ -35,7 +35,7 @@
                     </v-list-tile-content>
                 </v-list-tile>
 
-                <v-list-tile to="/settings">
+                <v-list-tile v-if="this.$store.state.auth.token" to="/settings">
                     <v-list-tile-action>
                         <v-icon>settings</v-icon>
                     </v-list-tile-action>

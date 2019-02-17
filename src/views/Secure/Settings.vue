@@ -118,7 +118,8 @@ export default {
 
                 vm.$http.post('user/update/', postData)
                     .then(function (response) {
-                        vm.$store.commit('login', response.data.content)
+                        vm.$store.commit('login')
+                        vm.$http.defaults.headers.common['Authorization'] = 'Bearer ' + vm.$store.state.auth.token
                         vm.$notify({
                             group: 'default',
                             type: 'success',
