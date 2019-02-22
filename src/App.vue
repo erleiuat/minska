@@ -8,7 +8,7 @@
             <v-container fluid fill-height>
                 <notifications app group="default" position="bottom center" max-width="40%">
                 </notifications>
-                <transition>
+                <transition name="fade" mode="out-in">
                     <router-view>
 
                     </router-view>
@@ -123,5 +123,16 @@ export default {
         to {
             transform: rotate(360deg);
         }
+    }
+    .fade-enter-active,
+    .fade-leave-active {
+        transition-duration: 0.3s;
+        transition-property: opacity;
+        transition-timing-function: ease;
+    }
+
+    .fade-enter,
+    .fade-leave-active {
+        opacity: 0
     }
 </style>
