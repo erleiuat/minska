@@ -22,6 +22,10 @@ module.exports = {
                 new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/)
             ]
         }
+    },
+
+    chainWebpack: (config) => {
+        config.plugins.delete('prefetch')
     }
 
 }
