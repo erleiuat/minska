@@ -14,6 +14,7 @@ module.exports = {
             skipWaiting: true
         }
     },
+    
     configureWebpack: () => {
         return {
             plugins: [
