@@ -70,25 +70,21 @@ export default {
             if (vm.$data.rules.valid) {
                 vm.$data.loading = true
                 vm.$http.post('user/login/', vm.$data.formdata)
-                .then(function (response) {
-
-                    vm.$store.commit('login')
-                    vm.$http.defaults.headers.common['Authorization'] = 'Bearer ' + vm.$store.state.auth.token
-                    vm.$router.push('/dashboard')
-                    vm.$notify({type: 'success', title: vm.$t('success.title'), text: vm.$t('success.text')})
-
-                }).catch(function (error) {
-
-                    if(error.response && error.response.data.reason === 'email_not_confirmed'){
-                        vm.$router.push('/confirm')
-                        vm.$notify({type: 'error',title: vm.$t('failconfirm.title'),text: vm.$t('failconfirm.text')})
-                    } else {
-                        vm.$notify({type: 'error',title: vm.$t('fail.title'),text: vm.$t('fail.text')})
-                    }
-
-                }).then(function () {
-                    vm.loading = false
-                })
+                    .then(function (response) {
+                        vm.$store.commit('login')
+                        vm.$http.defaults.headers.common['Authorization'] = 'Bearer ' + vm.$store.state.auth.token
+                        vm.$router.push('/dashboard')
+                        vm.$notify({ type: 'success', title: vm.$t('success.title'), text: vm.$t('success.text') })
+                    }).catch(function (error) {
+                        if (error.response && error.response.data.reason === 'email_not_confirmed') {
+                            vm.$router.push('/confirm')
+                            vm.$notify({ type: 'error', title: vm.$t('failconfirm.title'), text: vm.$t('failconfirm.text') })
+                        } else {
+                            vm.$notify({ type: 'error', title: vm.$t('fail.title'), text: vm.$t('fail.text') })
+                        }
+                    }).then(function () {
+                        vm.loading = false
+                    })
             }
         }
 
@@ -104,12 +100,12 @@ export default {
             rules: {
                 valid: false,
                 email: [
-                (v) => !!v || this.$t('errors.required'),
-                (v) => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || this.$t('errors.valid')
+                    (v) => !!v || this.$t('errors.required'),
+                    (v) => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || this.$t('errors.valid')
                 ],
                 pass: [
-                (v) => !!v || this.$t('errors.required'),
-                (v) => /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})/.test(v) || this.$t('strong')
+                    (v) => !!v || this.$t('errors.required'),
+                    (v) => /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})/.test(v) || this.$t('strong')
                 // (v) => /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/.test(v) || this.$t('strong'), <- Too stong lol
                 ]
             }

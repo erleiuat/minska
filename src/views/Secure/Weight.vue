@@ -71,7 +71,7 @@ export default {
             vm.$http.get('weight/read/').then(function (response) {
                 vm.$store.state.content.weights = response.data.content
             }).catch(function () {
-                vm.$notify({type: 'warning',title: vm.$t('alerts.empty.title'),text: vm.$t('alerts.empty.text')})
+                vm.$notify({ type: 'warning', title: vm.$t('alerts.empty.title'), text: vm.$t('alerts.empty.text') })
             }).then(function () {
                 vm.$data.loading = false
             })
@@ -83,18 +83,14 @@ export default {
     methods: {
         deleteItem (item) {
             var vm = this
-            vm.$http.post('weight/delete/', {id: item.id})
-            .then(function (response) {
-
-                const index = vm.weights.indexOf(item)
-                vm.$store.state.content.weights.splice(index, 1)
-                vm.$notify({type: 'success',title: vm.$t('alerts.success.title'),text: vm.$t('alerts.success.text')})
-
-            }).catch(function () {
-
-                vm.$notify({type: 'error',title: vm.$t('alerts.error.title'),text: vm.$t('alerts.error.text')})
-
-            })
+            vm.$http.post('weight/delete/', { id: item.id })
+                .then(function (response) {
+                    const index = vm.weights.indexOf(item)
+                    vm.$store.state.content.weights.splice(index, 1)
+                    vm.$notify({ type: 'success', title: vm.$t('alerts.success.title'), text: vm.$t('alerts.success.text') })
+                }).catch(function () {
+                    vm.$notify({ type: 'error', title: vm.$t('alerts.error.title'), text: vm.$t('alerts.error.text') })
+                })
         },
         formatted (date) {
             if (!date) return null
@@ -107,9 +103,9 @@ export default {
         return {
             loading: true,
             headers: [
-            { text: this.$t('weight'), value: 'weight' },
-            { text: this.$t('measuredate'), value: 'measuredate' },
-            { text: this.$t('actions'), value: 'null' }
+                { text: this.$t('weight'), value: 'weight' },
+                { text: this.$t('measuredate'), value: 'measuredate' },
+                { text: this.$t('actions'), value: 'null' }
             ]
         }
     },

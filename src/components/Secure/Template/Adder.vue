@@ -73,80 +73,76 @@
 </template>
 
 <script>
-    export default {
+export default {
 
-        name: 'Adder',
-        components: {
+    name: 'Adder',
+    components: {
 
-        },
+    },
 
-        i18n: {
-            messages: {
-                en: {
-                    addNew: 'Add a new Template to be used as calorie',
-                    title: 'Title',
-                    caloriesPer: 'Calories per 100 g/ml',
-                    defaultAmount: 'Default Amount (g/ml)',
-                    clickHere: 'Upload Image',
-                    addTemplate: 'Add Template',
-                    retry: 'Try Again',
-                    uperr: {
-                        title: 'Error while uploading',
-                        text: 'The image you selected is invalid. Check its type and size.'
-                    }
-                },
-                de: {
-                    addNew: 'Füge eine neue Vorlage hinzu um sie später auswählen zu können',
-                    title: 'Titel',
-                    caloriesPer: 'Kalorien pro 100 g/ml',
-                    defaultAmount: 'Standartmenge (g/ml)',
-                    clickHere: 'Bild hochladen',
-                    addTemplate: 'Vorlage hinzufügen',
-                    retry: 'Erneut versuchen',
-                    uperr: {
-                        title: 'Fehler beim Hochladen',
-                        text: 'Das Bild ist fehlerhaft. Überprüfe den Dateityp und die Grösse.'
-                    }
+    i18n: {
+        messages: {
+            en: {
+                addNew: 'Add a new Template to be used as calorie',
+                title: 'Title',
+                caloriesPer: 'Calories per 100 g/ml',
+                defaultAmount: 'Default Amount (g/ml)',
+                clickHere: 'Upload Image',
+                addTemplate: 'Add Template',
+                retry: 'Try Again',
+                uperr: {
+                    title: 'Error while uploading',
+                    text: 'The image you selected is invalid. Check its type and size.'
+                }
+            },
+            de: {
+                addNew: 'Füge eine neue Vorlage hinzu um sie später auswählen zu können',
+                title: 'Titel',
+                caloriesPer: 'Kalorien pro 100 g/ml',
+                defaultAmount: 'Standartmenge (g/ml)',
+                clickHere: 'Bild hochladen',
+                addTemplate: 'Vorlage hinzufügen',
+                retry: 'Erneut versuchen',
+                uperr: {
+                    title: 'Fehler beim Hochladen',
+                    text: 'Das Bild ist fehlerhaft. Überprüfe den Dateityp und die Grösse.'
                 }
             }
+        }
+    },
+
+    methods: {
+
+        reset () {
+            this.uploadedFiles = []
+            this.formdata.image = false
         },
 
-        methods: {
-
-            reset () {
-                this.uploadedFiles = []
-                this.formdata.image = false
-            },
-
-            filesChange (fieldName, fileList) {
-                var vm = this
-                vm.$data.loading1 = true
-                const formData = new FormData()
-                if (!fileList.length) { return };
-                formData.append(fieldName, fileList[0], fileList[0].name)
-                vm.$http.post('template/create/upload/', formData)
+        filesChange (fieldName, fileList) {
+            var vm = this
+            vm.$data.loading1 = true
+            const formData = new FormData()
+            if (!fileList.length) { return };
+            formData.append(fieldName, fileList[0], fileList[0].name)
+            vm.$http.post('template/create/upload/', formData)
                 .then(function (response) {
-
                     var path = response.config.baseURL + 'template/read/thumbnails/' + response.data.content
                     vm.$data.formdata.image = path
                     vm.$data.loading1 = false
-
                 }).catch(function () {
-
-                    vm.$notify({type: 'error',title: vm.$t('uperr.title'),text: vm.$t('uperr.text')})
+                    vm.$notify({ type: 'error', title: vm.$t('uperr.title'), text: vm.$t('uperr.text') })
                     vm.$data.loading1 = false
-
                 })
-            },
+        },
 
-            addTemplate () {
-                var vm = this
+        addTemplate () {
+            var vm = this
 
-                if (vm.$refs.adderForm.validate()) {
-                    vm.$data.disabled = true
-                    vm.$data.loading2 = true
+            if (vm.$refs.adderForm.validate()) {
+                vm.$data.disabled = true
+                vm.$data.loading2 = true
 
-                    vm.$http.post('template/create/', vm.$data.formdata)
+                vm.$http.post('template/create/', vm.$data.formdata)
                     .then(function (response) {
                         if (!vm.$store.state.content.templates || vm.$store.state.content.templates.lenght < 1) {
                             vm.$store.state.content.templates = []
@@ -175,48 +171,45 @@
                         vm.$data.disabled = false
                         vm.$data.loading2 = false
 
-                        vm.$notify({type: 'success',title: vm.$t('alerts.success.title'),text: vm.$t('alerts.success.text')})
-
+                        vm.$notify({ type: 'success', title: vm.$t('alerts.success.title'), text: vm.$t('alerts.success.text') })
                     }).catch(function () {
-
-                        vm.$notify({type: 'error',title: vm.$t('alerts.error.title'),text: vm.$t('alerts.error.text')})
+                        vm.$notify({ type: 'error', title: vm.$t('alerts.error.title'), text: vm.$t('alerts.error.text') })
                         vm.$data.disabled = false
                         vm.$data.loading2 = false
-
                     })
-                }
-            }
-
-        },
-
-        data () {
-            return {
-                uploadedFiles: [],
-                dialog: false,
-                loading1: false,
-                loading2: false,
-                disabled: false,
-                formdata: {
-                    title: null,
-                    calories: null,
-                    amount: null,
-                    image: null
-                },
-                rules: {
-                    valid: false,
-                    text: [
-                    (v) => !!v || this.$t('errors.required'),
-                    (v) => v && v.length <= 100 || this.$t('errors.valid')
-                    ],
-                    number: [
-                    (v) => !!v || this.$t('errors.required'),
-                    (v) => v && v <= 9999 && v >= 0 || this.$t('errors.valid')
-                    ]
-                }
             }
         }
 
+    },
+
+    data () {
+        return {
+            uploadedFiles: [],
+            dialog: false,
+            loading1: false,
+            loading2: false,
+            disabled: false,
+            formdata: {
+                title: null,
+                calories: null,
+                amount: null,
+                image: null
+            },
+            rules: {
+                valid: false,
+                text: [
+                    (v) => !!v || this.$t('errors.required'),
+                    (v) => v && v.length <= 100 || this.$t('errors.valid')
+                ],
+                number: [
+                    (v) => !!v || this.$t('errors.required'),
+                    (v) => v && v <= 9999 && v >= 0 || this.$t('errors.valid')
+                ]
+            }
+        }
     }
+
+}
 </script>
 
 <style scoped>

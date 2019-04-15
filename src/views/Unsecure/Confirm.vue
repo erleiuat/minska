@@ -45,20 +45,20 @@ export default {
             rules: {
                 valid: false,
                 email: [
-                (v) => !!v || this.$t('errors.required'),
-                (v) => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || this.$t('errors.valid')
+                    (v) => !!v || this.$t('errors.required'),
+                    (v) => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || this.$t('errors.valid')
                 ],
                 code: [
-                (v) => v && v.length == 20 || this.$t('errors.valid')
-                ],
+                    (v) => v && v.length === 20 || this.$t('errors.valid')
+                ]
             }
         }
     },
-    mounted(){
-        if(this.$route.query.mail && this.$route.query.code){
-            this.$data.formdata.email = this.$route.query.mail;
-            this.$data.formdata.code = this.$route.query.code;
-            this.sendConfirmation();
+    mounted () {
+        if (this.$route.query.mail && this.$route.query.code) {
+            this.$data.formdata.email = this.$route.query.mail
+            this.$data.formdata.code = this.$route.query.code
+            this.sendConfirmation()
         }
     },
     i18n: {
@@ -98,25 +98,19 @@ export default {
             var vm = this
             vm.$refs.confirmForm.validate()
             if (vm.$data.rules.valid) {
-
                 vm.$data.disabled = true
                 vm.$data.loading = true
 
                 vm.$http.post('user/confirm_email/', vm.$data.formdata)
-                .then(function (response) {
-
-                    vm.$data.loading = false
-                    vm.$router.push('/login')
-                    vm.$notify({type: 'success',title: vm.$t('created.title'),text: vm.$t('created.text')})
-
-                }).catch(function () {
-
-                    vm.$notify({type: 'error',title: vm.$t('failed.title'),text: vm.$t('failed.text')})
-                    vm.$data.disabled = false
-                    vm.$data.loading = false
-
-                })
-
+                    .then(function (response) {
+                        vm.$data.loading = false
+                        vm.$router.push('/login')
+                        vm.$notify({ type: 'success', title: vm.$t('created.title'), text: vm.$t('created.text') })
+                    }).catch(function () {
+                        vm.$notify({ type: 'error', title: vm.$t('failed.title'), text: vm.$t('failed.text') })
+                        vm.$data.disabled = false
+                        vm.$data.loading = false
+                    })
             }
         }
     }

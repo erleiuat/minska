@@ -58,70 +58,66 @@
 </template>
 
 <script>
-    export default {
-        name: 'Drawer',
-        i18n: {
-            messages: {
-                en: {
-                    logout: 'Logout',
-                    title: 'Successfully logged out',
-                    text: 'You were redirected to the Homepage'
-                },
-                de: {
-                    logout: 'Abmelden',
-                    title: 'Erfolgreich abgemeldet',
-                    text: 'Du wurdest zur Startseite weitergeleitet'
-                }
-            }
-        },
-        computed: {
-            info () {
-                return this.$store.state.app.title + ' v' + this.$store.state.app.version
+export default {
+    name: 'Drawer',
+    i18n: {
+        messages: {
+            en: {
+                logout: 'Logout',
+                title: 'Successfully logged out',
+                text: 'You were redirected to the Homepage'
             },
-            drawer: {
-                get () {
-                    return this.$store.state.app.drawer
-                },
-                set (val) {
-                    this.$store.commit('drawer', val)
-                }
-            },
-            items () {
-                var list = []
-                this.$router.options.routes.forEach(route => {
-                    if (this.$store.state.auth.token && route.meta.secure && route.meta.main) {
-                        list.push({
-                            title: route.meta.title,
-                            icon: route.meta.icon,
-                            path: route.path
-                        })
-                    } else if (!this.$store.state.auth.token && !route.meta.secure && route.meta.main) {
-                        list.push({
-                            title: route.meta.title,
-                            icon: route.meta.icon,
-                            path: route.path
-                        })
-                    }
-                })
-                return list
-            }
-        },
-        methods: {
-            logout () {
-                var vm = this
-                vm.$http.post('user/logout/')
-                .then(function (response) {
-
-                    vm.$store.commit('logout')
-                    vm.$notify({type: 'success',title: vm.$t('title'),text: vm.$t('text')})
-                    vm.$router.push('/')
-
-                }).catch(function () {
-
-                    vm.$notify({type: 'error',title: vm.$t('fail.title'),text: vm.$t('fail.text')})
-
-                })
+            de: {
+                logout: 'Abmelden',
+                title: 'Erfolgreich abgemeldet',
+                text: 'Du wurdest zur Startseite weitergeleitet'
             }
         }
+    },
+    computed: {
+        info () {
+            return this.$store.state.app.title + ' v' + this.$store.state.app.version
+        },
+        drawer: {
+            get () {
+                return this.$store.state.app.drawer
+            },
+            set (val) {
+                this.$store.commit('drawer', val)
+            }
+        },
+        items () {
+            var list = []
+            this.$router.options.routes.forEach(route => {
+                if (this.$store.state.auth.token && route.meta.secure && route.meta.main) {
+                    list.push({
+                        title: route.meta.title,
+                        icon: route.meta.icon,
+                        path: route.path
+                    })
+                } else if (!this.$store.state.auth.token && !route.meta.secure && route.meta.main) {
+                    list.push({
+                        title: route.meta.title,
+                        icon: route.meta.icon,
+                        path: route.path
+                    })
+                }
+            })
+            return list
+        }
+    },
+    methods: {
+        logout () {
+            var vm = this
+            vm.$http.post('user/logout/')
+                .then(function (response) {
+                    vm.$store.commit('logout')
+                    vm.$notify({ type: 'success', title: vm.$t('title'), text: vm.$t('text') })
+                    vm.$router.push('/')
+                }).catch(function () {
+                    vm.$notify({ type: 'error', title: vm.$t('fail.title'), text: vm.$t('fail.text') })
+                })
+        }
     }
+}
 </script>

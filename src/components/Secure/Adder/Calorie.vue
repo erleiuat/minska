@@ -126,14 +126,11 @@ export default {
                         vm.$refs.addCalorieForm.resetValidation()
                         vm.$data.loading = false
 
-                        vm.$notify({type: 'success',title: vm.$t('alerts.success.title'),text: vm.$t('alerts.success.text')})
-
+                        vm.$notify({ type: 'success', title: vm.$t('alerts.success.title'), text: vm.$t('alerts.success.text') })
                     }).catch(function () {
-
-                        vm.$notify({type: 'error',title: vm.$t('alerts.error.title'),text: vm.$t('alerts.error.text')})
+                        vm.$notify({ type: 'error', title: vm.$t('alerts.error.title'), text: vm.$t('alerts.error.text') })
                         vm.$data.disabled = false
                         vm.$data.loading = false
-
                     })
             }
         }

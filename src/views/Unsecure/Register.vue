@@ -99,19 +99,15 @@ export default {
                 vm.$data.disabled = true
                 vm.$data.loading = true
                 vm.$http.post('user/create/', vm.$data.formdata)
-                .then(function (response) {
-
-                    vm.$data.loading = false
-                    vm.$router.push('/confirm')
-                    vm.$notify({type: 'success',title: vm.$t('created.title'),text: vm.$t('created.text')})
-
-                }).catch(function () {
-
-                    vm.$notify({type: 'error',title: vm.$t('failed.title'),text: vm.$t('failed.text')})
-                    vm.$data.disabled = false
-                    vm.$data.loading = false
-
-                })
+                    .then(function (response) {
+                        vm.$data.loading = false
+                        vm.$router.push('/confirm')
+                        vm.$notify({ type: 'success', title: vm.$t('created.title'), text: vm.$t('created.text') })
+                    }).catch(function () {
+                        vm.$notify({ type: 'error', title: vm.$t('failed.title'), text: vm.$t('failed.text') })
+                        vm.$data.disabled = false
+                        vm.$data.loading = false
+                    })
             }
         }
     },
@@ -130,21 +126,21 @@ export default {
             rules: {
                 valid: false,
                 name: [
-                (v) => !!v || this.$t('errors.required'),
-                (v) => v && v.length <= 200 || this.$t('errors.valid')
+                    (v) => !!v || this.$t('errors.required'),
+                    (v) => v && v.length <= 200 || this.$t('errors.valid')
                 ],
                 email: [
-                (v) => !!v || this.$t('errors.required'),
-                (v) => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || this.$t('errors.valid')
+                    (v) => !!v || this.$t('errors.required'),
+                    (v) => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || this.$t('errors.valid')
                 ],
                 pass: [
-                (v) => !!v || this.$t('errors.required'),
-                (v) => /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})/.test(v) || this.$t('strong')
+                    (v) => !!v || this.$t('errors.required'),
+                    (v) => /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})/.test(v) || this.$t('strong')
                 // (v) => /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/.test(v) || this.$t('strong'), <- Too stong lol
                 ],
                 pass2: [
-                (v) => !!v || this.$t('repeat'),
-                (v) => v === this.$data.formdata.password || this.$t('match')
+                    (v) => !!v || this.$t('repeat'),
+                    (v) => v === this.$data.formdata.password || this.$t('match')
                 ]
             }
         }

@@ -58,9 +58,9 @@ export default {
         var vm = this
         if (!vm.$store.state.content.weights) {
             vm.$http.get('weight/read/')
-            .then(function (response) {
-                vm.$store.state.content.weights = response.data.content
-            }).catch(function () {})
+                .then(function (response) {
+                    vm.$store.state.content.weights = response.data.content
+                }).catch(function () {})
         }
 
         if (!vm.$store.state.content.calories) {

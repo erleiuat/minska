@@ -69,22 +69,16 @@ export default {
     methods: {
         remove (item) {
             var vm = this
-            vm.$http.post('template/delete/', {id: item.id})
-            .then(function (response) {
-
-                const index = vm.$store.state.content.templates.indexOf(item)
-                vm.$store.state.content.templates.splice(index, 1)
-                vm.$notify({type: 'success',title: vm.$t('alerts.success.title'),text: vm.$t('alerts.success.text')})
-
-            }).catch(function () {
-
-                vm.$notify({type: 'warning', title: vm.$t('alerts.error.title'),text: vm.$t('alerts.error.text')})
-
-            }).then(function () {
-
-                vm.$data.loading = false
-
-            })
+            vm.$http.post('template/delete/', { id: item.id })
+                .then(function (response) {
+                    const index = vm.$store.state.content.templates.indexOf(item)
+                    vm.$store.state.content.templates.splice(index, 1)
+                    vm.$notify({ type: 'success', title: vm.$t('alerts.success.title'), text: vm.$t('alerts.success.text') })
+                }).catch(function () {
+                    vm.$notify({ type: 'warning', title: vm.$t('alerts.error.title'), text: vm.$t('alerts.error.text') })
+                }).then(function () {
+                    vm.$data.loading = false
+                })
         }
     },
     computed: {
