@@ -38,7 +38,7 @@ export default {
                 },
                 failconfirm: {
                     title: 'Login failed',
-                    text: 'This account is not confirmed yet.'
+                    text: 'This account is not confirmed yet. Please check your mails.'
                 }
             },
             de: {
@@ -56,7 +56,7 @@ export default {
                 },
                 failconfirm: {
                     title: 'Anmeldung fehlgeschlagen',
-                    text: 'Dieser Account wurde noch nicht bestätigt'
+                    text: 'Dieser Account wurde noch nicht bestätigt. Bitte prüfe deine E-Mails.'
                 }
             }
         }
@@ -79,7 +79,8 @@ export default {
 
                 }).catch(function (error) {
 
-                    if(error.response.data.reason === 'email_not_confirmed'){
+                    if(error.response && error.response.data.reason === 'email_not_confirmed'){
+                        vm.$router.push('/confirm')
                         vm.$notify({type: 'error',title: vm.$t('failconfirm.title'),text: vm.$t('failconfirm.text')})
                     } else {
                         vm.$notify({type: 'error',title: vm.$t('fail.title'),text: vm.$t('fail.text')})
