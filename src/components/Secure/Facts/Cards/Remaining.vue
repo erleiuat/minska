@@ -36,7 +36,7 @@ export default {
                 var ageDate = new Date(Date.now() - Date.parse(this.$store.state.user.birthdate))
                 var dayNeed = Math.abs(ageDate.getUTCFullYear() - 1970)
 
-                if (this.$store.state.user.isFemale) {
+                if (this.$store.state.user.gender === 'female') {
                     dayNeed = 655 + (9.5 * this.$store.state.content.weights[0].weight) + (1.9 * this.$store.state.user.height) + (4.7 * dayNeed) // Womans
                 } else {
                     dayNeed = 66 + (13.8 * this.$store.state.content.weights[0].weight) + (5.0 * this.$store.state.user.height) + (6.8 * dayNeed) // Mans

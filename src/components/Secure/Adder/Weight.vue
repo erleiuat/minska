@@ -74,38 +74,32 @@ export default {
                 vm.$data.loading = true
 
                 vm.$http.post('weight/create/', postData)
-                    .then(function (response) {
-                        vm.$notify({
-                            group: 'default',
-                            type: 'success',
-                            title: vm.$t('alerts.success.title'),
-                            text: vm.$t('alerts.success.text')
-                        })
+                .then(function (response) {
 
-                        var tmp = {
-                            id: response.data.content,
-                            measuredate: vm.$data.formdata.date,
-                            weight: vm.$data.formdata.weight
-                        }
+                    var tmp = {
+                        id: response.data.content,
+                        measuredate: vm.$data.formdata.date,
+                        weight: vm.$data.formdata.weight
+                    }
 
-                        if (!vm.$store.state.content.weights || vm.$store.state.content.weights.lenght < 1) {
-                            vm.$store.state.content.weights = []
-                        }
+                    if (!vm.$store.state.content.weights || vm.$store.state.content.weights.lenght < 1) {
+                        vm.$store.state.content.weights = []
+                    }
 
-                        vm.$store.state.content.weights.unshift(tmp)
-                        vm.$data.formdata.weight = null
-                        vm.$refs.addWeightForm.resetValidation()
-                        vm.$data.loading = false
-                    }).catch(function () {
-                        vm.$notify({
-                            group: 'default',
-                            type: 'error',
-                            title: vm.$t('alerts.error.title'),
-                            text: vm.$t('alerts.error.text')
-                        })
-                        vm.$data.disabled = false
-                        vm.$data.loading = false
-                    })
+                    vm.$store.state.content.weights.unshift(tmp)
+                    vm.$data.formdata.weight = null
+                    vm.$refs.addWeightForm.resetValidation()
+                    vm.$data.loading = false
+
+                    vm.$notify({type: 'success',title: vm.$t('alerts.success.title'),text: vm.$t('alerts.success.text')})
+
+                }).catch(function () {
+
+                    vm.$notify({type: 'error',title: vm.$t('alerts.error.title'),text: vm.$t('alerts.error.text')})
+                    vm.$data.disabled = false
+                    vm.$data.loading = false
+
+                })
             }
         }
     },
@@ -135,12 +129,12 @@ export default {
             rules: {
                 valid: true,
                 date: [
-                    (v) => !!v || this.$t('errors.required'),
-                    (v) => v && new Date(this.$data.formdata.date) !== 'Invalid Date' || this.$t('errors.valid')
+                (v) => !!v || this.$t('errors.required'),
+                (v) => v && new Date(this.$data.formdata.date) !== 'Invalid Date' || this.$t('errors.valid')
                 ],
                 weight: [
-                    (v) => !!v || this.$t('errors.required'),
-                    (v) => v && v <= 500 && v >= 30 || this.$t('errors.valid')
+                (v) => !!v || this.$t('errors.required'),
+                (v) => v && v <= 500 && v >= 30 || this.$t('errors.valid')
                 ]
             }
         }

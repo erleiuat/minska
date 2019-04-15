@@ -24,7 +24,7 @@ export default new Vuex.Store({
             lastname: null,
             email: null,
             language: null,
-            isFemale: false,
+            gender: null,
             aims: {
                 weight: null,
                 date: null
@@ -53,12 +53,6 @@ export default new Vuex.Store({
             state.auth.token = token
             state.user = decoded.data
             state.auth.expiration = decoded.exp
-
-            if (decoded.data.isFemale === 1) {
-                state.user.isFemale = true
-            } else {
-                state.user.isFemale = false
-            }
 
             if (!decoded.data.language) {
                 state.user.language = navigator.language || navigator.userLanguage
@@ -96,7 +90,7 @@ export default new Vuex.Store({
                 } else {
                     commit('logout')
                 }
-                
+
             } else {
                 commit('logout')
             }

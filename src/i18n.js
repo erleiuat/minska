@@ -39,6 +39,7 @@ export default new VueI18n({
                 group: 'Group',
                 login: 'Login',
                 register: 'Register',
+                confirm: 'Confirm E-Mail',
                 home: 'Home'
             },
             errors: {
@@ -77,6 +78,7 @@ export default new VueI18n({
                 group: 'Gruppe',
                 login: 'Anmelden',
                 register: 'Registrieren',
+                confirm: 'E-Mail bestätigen',
                 home: 'Start'
             },
             errors: {

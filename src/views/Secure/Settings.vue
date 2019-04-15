@@ -2,16 +2,18 @@
     <v-container grid-list-sm pa-0>
 
         <h1 class="display-1" v-text="$t('title')"></h1>
+
         <v-card>
             <v-container fluid grid-list-md>
                 <v-form v-model="rules.valid" ref="settingsForm">
                     <h2 class="headline" v-text="$t('basic')"></h2>
                     <v-layout row wrap>
+
                         <v-flex sm6>
                             <v-select :label="$t('language')" v-model="formdata.language" :rules="rules.selectLanguage" :items="languageItems" item-text="text" item-value="value"></v-select>
                         </v-flex>
                         <v-flex sm6>
-                            <v-select :label="$t('gender')" v-model="formdata.isFemale" :rules="rules.selectGender" :items="genderItems" item-text="text" item-value="value"></v-select>
+                            <v-select :label="$t('gender')" v-model="formdata.gender" :rules="rules.selectGender" :items="genderItems" item-text="text" item-value="value"></v-select>
                         </v-flex>
                         <v-flex sm6>
                             <v-text-field :label="$t('firstname')" v-model="formdata.firstname" :rules="rules.name" outline></v-text-field>
@@ -33,6 +35,7 @@
                     </v-layout>
                     <h2 class="headline" v-text="$t('aims')"></h2>
                     <v-layout row wrap>
+
                         <v-flex sm6>
                             <v-text-field :label="$t('weight')" v-model="formdata.aims.weight" :rules="rules.weight" type="number" outline></v-text-field>
                         </v-flex>
@@ -111,32 +114,25 @@
             sendUpdates () {
                 this.$refs.settingsForm.validate()
                 if (this.$data.rules.valid) {
+
                     var vm = this
-                    var postData = vm.$data.formdata
                     vm.$data.disabled = true
                     vm.$data.loading = true
-
-                    vm.$http.post('user/update/', postData)
+                    vm.$http.post('user/update/', vm.$data.formdata)
                     .then(function (response) {
+
                         vm.$store.commit('login')
                         vm.$http.defaults.headers.common['Authorization'] = 'Bearer ' + vm.$store.state.auth.token
-                        vm.$notify({
-                            group: 'default',
-                            type: 'success',
-                            title: vm.$t('alerts.success.title'),
-                            text: vm.$t('alerts.success.text')
-                        })
                         vm.disabled = true
                         vm.$data.loading = false
+                        vm.$notify({type: 'success',title: vm.$t('alerts.success.title'),text: vm.$t('alerts.success.text')})
+
                     }).catch(function () {
-                        vm.$notify({
-                            group: 'default',
-                            type: 'error',
-                            title: vm.$t('alerts.error.title'),
-                            text: vm.$t('alerts.error.text')
-                        })
+
+                        vm.$notify({type: 'error',title: vm.$t('alerts.error.title'),text: vm.$t('alerts.error.text')})
                         vm.disabled = false
                         vm.$data.loading = false
+
                     })
                 }
             }
@@ -149,8 +145,8 @@
             ]
 
             var genderItems = [
-            { text: this.$t('male'), value: false },
-            { text: this.$t('female'), value: true }
+            { text: this.$t('male'), value: 'male' },
+            { text: this.$t('female'), value: 'female' }
             ]
 
             this.$data.genderItems = genderItems
@@ -182,7 +178,7 @@
 
                 formdata: {
                     language: this.$store.state.user.language,
-                    isFemale: this.$store.state.user.isFemale,
+                    gender: this.$store.state.user.gender,
                     firstname: this.$store.state.user.firstname,
                     lastname: this.$store.state.user.lastname,
                     height: this.$store.state.user.height,
@@ -212,7 +208,7 @@
                     (v) => v && new Date(this.$data.formdata.aims.date) !== 'Invalid Date' || this.$t('errors.valid')
                     ],
                     selectGender: [
-                    (v) => (typeof v) === 'boolean' || this.$t('errors.required')
+                    (v) => !!v || this.$t('errors.required')
                     ],
                     selectLanguage: [
                     (v) => !!v || this.$t('errors.required')

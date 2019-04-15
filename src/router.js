@@ -95,6 +95,16 @@ export default new Router({
             }
         },
         {
+            path: '/confirm',
+            component: () => import('./views/Unsecure/Confirm.vue'),
+            meta: {
+                title: 'confirm',
+                icon: 'mail_outline',
+                main: true,
+                secure: false
+            }
+        },
+        {
             path: '/help',
             component: () => import('./views/Shared/Help.vue'),
             meta: {

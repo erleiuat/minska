@@ -6,8 +6,7 @@
 
         <v-content>
             <v-container fluid fill-height>
-                <notifications app group="default" position="bottom center" max-width="40%">
-                </notifications>
+                <notifications app position="bottom center" max-width="40%" />
                 <transition name="fade" mode="out-in">
                     <router-view>
 

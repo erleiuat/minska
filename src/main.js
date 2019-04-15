@@ -25,7 +25,7 @@ Vue.use(Vuetify, {
 
 Vue.config.productionTip = false
 Vue.prototype.$http = axios.create({
-    baseURL: process.env.NODE_ENV === 'production' ? 'https://api.osis.io/minska/' : 'http://localhost/minska-api/',
+    baseURL: process.env.NODE_ENV === 'production' ? 'https://api.osis.io/minska/' : 'http://localhost/minska-api/api/',
     withCredentials: true,
     validateStatus: function (status) {
         if (status >= 200 && status < 300 && status !== 204) {
