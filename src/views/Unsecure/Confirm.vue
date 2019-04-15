@@ -39,7 +39,7 @@ export default {
             disabled: false,
             loading: false,
             formdata: {
-                email: this.$store.state.user.email,
+                email: '',
                 code: ''
             },
             rules: {
@@ -52,6 +52,13 @@ export default {
                 (v) => v && v.length == 20 || this.$t('errors.valid')
                 ],
             }
+        }
+    },
+    mounted(){
+        if(this.$route.query.mail && this.$route.query.code){
+            this.$data.formdata.email = this.$route.query.mail;
+            this.$data.formdata.code = this.$route.query.code;
+            this.sendConfirmation();
         }
     },
     i18n: {
@@ -86,13 +93,10 @@ export default {
             }
         }
     },
-
     methods: {
         sendConfirmation () {
-
             var vm = this
             vm.$refs.confirmForm.validate()
-
             if (vm.$data.rules.valid) {
 
                 vm.$data.disabled = true
