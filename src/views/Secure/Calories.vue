@@ -3,19 +3,20 @@
         <v-layout row wrap>
 
             <v-flex xs12>
-                <v-layout row>
+                <v-layout row wrap>
 
-                    <v-flex xs10 class="display-1">
+                    <v-flex xs12 md6 class="display-1 text-xs-center text-md-left">
                         {{ $t('calories')}}
                     </v-flex>
 
                     <v-spacer></v-spacer>
 
-                    <v-btn fab small @click="prevDay()">
+                    <v-flex xs12 md6 class="text-xs-center text-md-right">
+                    <v-btn fab outline small @click="prevDay()">
                         <v-icon>keyboard_arrow_left</v-icon>
                     </v-btn>
                     <v-menu offset-y>
-                        <v-btn slot="activator">
+                        <v-btn outline slot="activator">
                             {{ active.format }}
                         </v-btn>
                         <v-list>
@@ -24,9 +25,10 @@
                             </v-list-tile>
                         </v-list>
                     </v-menu>
-                    <v-btn fab small @click="nextDay()">
+                    <v-btn fab outline small @click="nextDay()">
                         <v-icon>keyboard_arrow_right</v-icon>
                     </v-btn>
+                    </v-flex>
                 </v-layout>
             </v-flex>
 

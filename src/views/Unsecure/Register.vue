@@ -1,5 +1,5 @@
 <template>
-    <v-container grid-list-md >
+    <v-container grid-list-md pa-0>
 
         <v-form v-model="rules.valid" ref="registrationForm">
             <v-layout justify-center row wrap>
@@ -7,7 +7,6 @@
                 <v-flex xs12>
                     <h1 class="text-xs-center" v-text="$t('title')"></h1>
                 </v-flex>
-
                 <v-flex xs12 sm4>
                     <v-text-field :label="$t('firstname')" v-model="formdata.firstname" :rules="rules.name" outline></v-text-field>
                 </v-flex>
@@ -17,7 +16,6 @@
                 <v-flex xs12 sm4>
                     <v-text-field :label="$t('mail')" v-model="formdata.email" :rules="rules.email" type="email" outline></v-text-field>
                 </v-flex>
-
                 <v-flex xs12 sm6>
                     <v-text-field :label="$t('password')" v-model="formdata.password" outline :rules="rules.pass" type="password"></v-text-field>
                 </v-flex>
@@ -26,14 +24,12 @@
                 </v-flex>
 
                 <v-flex xs12>
-
-                    <v-btn :loading="loading" :disabled="loading" depressed block @click="sendRegistration()" large color="primary">
+                    <v-btn type="submit" :loading="loading" :disabled="loading" depressed block @click="sendRegistration()" large color="primary">
                         {{ $t('button') }}
                         <span slot="loader" class="custom-loader">
                             <v-icon light>cached</v-icon>
                         </span>
                     </v-btn>
-
                 </v-flex>
 
             </v-layout>

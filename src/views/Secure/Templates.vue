@@ -2,7 +2,7 @@
     <v-container grid-list-md pa-0>
         <v-layout row wrap>
 
-            <v-flex xs10 class="display-1">
+            <v-flex xs10 pa-2 class="display-1">
                 {{ $t('views.templates')}}
             </v-flex>
             <v-flex xs2 class="text-xs-right">

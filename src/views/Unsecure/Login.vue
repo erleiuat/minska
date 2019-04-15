@@ -1,12 +1,12 @@
 <template>
-    <v-container>
+    <v-container pa-0>
         <v-form v-model="rules.valid" ref="registrationForm">
             <v-layout justify-center row wrap>
                 <v-flex xs12 sm8 md6>
                     <h1 v-text="$t('title')"></h1>
                     <v-text-field :label="$t('mail')" v-model="formdata.email" :rules="rules.email" type="email" outline></v-text-field>
                     <v-text-field :label="$t('password')" v-model="formdata.password" outline :rules="rules.pass" type="password"></v-text-field>
-                    <v-btn :loading="loading" :disabled="loading" depressed block @click="sendLogin()" large color="primary">
+                    <v-btn type="submit" :loading="loading" :disabled="loading" depressed block @click="sendLogin()" large color="primary">
                         {{ $t('login') }}
                         <span slot="loader" class="custom-loader">
                             <v-icon light>cached</v-icon>

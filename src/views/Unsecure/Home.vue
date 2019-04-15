@@ -1,18 +1,34 @@
 <template>
     <v-container class="text-xs-center">
+        <v-layout row wrap>
+            <v-flex xs12>
+                <v-img :src="require('@/media/title_color.png')" :lazy-src="require('@/media/title_color_low.png')" aspect-ratio="1.7" contain></v-img>
+                <h1>{{ $t('title') }}</h1>
+                <p>{{ $t('subtitle') }}</p>
+            </v-flex>
+            <v-flex xs12>
+                <v-btn color="primary" block dark @click="$router.push('/login')">{{ $t('login') }}</v-btn>
+            </v-flex>
+            <v-flex xs12>
+                <v-btn color="primary" block dark outline @click="$router.push('/register')">{{ $t('register') }}</v-btn>
+            </v-flex>
+            <v-flex xs12 class="pt-5">
+                <p>{{ $t('text') }}</p>
+                <v-divider></v-divider>
+                <v-img class="pa-5" :src="require('@/media/demos/facts_de.png')" :lazy-src="require('@/media/title_color_low.png')" contain></v-img>
+                <p>{{ $t('text2') }}</p>
+                <v-divider></v-divider>
+                <v-img class="pa-5" :src="require('@/media/demos/weight.png')" :lazy-src="require('@/media/title_color_low.png')" contain></v-img>
+                <p>{{ $t('text3') }}</p>
+                <v-divider></v-divider>
+                <v-img class="pa-5" :src="require('@/media/demos/devices.png')" :lazy-src="require('@/media/title_color_low.png')" contain></v-img>
+                <p>{{ $t('text4') }}</p>
+            </v-flex>
+            <v-flex xs12>
+                <v-btn color="primary" block dark @click="$router.push('/register')">{{ $t('register') }}</v-btn>
+            </v-flex>
 
-        <v-img :src="require('@/media/title_color.png')" :lazy-src="require('@/media/title_color_low.png')" aspect-ratio="1.7" contain></v-img>
-
-        <h1>{{ $t('title') }}</h1>
-        <p>{{ $t('subtitle') }}</p>
-
-        <router-link to="/login">
-            <v-btn color="primary" dark large>{{ $t('login') }}</v-btn>
-        </router-link>
-
-        <router-link to="/register">
-            <v-btn color="primary" dark large outline>{{ $t('register') }}</v-btn>
-        </router-link>
+        </v-layout>
 
     </v-container>
 </template>
@@ -24,15 +40,23 @@ export default {
         messages: {
             en: {
                 title: 'Welcome!',
-                subtitle: 'Please Login or create an Account to use this App',
+                subtitle: 'Please Login or create an Account to use this App.',
                 login: 'Login',
-                register: 'Create Account'
+                register: 'Create Account',
+                text: 'With Minska you can loose weight very easy by just adjust your daily calorie intake.',
+                text2: "With the Fact-Cards you'll have your progress and limits always on top.",
+                text3: 'Minska will do statistics for so you can visualize your progress.',
+                text4: 'And you can use this App for free! What else would you need?'
             },
             de: {
                 title: 'Willkommen!',
-                subtitle: 'Melde dich an oder erstelle einen Account um diese Anwendung zu nutzen',
+                subtitle: 'Melde dich an oder erstelle einen Account um diese Anwendung zu nutzen.',
                 login: 'Anmelden',
-                register: 'Account erstellen'
+                register: 'Account erstellen',
+                text: 'Mit Minska kannst du ganz einfach abnehmen, indem du deinen täglichen Kalorienverbrauch anpasst und verfolgst. ',
+                text2: 'Mit den Fakten hast du deinen Vortschritt und deine Limits jederzeit aktuell.',
+                text3: 'Minska erstellt dir dabei Statistiken, um dir deinen Fortschritt richtig zu visualisieren.',
+                text4: 'Und du kannst die App kostenlos nutzen! Was willst du mehr?'
             }
         }
     }

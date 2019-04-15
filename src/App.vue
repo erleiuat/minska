@@ -5,7 +5,7 @@
         <Toolbar />
 
         <v-content>
-            <v-container fluid fill-height>
+            <v-container fluid fill-height :class="{'pa-1': $vuetify.breakpoint.mdAndDown, 'pa-4': $vuetify.breakpoint.mdAndUp}">
                 <notifications app position="bottom center" max-width="40%" />
                 <transition name="fade" mode="out-in">
                     <router-view>

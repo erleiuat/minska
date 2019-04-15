@@ -1,7 +1,7 @@
 <template>
     <v-container grid-list-md pa-0>
         <v-layout row wrap>
-            <v-flex xs12 class="display-1">
+            <v-flex xs12 pa-2 class="display-1 text-xs-center text-md-left">
                 {{ $t('weight') }}
             </v-flex>
 
@@ -11,7 +11,7 @@
                 <v-divider></v-divider>
             </v-flex>
 
-            <v-flex xs12 class="headline">
+            <v-flex xs12 pa-2 class="headline text-xs-center text-md-left">
                 {{ $t('allEntries') }}
             </v-flex>
 

@@ -2,11 +2,11 @@
     <v-container pa-0>
         <v-layout row wrap>
 
-            <v-flex xs12 class="display-1">
+            <v-flex xs12 class="display-1 pa-2">
                 {{ call }}
             </v-flex>
 
-            <v-flex xs12 class="caption font-italic">
+            <v-flex xs12 class="caption font-italic pa-2">
                 {{ $t('subtitle') }}
             </v-flex>
 

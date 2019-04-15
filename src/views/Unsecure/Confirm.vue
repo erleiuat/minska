@@ -1,5 +1,5 @@
 <template>
-    <v-container grid-list-md >
+    <v-container grid-list-md pa-0>
 
         <v-form v-model="rules.valid" ref="confirmForm">
             <v-layout justify-center row wrap>
@@ -17,7 +17,7 @@
                 </v-flex>
 
                 <v-flex xs12>
-                    <v-btn :loading="loading" :disabled="loading" depressed block @click="sendConfirmation()" large color="primary">
+                    <v-btn type="submit" :loading="loading" :disabled="loading" depressed block @click="sendConfirmation()" large color="primary">
                         {{ $t('button') }}
                         <span slot="loader" class="custom-loader">
                             <v-icon light>cached</v-icon>

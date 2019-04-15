@@ -1,5 +1,5 @@
 <template>
-    <v-container fluid grid-list-md>
+    <v-container fluid grid-list-md pa-1>
         <v-layout row wrap>
             <v-flex sm4>
                 <Remaining/>
