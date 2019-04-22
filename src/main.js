@@ -9,8 +9,14 @@ import router from './router'
 import store from './store'
 import i18n from './i18n'
 import axios from 'axios'
+import GAuth from 'vue-google-oauth2'
 
-Vue.use(Notifications)
+Vue.use(GAuth, {
+  clientId: '706904817037-18invrhcjfbj1h7fjja5jee9bkl488nf.apps.googleusercontent.com',
+  scope: 'profile email',
+  prompt: 'select_account'
+})
+
 Vue.use(Vuetify, {
     theme: {
         // Logo-Font: Ultra Fresh
@@ -22,6 +28,8 @@ Vue.use(Vuetify, {
         warning: '#AB640D'
     }
 })
+
+Vue.use(Notifications)
 
 Vue.config.productionTip = false
 Vue.prototype.$http = axios.create({
