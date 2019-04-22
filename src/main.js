@@ -12,9 +12,9 @@ import axios from 'axios'
 import GAuth from 'vue-google-oauth2'
 
 Vue.use(GAuth, {
-  clientId: '706904817037-18invrhcjfbj1h7fjja5jee9bkl488nf.apps.googleusercontent.com',
-  scope: 'profile email',
-  prompt: 'select_account'
+    clientId: '706904817037-18invrhcjfbj1h7fjja5jee9bkl488nf.apps.googleusercontent.com',
+    scope: 'profile email',
+    prompt: 'select_account'
 })
 
 Vue.use(Vuetify, {
