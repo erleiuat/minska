@@ -22,16 +22,20 @@
 export default {
     name: 'Login',
     mounted(){
+        console.log('here');
         this.$gAuth.getAuthCode()
         .then(authCode => {
             //on success
+            console.log(authCode)
             return this.$http.post('http://your-backend-server.com/auth/google', { code: authCode, redirect_uri: 'postmessage' })
         })
         .then(response => {
             //after ajax
+            console.log(response)
         })
         .catch(error => {
             //on fail do something
+            console.log(error)
         })
     },
     i18n: {
