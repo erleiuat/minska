@@ -12,18 +12,6 @@
                             <v-icon light>cached</v-icon>
                         </span>
                     </v-btn>
-                    <v-flex xs12 class="mt-3 text-xs-center">
-                        <span>oder</span>
-                    </v-flex>
-                    <v-btn :loading="loading2" :disabled="loading2" depressed block @click="googleAuth()" large class="white elevation-2 mt-3">
-                        <v-avatar size="32px" class="pr-5">
-                            <v-img :src="require('@/assets/social/google.png')" :lazy-src="require('@/assets/social/google_low.png')" aspect-ratio="2" height="100%" contain></v-img>
-                        </v-avatar>
-                        {{ $t('gauth') }}
-                        <span slot="loader" class="custom-loader">
-                            <v-icon light>cached</v-icon>
-                        </span>
-                    </v-btn>
                 </v-flex>
             </v-layout>
         </v-form>
@@ -59,42 +47,6 @@ export default {
                     vm.loading = false
                 })
             }
-        },
-
-        googleAuth(){
-
-            this.loading2 = true
-
-            this.$gAuth.signIn()
-            .then(GoogleUser => {
-                // On success do something, refer to https://developers.google.com/api-client-library/javascript/reference/referencedocs#googleusergetid
-                console.log('user', GoogleUser)
-                // GoogleUser.getId() : Get the user's unique ID string.
-                // GoogleUser.getBasicProfile() : Get the user's basic profile information.
-                // GoogleUser.getAuthResponse() : Get the response object from the user's auth session. access_token and so on
-                this.isSignIn = this.$gAuth.isAuthorized
-            })
-            .catch(error  => {
-                //on fail do something
-            })
-
-            /*
-            this.$gAuth.getAuthCode()
-            .then(authCode => {
-                // on success
-                console.log(authCode)
-            })
-            .then(response => {
-                // after ajax
-                console.log(response)
-            })
-            .catch(error => {
-                // on fail do something
-                console.log(error)
-            })
-            */
-            this.loading2 = false
-
         }
 
     },
@@ -103,7 +55,6 @@ export default {
         messages: {
             en: {
                 title: 'Login',
-                gauth: 'Sign in with Google',
                 mail: 'E-Mail',
                 password: 'Password',
                 keepLogged: 'Keep Login',
@@ -122,7 +73,6 @@ export default {
             },
             de: {
                 title: 'Anmelden',
-                gauth: 'Mit Google anmelden',
                 mail: 'E-Mail',
                 password: 'Passwort',
                 keepLogged: 'Eingeloggt bleiben',
@@ -145,7 +95,6 @@ export default {
     data () {
         return {
             loading: false,
-            loading2: false,
             formdata: {
                 email: '',
                 password: ''
@@ -159,7 +108,6 @@ export default {
                 pass: [
                 (v) => !!v || this.$t('errors.required'),
                 (v) => /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})/.test(v) || this.$t('strong')
-                // (v) => /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/.test(v) || this.$t('strong'), <- Too stong lol
                 ]
             }
         }
