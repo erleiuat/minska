@@ -65,6 +65,20 @@ export default {
 
             this.loading2 = true
 
+            this.$gAuth.signIn()
+            .then(GoogleUser => {
+                // On success do something, refer to https://developers.google.com/api-client-library/javascript/reference/referencedocs#googleusergetid
+                console.log('user', GoogleUser)
+                // GoogleUser.getId() : Get the user's unique ID string.
+                // GoogleUser.getBasicProfile() : Get the user's basic profile information.
+                // GoogleUser.getAuthResponse() : Get the response object from the user's auth session. access_token and so on
+                this.isSignIn = this.$gAuth.isAuthorized
+            })
+            .catch(error  => {
+                //on fail do something
+            })
+
+            /*
             this.$gAuth.getAuthCode()
             .then(authCode => {
                 // on success
@@ -78,7 +92,7 @@ export default {
                 // on fail do something
                 console.log(error)
             })
-
+            */
             this.loading2 = false
 
         }
