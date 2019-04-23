@@ -15,7 +15,7 @@
                                 <v-card @click="useItem(item)" slot-scope="{ hover }" :class="`elevation-${hover ? 12 : 2}`">
                                     <v-layout>
                                         <v-flex xs3 sm5>
-                                            <v-img :lazy-src="require('@/media/loadingFood.jpg')" :src="image(item.image)" height="100%">
+                                            <v-img :lazy-src="require('@/assets/loadingFood.jpg')" :src="image(item.image)" height="100%">
                                                 <v-layout slot="placeholder" fill-height align-center justify-center ma-0>
                                                     <v-progress-circular indeterminate color="grey lighten-5"></v-progress-circular>
                                                 </v-layout>
@@ -98,7 +98,7 @@ export default {
             if (image !== '') {
                 return image
             } else {
-                return require('@/media/defaultFood.jpg')
+                return require('@/assets/defaultFood.jpg')
             }
         },
         useItem (item) {

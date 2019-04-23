@@ -7,7 +7,7 @@
                 </v-flex>
                 <v-flex xs8>
                     <v-toolbar-title class="pt-1">
-                        <v-img max-height="40px" :lazy-src="require('@/media/toolbarLow.png')" :src="require('@/media/toolbar.png')" contain>
+                        <v-img max-height="40px" :lazy-src="require('@/assets/minska_logo/toolbarLow.png')" :src="require('@/assets/minska_logo/toolbar.png')" contain>
                         </v-img>
                     </v-toolbar-title>
                 </v-flex>

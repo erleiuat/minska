@@ -1,6 +1,6 @@
 <template>
     <v-card v-if="item">
-        <v-img :lazy-src="require('@/media/loadingFood.jpg')" :src="image" height="300px">
+        <v-img :lazy-src="require('@/assets/loadingFood.jpg')" :src="image" height="300px">
             <v-layout column fill-height>
                 <v-card-title>
                     <v-spacer></v-spacer>
@@ -84,7 +84,7 @@ export default {
     computed: {
         image () {
             if (this.item.image === null || this.item.image === '') {
-                return require('@/media/defaultFood.jpg')
+                return require('@/assets/defaultFood.jpg')
             } else {
                 return this.item.image
             }
