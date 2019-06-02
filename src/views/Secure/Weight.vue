@@ -71,7 +71,7 @@ export default {
             vm.$http.get('weight/read/').then(function (response) {
                 vm.$store.state.content.weights = response.data.content
             }).catch(function () {
-                vm.$notify({ type: 'warning', title: vm.$t('alerts.empty.title'), text: vm.$t('alerts.empty.text') })
+                //vm.$notify({ type: 'warning', title: vm.$t('alerts.empty.title'), text: vm.$t('alerts.empty.text') })
             }).then(function () {
                 vm.$data.loading = false
             })

@@ -46,7 +46,7 @@ export default new Router({
                 secure: true
             }
         },
-        {
+        /*{
             path: '/group',
             component: () => import('./views/Secure/Group.vue'),
             meta: {
@@ -55,7 +55,7 @@ export default new Router({
                 main: true,
                 secure: true
             }
-        },
+        },*/
         {
             path: '/settings',
             component: () => import('./views/Secure/Settings.vue'),

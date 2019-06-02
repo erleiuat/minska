@@ -129,7 +129,7 @@ export default {
                         vm.$data.calories = response.data.content
                         vm.$data.loading = false
                     }).catch(function () {
-                        vm.$notify({ type: 'warning', title: vm.$t('alerts.empty.title'), text: vm.$t('alerts.empty.text') })
+                        //vm.$notify({ type: 'warning', title: vm.$t('alerts.empty.title'), text: vm.$t('alerts.empty.text') })
                         vm.$data.loading = false
                     })
             } else if (this.$store.state.content.calories) {
@@ -156,7 +156,7 @@ export default {
                         vm.getDay(tmpDates[0])
                     }
                 }).catch(function () {
-                    vm.$notify({ type: 'warning', title: vm.$t('alerts.empty.title'), text: vm.$t('alerts.empty.text') })
+                    //vm.$notify({ type: 'warning', title: vm.$t('alerts.empty.title'), text: vm.$t('alerts.empty.text') })
                 }).then(function () {
                     vm.$data.loading = false
                 })

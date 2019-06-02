@@ -78,8 +78,8 @@
             </v-flex>
 
             <v-flex xs12 md6>
-                <a href="https://eliareutlinger.ch">Elia Reutlinger</a><br/>
-                <a href="https://github.com/eliareutlinger/minska-ui">Github</a>
+                <a href="mailto:mail@osis.io">Osis.io (Mail us)</a><br/>
+                <a href="https://github.com/eliareutlinger/minska">Github</a>
             </v-flex>
 
         </v-layout>

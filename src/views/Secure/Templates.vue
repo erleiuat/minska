@@ -10,9 +10,14 @@
             </v-flex>
 
         </v-layout>
-        <v-layout row wrap>
+        <v-layout v-if="templates" row wrap>
             <v-flex v-for="item in templates" :key="item.id" xs12 sm6 md4>
                 <Frame :item="item"/>
+            </v-flex>
+        </v-layout>
+         <v-layout v-else row wrap>
+            <v-flex xs12>
+                No Templates found
             </v-flex>
         </v-layout>
     </v-container>
