@@ -147,9 +147,9 @@ export default {
                     text: `
                             <h3>Contact</h3>
                             <p>
-                                Elia Reutlinger<br/>
-                                Schwarzwaldallee 33<br/>
-                                4058 Basel<br/>
+                                Erleiuat<br/>
+                                (GitHub)<br/>
+                                <br/>
                                 Schweiz<br/>
                                 <a href="mailto:mail@eliareutlinger.ch">mail@eliareutlinger.ch</a>
                             </p>
@@ -247,9 +247,9 @@ export default {
                     text: `
                             <h3>Kontakt</h3>
                             <p>
-                                Elia Reutlinger<br/>
-                                Schwarzwaldallee 33<br/>
-                                4058 Basel<br/>
+                                Erleiuat<br/>
+                                (GitHub)<br/>
+                                <br/>
                                 Schweiz<br/>
                                 <a href="mailto:mail@eliareutlinger.ch">mail@eliareutlinger.ch</a>
                             </p>
