@@ -151,7 +151,6 @@ export default {
                                 (GitHub)<br/>
                                 <br/>
                                 Schweiz<br/>
-                                <a href="mailto:mail@eliareutlinger.ch">mail@eliareutlinger.ch</a>
                             </p>
                             <p>
                                 The author assumes no liability whatsoever with regard to the correctness, accuracy, up-to-dateness, reliability and
@@ -251,7 +250,6 @@ export default {
                                 (GitHub)<br/>
                                 <br/>
                                 Schweiz<br/>
-                                <a href="mailto:mail@eliareutlinger.ch">mail@eliareutlinger.ch</a>
                             </p>
                             <h3>Haftungsausschluss</h3>
                             <p>
