@@ -8,7 +8,7 @@
         "lint": "vue-cli-service lint"
     },
     "dependencies": {
-        "axios": "^0.18.0",
+        "axios": "^0.21.3",
         "highcharts": "^7.1.1",
         "highcharts-vue": "^1.2.0",
         "js-cookie": "^2.2.0",
